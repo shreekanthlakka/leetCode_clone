@@ -49,8 +49,7 @@
 ### Model Problem Model
 
     <!-- usersId: {}, -->
-    problemId:{}
-    problemName: {},
+
     problemDescription: {},
     problemImage: {},
     problemCode: {},
@@ -65,3 +64,4 @@
     problemTags: {},
     problemSolved: {},
     problemRating: {},
+    testCaseId:{}
