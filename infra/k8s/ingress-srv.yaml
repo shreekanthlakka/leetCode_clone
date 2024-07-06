@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-  - host: ticketing.dev
+  - host: leetcode.dev
     http:
       paths:
       - path: /api/v1/users/?(.*)
@@ -15,6 +15,13 @@ spec:
         backend:
           service:
             name: auth-srv
+            port:
+              number: 3000
+      - path: /api/v1/problems/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: main-srv
             port:
               number: 3000
       - path: /?(.*)

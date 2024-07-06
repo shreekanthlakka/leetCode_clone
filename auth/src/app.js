@@ -6,7 +6,7 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-console.log("--dir", __dirname);
+console.log("--dir ===> ", __dirname);
 
 const app = express();
 const morganStream = fs.createWriteStream(
@@ -20,7 +20,9 @@ app.use(morgan("tiny", { stream: morganStream }));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
-    console.log(`${req.ip} ==> ${req.method} ==> ${req.url} ==> ${new Date()}`);
+    console.log(
+        `${req.ip} ===> ${req.method} ===> ${req.url} ===> ${new Date()}`
+    );
     next();
 });
 

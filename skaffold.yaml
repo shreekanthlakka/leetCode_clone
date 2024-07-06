@@ -23,4 +23,28 @@ build:
       manual:
       - src: 'src/**/*.js*'
         dest: .
+  - image: sreekanthlakka/main
+    context: main
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/notification
+    context: notification
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/execution-engine
+    context: executionEngine
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
 

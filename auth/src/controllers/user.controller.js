@@ -4,30 +4,38 @@ import { CustomError } from "../utils/CustomError.js";
 import User from "../models/user.model.js";
 import { sendCookies } from "../utils/sendCookies.js";
 import { CustomResponse } from "../utils/CustomResponse.js";
-
+import { UserLoggedInPublisher } from "../events/publisher/user-login-publisher.js";
+import { natsWrapper } from "../natsWrapper.js";
 const login = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res
             .status(400)
-            .json(new CustomError(400, "validation errors ", errors.array()));
+            .json(
+                new CustomError(400, "validation errors ==>", errors.array())
+            );
     }
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-        throw new CustomError(404, "invalid credentials");
+        throw new CustomError(404, "invalid credentials ----");
     }
     const isValidPassword = await user.isValidatePassword(password);
     if (!isValidPassword) {
         throw new CustomError(404, "invalid credentials");
     }
     if (isValidPassword) {
+        new UserLoggedInPublisher(natsWrapper.client).publish({
+            _id: user._id,
+            email: user.email,
+            name: user.username,
+            loggedInAt: new Date(),
+        });
         sendCookies(user._id, res);
     }
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-    console.log("REQ.BODY =>", req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res

@@ -19,7 +19,7 @@ function Dashboard() {
         <div>
             <h1>Dashboard</h1>
             <button>Submit</button>
-            {socket ? "connected" : "not connected"}
+            {socket ? "connected" : " Socket not connected"}
         </div>
     );
 }

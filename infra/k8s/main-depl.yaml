@@ -1,47 +1,47 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: main-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: main
   template:
     metadata:
       labels:
-        app: auth
+        app: main
     spec:
       containers:
-      - name: auth
-        image: sreekanthlakka/auth
+      - name: main
+        image: sreekanthlakka/main
         env:
+        - name: NATS_CLIENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NATS_URL
+          value: 'http://nats-srv:4222'
+        - name: NATS_CLUSTER_ID
+          value: 'leetcode'
         - name: MONGO_URI
-          value: "mongodb://auth-mongo-srv:27017/users"
+          value: "mongodb://main-mongo-srv:27017/main"
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
               name: jwt-secret
               key: JWT_SECRET
-        - name: NATS_URL
-          value: 'http://nats-srv:4222'
-        - name: NATS_CLUSTER_ID
-          value: 'leetcode'
-        - name: NATS_CLIENT_ID
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: main-srv
 spec:
   selector:
-    app: auth
+    app: main
   ports:
-  - name: auth
+  - name: main
     protocol: TCP
     port: 3000
     targetPort: 3000

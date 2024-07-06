@@ -1,28 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: notification-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: notification
   template:
     metadata:
       labels:
-        app: auth
+        app: notification
     spec:
       containers:
-      - name: auth
-        image: sreekanthlakka/auth
+      - name: notification
+        image: sreekanthlakka/notification
         env:
-        - name: MONGO_URI
-          value: "mongodb://auth-mongo-srv:27017/users"
-        - name: JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: jwt-secret
-              key: JWT_SECRET
         - name: NATS_URL
           value: 'http://nats-srv:4222'
         - name: NATS_CLUSTER_ID
@@ -31,19 +24,27 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-
+        - name: HOST_NM
+          value: sandbox.smtp.mailtrap.io
+        - name: PORT_NM
+          value: '2525'
+        - name: USER_NM
+          value: 767318465cf4b6
+        - name: PASS_NM
+          value: b74a5a964ef2a9
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: notification-srv
 spec:
   selector:
-    app: auth
+    app: notification
   ports:
-  - name: auth
+  - name: notification
     protocol: TCP
     port: 3000
     targetPort: 3000
+
 
 
