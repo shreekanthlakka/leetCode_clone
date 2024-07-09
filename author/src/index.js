@@ -10,20 +10,20 @@ const start = async () => {
         throw new Error("NATS Cluster Id not defined!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined!!!");
+        throw new Error("NATS Client Id not defined!!");
     }
     if (!process.env.NATS_URL) {
-        throw new Error("NATS Url not defined!!!");
+        throw new Error("NATS Url not defined!!");
     }
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Main Server ==> Connected to MongoDB!");
+        console.log("Author Server ==> Connected to MongoDB!");
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);
     }
     app.listen(3000, () => {
-        console.log("Main Server ==> Listening on port 3000!!!");
+        console.log("Author Server ==> Listening on port 3000!!!");
     });
 };
 
@@ -36,17 +36,18 @@ const startNats = async (count = 0) => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
+        console.log("Connected to NATS !");
     } catch (error) {
         count++;
         console.log(
-            ` <== error connecting to nats attempting ${count + 1} time !! `
+            ` <== error connecting to nats attempting ${count + 1} time ==>`
         );
         if (count < 3) {
             setTimeout(() => startNats(count), 1400);
         }
     } finally {
         natsWrapper.client.on("close", () => {
-            console.log("NATS connection closed!");
+            console.log("NATS connection closed");
             process.exit();
         });
         process.on("SIGINT", () => natsWrapper.client.close());

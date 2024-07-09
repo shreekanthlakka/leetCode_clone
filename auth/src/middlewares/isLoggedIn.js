@@ -18,6 +18,7 @@ const isLoggedIn = asyncHandler(async (req, res, next) => {
     req.user = {
         _id: user._id,
         email: user.email,
+        role: user.role,
     };
     next();
 });

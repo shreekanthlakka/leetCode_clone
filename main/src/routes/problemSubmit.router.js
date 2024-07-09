@@ -7,7 +7,7 @@ import { problemSubmitSchema } from "../validators/problemSubmit.validator.js";
 const router = express.Router();
 
 router
-    .route("/submit")
+    .route("/")
     .post(
         isLoggedIn,
         checkSchema(problemSubmitSchema),

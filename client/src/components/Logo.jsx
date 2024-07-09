@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -7,7 +8,9 @@ const Container = styled.div`
 function Logo() {
     return (
         <Container>
-            <h2>TicketingApp</h2>
+            <Link to="/dashboard">
+                <h2>CoderArena</h2>
+            </Link>
         </Container>
     );
 }

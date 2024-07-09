@@ -21,6 +21,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/api/v1/problems", problemSubmitRoutes);
+app.use("/api/v1/problemSubmit", problemSubmitRoutes);
 
 export default app;

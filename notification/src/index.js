@@ -2,7 +2,7 @@ import app from "./app.js";
 import { UserLoggedInListener } from "./events/listeners/user-loggedin.js";
 import { natsWrapper } from "./natsWrapper.js";
 
-const connectToNats = async (count) => {
+const connectToNats = async (count = 0) => {
     try {
         await natsWrapper.connect(
             process.env.NATS_CLUSTER_ID,
@@ -10,15 +10,17 @@ const connectToNats = async (count) => {
             process.env.NATS_URL
         );
     } catch (error) {
+        count++;
         console.log(
-            `error connecting to NATS , attempting ${count} th time!!!!`
+            `error connecting to NATS , attempting ${count} th time !!`,
+            error.message
         );
-        if (count > 0) {
-            setTimeout(() => connectToNats(count--), 1000);
+        if (count < 3) {
+            setTimeout(() => connectToNats(count), 1600);
         }
     } finally {
         natsWrapper.client.on("close", () => {
-            console.log("NATS connection closed!!!!");
+            console.log("NATS connection closed!!!");
             process.exit();
         });
         new UserLoggedInListener(natsWrapper.client).listen();
@@ -29,9 +31,8 @@ const connectToNats = async (count) => {
 };
 
 const start = async () => {
-    let count = 3;
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined");
+        throw new Error("NATS Cluster Id not defined!");
     }
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error("NATS Client Id not defined");
@@ -40,7 +41,7 @@ const start = async () => {
         throw new Error("NATS Url not defined");
     }
     if (!process.env.HOST_NM) {
-        throw new Error("Host name not defined");
+        throw new Error("Host name not defined!");
     }
     if (!process.env.PORT_NM) {
         throw new Error("Port not defined");
@@ -52,7 +53,7 @@ const start = async () => {
         throw new Error("password not defined");
     }
     try {
-        await connectToNats(count);
+        await connectToNats();
     } catch (error) {
         console.log("<== Error ==>", error.message);
     } finally {

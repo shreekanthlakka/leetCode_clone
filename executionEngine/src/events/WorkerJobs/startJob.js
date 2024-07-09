@@ -6,7 +6,7 @@ kc.loadFromDefault();
 const k8sBatchApi = kc.makeApiClient(k8s.BatchV1Api);
 const k8sCoreApi = kc.makeApiClient(k8s.CoreV1Api);
 
-const startJob = async (data, msg) => {
+const startJob = async (data) => {
     const { typedCode, language, problemId, userId, title } = data;
     try {
         const configMap = await createConfigMap(data);
@@ -23,9 +23,7 @@ const startJob = async (data, msg) => {
             }
         }
     } catch (error) {
-        console.log(" ===> ", error.body.message);
-    } finally {
-        msg.ack();
+        console.log(" ===> ", error);
     }
 };
 
@@ -149,12 +147,39 @@ const getPodLogs = async (podName) => {
 
 const deleteJob = async (jobName) => {
     try {
+        // const job = await k8sBatchApi.readNamespacedJob(jobName);
+
+        // const labelSelector = job.body.spec.selector.matchLabels;
+
+        // console.log("Label Selector =>", labelSelector);
+
+        // const labelSelectorString = Object.keys(labelSelector)
+        //     .map((key) => `${key}=${labelSelector[key]}`)
+        //     .join(",");
+
+        // const podList = await k8sCoreApi.listNamespacedPod(
+        //     "default",
+        //     undefined,
+        //     undefined,
+        //     undefined,
+        //     undefined,
+        //     labelSelectorString
+        // );
+
+        // console.log("Pod List =>", podList);
+
+        // // Delete each pod
+        // for (const pod of podList.body.items) {
+        //     await k8sCoreApi.deleteNamespacedPod(pod.metadata.name, "default");
+        //     console.log(`Pod ${pod.metadata.name} deleted`);
+        // }
+
         await k8sBatchApi.deleteNamespacedJob(jobName, "default", undefined, {
             propagationPolicy: "Background",
         });
         console.log(`Job ${jobName} deleted`);
     } catch (err) {
-        console.error(`Error deleting job ${jobName}:`, err.body.message);
+        console.error(`Error deleting job ${jobName}:`, err);
     }
 };
 

@@ -29,8 +29,9 @@ const initialState = {
 function Register() {
     const [formData, setFormData] = useState(initialState);
     const [clientErrors, setClientErrors] = useState({});
-    // const [serverErrors, setServerErrors] = useState({});
+    const [serverErrors, setServerErrors] = useState({});
     const cliErrors = {};
+    const serErrors = {};
     const navigate = useNavigate();
 
     function runValidations() {
@@ -58,12 +59,21 @@ function Register() {
         runValidations();
         if (Object.keys(cliErrors).length === 0) {
             // api call
+            setServerErrors({});
             const res = await registerApi(formData);
             if (res.success) {
                 toast.success(res.message);
                 navigate("/login");
+            } else if (!res.success && res.statusCode === 400) {
+                if (Array.isArray(res.error)) {
+                    res.error.map((ele) => {
+                        serErrors[ele.path] = ele.msg;
+                    });
+                    setServerErrors(serErrors);
+                } else {
+                    toast.error(res.message);
+                }
             }
-
             setClientErrors({});
         } else {
             setClientErrors(cliErrors);
@@ -94,6 +104,9 @@ function Register() {
                 />
                 {clientErrors.email && (
                     <p className="error">{clientErrors.email}</p>
+                )}
+                {serverErrors.email && (
+                    <p className="error">{serverErrors.email}</p>
                 )}
                 <TextField
                     label="Password"

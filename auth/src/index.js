@@ -18,7 +18,7 @@ const startNats = async (count = 0) => {
             setTimeout(() => {
                 console.log(`Attempting ${count} time !!!`);
                 startNats(count);
-            }, 1100);
+            }, 1000);
         }
     } finally {
         natsWrapper.client.on("close", () => {
@@ -38,7 +38,7 @@ const start = async () => {
         throw new Error("NATS Cluster Id not defined!!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined!!!");
+        throw new Error("NATS Client Id not defined!!");
     }
     if (!process.env.NATS_URL) {
         throw new Error("NATS Url not defined");

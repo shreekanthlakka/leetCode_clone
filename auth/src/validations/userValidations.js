@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import { CustomError } from "@shreekanthlakka/common";
 
 const userValidationSchema = {
     username: {
@@ -27,7 +28,7 @@ const userValidationSchema = {
             options: async (val) => {
                 const user = await User.findOne({ email: val });
                 if (user) {
-                    throw new Error("Email already taken");
+                    throw new CustomError(400, "Email already registered");
                 }
                 return true;
             },

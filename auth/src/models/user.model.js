@@ -12,6 +12,10 @@ const userSchema = new mongooes.Schema(
             type: String,
             select: false,
         },
+        role: {
+            type: String,
+            default: "admin",
+        },
         forgotPasswordToken: String,
         forgotPasswordExpiry: String,
     },
@@ -34,6 +38,7 @@ userSchema.methods.generateAccessToken = async function () {
         {
             _id: this._id,
             email: this.email,
+            role: this.role,
         },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }

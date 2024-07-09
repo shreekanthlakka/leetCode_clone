@@ -7,6 +7,8 @@ import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import Account from "./components/Account";
+import Problems from "./components/Problems";
+import AddProblems from "./components/AddProblems";
 
 function App() {
     return (
@@ -26,6 +28,8 @@ function App() {
                         />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/account" element={<Account />} />
+                        <Route path="/problems" element={<Problems />} />
+                        <Route path="/addproblems" element={<AddProblems />} />
                     </Route>
                     <Route element={<Layout />}>
                         <Route path="/login" element={<Login />} />

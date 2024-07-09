@@ -30,7 +30,7 @@ function authReducer(state, action) {
                 // isAuthenticated: true,
             };
         case "LOGOUT":
-            return initialState;
+            return { ...initialState };
         case "SET_CURRENT_USER":
             return {
                 ...state,

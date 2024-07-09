@@ -47,4 +47,12 @@ build:
       manual:
       - src: 'src/**/*.js*'
         dest: .
+  - image: sreekanthlakka/author
+    context: author
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
 

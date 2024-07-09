@@ -6,7 +6,7 @@ const Container = styled.main``;
 
 const Main = styled.main`
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     height: 80vh;
 `;

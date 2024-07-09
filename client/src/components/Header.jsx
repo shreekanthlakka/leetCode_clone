@@ -27,12 +27,21 @@ function Header() {
     const location = useLocation();
     const url = location.pathname;
     const { userAccount, logout, isLoading } = useAuth();
-    const links = [{ name: "Account", path: "/account" }];
+    const links = [
+        { name: "Account", path: "/account" },
+        { name: "Problems", path: "/problems" },
+    ];
+    if (userAccount.role === "admin") {
+        links.push({ name: "Add Problems", path: "/addproblems" });
+    }
 
     async function handleLogout() {
         const res = await logout();
         if (res.success) {
             toast.success("LoggedOut sucessfully");
+            navigate("/login");
+        } else if (!res.success && res.statusCode === 401) {
+            toast.error("Invalid Credentials");
             navigate("/login");
         }
     }
