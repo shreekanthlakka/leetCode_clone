@@ -7,6 +7,7 @@ class LeetCodeProblemSubmittedListener extends Listener {
     queueGroupName = queueGroupName;
     async onMessage(data, msg) {
         const { problemId, userId, typedCode, language, title } = data;
+        console.log("DATA =>", data);
         startJob(data, msg);
         msg.ack();
     }

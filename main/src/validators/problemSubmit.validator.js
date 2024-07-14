@@ -2,7 +2,7 @@ import { Languages } from "@shreekanthlakka/common";
 
 const problemSubmitSchema = {
     problemId: {
-        in: ["body"],
+        in: ["params"],
         exists: {
             errorMessage: "Problem ID is required",
         },

@@ -14,7 +14,7 @@ router.route("/").get(getAllProblems);
 router.route("/:problemId/boilerplatecode").get(getBoilerPlateCode);
 
 router
-    .route("/submit")
+    .route("/submit/:problemId")
     .post(
         isLoggedIn,
         checkSchema(problemSubmitSchema),

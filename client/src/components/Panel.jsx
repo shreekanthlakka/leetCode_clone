@@ -13,9 +13,9 @@ function Panel({ language, setLanguage, handleProblemSubmit }) {
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
                 >
-                    <MenuItem value="js">javaScript</MenuItem>
-                    <MenuItem value="cpp">cplusplus</MenuItem>
-                    <MenuItem value="rs">rust</MenuItem>
+                    <MenuItem value="javascript">javaScript</MenuItem>
+                    <MenuItem value="cplusplus">cplusplus</MenuItem>
+                    <MenuItem value="rust">rust</MenuItem>
                 </Select>
             </div>
             <div>

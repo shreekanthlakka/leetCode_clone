@@ -9,9 +9,17 @@ import { natsWrapper } from "../nats-wrapper.js";
 import Problems from "../models/problems.model.js";
 import fs from "fs";
 import path from "path";
+import { getFullBoilerPlateCode } from "../utils/getFullBoilerPlateCode.js";
+
+const LanguageName = Object.freeze({
+    cpp: "cplusplus",
+    js: "javascript",
+    rs: "rust",
+});
 
 const submitProblem = asyncHandler(async (req, res) => {
-    const { problemId, typedCode, title, language } = req.body;
+    const { problemId } = req.params;
+    const { typedCode, title, language } = req.body;
     const problem = await ProblemSubmit.create({
         problemId,
         userId: req.user._id,
@@ -28,11 +36,17 @@ const submitProblem = asyncHandler(async (req, res) => {
         throw new CustomError(400, "problem not found!");
     }
 
+    const boilerPlateCodeFull = await getFullBoilerPlateCode(title, language);
+
+    const combinedCode = boilerPlateCodeFull.replace(
+        "##USER_CODE_HERE##",
+        typedCode
+    );
     new LeetCodeProblemSubmittedPublisher(natsWrapper.client).publish({
         problemId,
         userId: req.user._id,
         title: prob.title,
-        typedCode,
+        typedCode: combinedCode,
         language,
     });
     res.status(200).json(new CustomResponse(200, "problem submitted", problem));
@@ -62,7 +76,7 @@ const getBoilerPlateCode = asyncHandler(async (req, res) => {
     const code = {};
     dir.forEach((ele) => {
         const data = fs.readFileSync(`${boilerplatePath}/${ele}`);
-        code[ele.split(".")[1]] = data.toString();
+        code[LanguageName[ele.split(".")[1]]] = data.toString();
     });
     res.status(200).json(new CustomResponse(200, "boilerplate code", code));
 });

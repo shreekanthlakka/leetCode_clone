@@ -9,6 +9,7 @@ import styled from "styled-components";
 import CodeEditor from "./CodeEditor";
 import ProblemStatement from "./ProblemStatement";
 import Panel from "./Panel";
+import { submitProblemApi } from "../services/problemsServices";
 
 const Box = styled.div`
     width: 100%;
@@ -47,11 +48,25 @@ function Problem() {
     const selectedProblem = useSelector((state) =>
         state.problem.problems.find((ele) => ele._id === problemId)
     );
-    const [language, setLanguage] = useState("js");
+    const [language, setLanguage] = useState("");
     const [typedCode, setTypedCode] = useState("");
 
-    function handleProblemSubmit() {
-        console.log("Code :: ==>", language, "<== :: ==>", typedCode);
+    async function handleProblemSubmit() {
+        if (!typedCode) return;
+
+        const obj = {
+            language,
+            typedCode,
+            title: selectedProblem.title,
+        };
+
+        console.log("DATA OBJ =>", obj);
+        const res = await submitProblemApi(obj, problemId);
+        if (res.success) {
+            console.log("RESPONCE =>", res);
+        }
+
+        //api call
     }
 
     useEffect(() => {

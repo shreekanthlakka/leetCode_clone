@@ -16,7 +16,7 @@
     "@mui/icons-material": "^5.16.0",
     "@mui/material": "^5.16.0",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
-    "@shreekanthlakka/common": "^1.0.23",
+    "@shreekanthlakka/common": "^1.0.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",

@@ -1,12 +1,18 @@
 import { Editor } from "@monaco-editor/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+
+const Language = Object.freeze({
+    cplusplus: "cpp",
+    javascript: "javascript",
+    rust: "rust",
+});
 
 function CodeEditor({ language, typedCode, setTypedCode }) {
     const code = useSelector((state) => state.problem.boilerPlateCode);
 
-    const handleEditorDidMount = (editor, monaco) => {
-        editor.setScrollTop(editor.getTopForLineNumber(10));
+    const handleEditorDidMount = (editor) => {
+        editor.setScrollTop(editor.getTopForLineNumber(1));
         editor.getAction("editor.action.formatDocument").run();
     };
 
@@ -21,7 +27,7 @@ function CodeEditor({ language, typedCode, setTypedCode }) {
                 theme="vs-dark"
                 value={typedCode}
                 onChange={(value) => setTypedCode(value)}
-                language={language}
+                language={Language[language]}
                 options={{
                     minimap: { enabled: false },
                     wordWrap: "on",

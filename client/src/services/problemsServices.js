@@ -49,4 +49,26 @@ const getBoilerPlateCodeApi = async (id) => {
     }
 };
 
-export { addProblemApi, getAllProblemsApi, getBoilerPlateCodeApi };
+const submitProblemApi = async (formData, problemId) => {
+    try {
+        const res = await fetch(`${URI}/problems/submit/${problemId}`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export {
+    addProblemApi,
+    getAllProblemsApi,
+    getBoilerPlateCodeApi,
+    submitProblemApi,
+};
