@@ -30,6 +30,34 @@ const startJob = async (data) => {
     }
 };
 
+const waitForJobCompletion = async (jobName) => {
+    let completed = false;
+    let podName = null;
+
+    while (!completed) {
+        const res = await k8sCoreApi.listNamespacedPod(
+            "default",
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            `job-name=${jobName}`
+        );
+        const pod = res.body.items[0];
+        if (pod) {
+            podName = pod.metadata.name;
+            if (
+                pod.status.phase === "Succeeded" ||
+                pod.status.phase === "Failed"
+            ) {
+                completed = true;
+            }
+        }
+        await new Promise((resolve) => setTimeout(resolve, 5000)); // wait for 5 seconds before checking again
+    }
+    return podName;
+};
+
 export { startJob };
 
 /**
@@ -75,33 +103,7 @@ export { startJob };
  */
 
 /**
- * 
- * const waitForJobCompletion = async (jobName) => {
-    let completed = false;
-    let podName = null;
-
-    while (!completed) {
-        const res = await k8sCoreApi.listNamespacedPod(
-            "default",
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            `job-name=${jobName}`
-        );
-        const pod = res.body.items[0];
-        if (pod) {
-            podName = pod.metadata.name;
-            if (
-                pod.status.phase === "Succeeded" ||
-                pod.status.phase === "Failed"
-            ) {
-                completed = true;
-            }
-        }
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // wait for 5 seconds before checking again
-    }
-    return podName;
-};
- * 
+ *
+ *
+ *
  */
