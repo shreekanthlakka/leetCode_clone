@@ -4,7 +4,7 @@ import fs from "fs";
 import cookieParser from "cookie-parser";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import problemSubmitRoutes from "./routes/problemSubmit.router.js";
+import problemRoutes from "./routes/problemSubmit.router.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const writestream = fs.createWriteStream(path.join(__dirname, "access.log"));
@@ -21,6 +21,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/api/v1/problemSubmit", problemSubmitRoutes);
+app.use("/api/v1/problems", problemRoutes);
 
 export default app;

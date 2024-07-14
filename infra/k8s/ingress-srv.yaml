@@ -17,14 +17,14 @@ spec:
             name: auth-srv
             port:
               number: 3000
-      - path: /api/v1/problemSubmit/?(.*)
+      - path: /api/v1/problems/?(.*)
         pathType: Prefix
         backend:
           service:
             name: main-srv
             port:
               number: 3000
-      - path: /api/v1/addProblems/?(.*)
+      - path: /api/v1/author/problems/?(.*)
         pathType: Prefix
         backend:
           service:

@@ -31,7 +31,13 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-
+        volumeMounts:
+        - mountPath: "/mnt/shared"
+          name: problems-data-storage
+      volumes:
+      - name: problems-data-storage
+        persistentVolumeClaim:
+          claimName: problems-data-pvc
 ---
 apiVersion: v1
 kind: Service

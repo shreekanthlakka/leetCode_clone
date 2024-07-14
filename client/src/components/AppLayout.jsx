@@ -1,6 +1,9 @@
 import { Outlet } from "react-router";
 import Header from "./Header";
 import styled from "styled-components";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { startGetAllProblems } from "../actions/problemActions";
 
 const Container = styled.main``;
 
@@ -12,6 +15,10 @@ const Main = styled.main`
 `;
 
 function AppLayout() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(startGetAllProblems());
+    }, []);
     return (
         <Container>
             <Header />

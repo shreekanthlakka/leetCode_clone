@@ -38,6 +38,8 @@ function authReducer(state, action) {
                 userAccount: action.payload,
                 isAuthenticated: action.isAuthenticated,
             };
+        case "INTIAL_STATE":
+            return { ...initialState };
         default:
             return state;
     }
@@ -100,6 +102,9 @@ function AuthContextProvider({ children }) {
             dispatch({ type: "START" });
             res = await getCurrentLoggedInUser();
             if (!res.success) {
+                if (!res.authorized) {
+                    dispatch({ type: "INTIAL_STATE" });
+                }
                 throw {
                     status: res.statusCode,
                     message: res.message,

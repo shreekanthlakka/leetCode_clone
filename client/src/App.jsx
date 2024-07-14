@@ -9,6 +9,7 @@ import Layout from "./components/Layout";
 import Account from "./components/Account";
 import Problems from "./components/Problems";
 import AddProblems from "./components/AddProblems";
+import Problem from "./components/Problem";
 
 function App() {
     return (
@@ -29,6 +30,10 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/account" element={<Account />} />
                         <Route path="/problems" element={<Problems />} />
+                        <Route
+                            path="/problems/:problemId"
+                            element={<Problem />}
+                        />
                         <Route path="/addproblems" element={<AddProblems />} />
                     </Route>
                     <Route element={<Layout />}>

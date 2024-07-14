@@ -7,6 +7,10 @@ import { IoAddCircle } from "react-icons/io5";
 import { FaCircleXmark } from "react-icons/fa6";
 import { green, red } from "@mui/material/colors";
 import styled from "styled-components";
+import { addProblemApi } from "../services/problemsServices";
+import { useDispatch } from "react-redux";
+import { startAddProblem } from "../actions/problemActions";
+import { toast } from "react-hot-toast";
 
 const Container = styled.form`
     max-width: 600px;
@@ -26,15 +30,25 @@ const AddProblems = () => {
             output: "",
         },
     ]);
+    const dispatch = useDispatch();
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         const outputObj = {
             title,
             description,
             testCases,
         };
-        console.log(outputObj);
+
+        dispatch(
+            startAddProblem(outputObj, () => {
+                toast.success("Problem added sucessfully");
+                setTitle("");
+                setDescription("");
+            })
+        );
+        // const res = await addProblemApi(outputObj);
+        // console.log(" RES ==> ", res);
     }
 
     function handleInputChange(testCaseId, inputId, value) {
@@ -100,7 +114,11 @@ const AddProblems = () => {
             ...prev,
             {
                 id: Math.random(),
-                inputs: [{ id: Math.random(), input: "" }],
+                // inputs: [{ id: Math.random(), input: "" }],
+                inputs: prev[0].inputs.map(() => ({
+                    id: Math.random(),
+                    input: "",
+                })),
                 output: "",
             },
         ]);

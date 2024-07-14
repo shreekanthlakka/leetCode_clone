@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
-    const { loggedInUser, isAuthenticated, isLoading, userAccount } = useAuth();
-    const navigate = useNavigate();
+    const { loggedInUser, isAuthenticated, isLoading } = useAuth();
 
     useEffect(() => {
         (async () => {

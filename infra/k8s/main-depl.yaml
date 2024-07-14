@@ -31,6 +31,13 @@ spec:
             secretKeyRef:
               name: jwt-secret
               key: JWT_SECRET
+        volumeMounts:
+        - mountPath: "/mnt/shared"
+          name: problems-data-storage-mainservice
+      volumes:
+      - name: problems-data-storage-mainservice
+        persistentVolumeClaim:
+          claimName: problems-data-pvc
 
 ---
 apiVersion: v1

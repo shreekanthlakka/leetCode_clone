@@ -6,6 +6,7 @@ class LeetCodeProblemSubmittedListener extends Listener {
     subject = LeetCodeSubjects.LeetCodeProblemSubmitted;
     queueGroupName = queueGroupName;
     async onMessage(data, msg) {
+        const { problemId, userId, typedCode, language, title } = data;
         startJob(data, msg);
         msg.ack();
     }

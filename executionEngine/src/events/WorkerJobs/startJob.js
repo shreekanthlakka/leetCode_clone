@@ -7,7 +7,7 @@ const k8sBatchApi = kc.makeApiClient(k8s.BatchV1Api);
 const k8sCoreApi = kc.makeApiClient(k8s.CoreV1Api);
 
 const startJob = async (data) => {
-    const { typedCode, language, problemId, userId, title } = data;
+    // const { typedCode, language, problemId, userId, title } = data;
     try {
         const configMap = await createConfigMap(data);
         if (configMap) {

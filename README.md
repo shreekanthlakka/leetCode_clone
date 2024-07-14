@@ -44,7 +44,7 @@
     ### Routes
         router.route("/submit" , customRole('user' , 'admin'),main_controller)
 
-## problem service
+## author service
 
 ### Model Problem Model
 

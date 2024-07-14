@@ -8,12 +8,12 @@ const isLoggedIn = asyncHandler(async (req, res, next) => {
         req.cookies?.accessToken ||
         req.header("Authorization")?.replace("Bearer ", "");
     if (!token) {
-        throw new CustomError(401, "not authorized or signed In");
+        throw new CustomError(401, "not authorized or signed In", {}, false);
     }
     const decode = await jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decode._id).select("-password");
     if (!user) {
-        throw new CustomError(401, "not authorized or signed In");
+        throw new CustomError(401, "not authorized or signed In", {}, false);
     }
     req.user = {
         _id: user._id,
