@@ -6,13 +6,14 @@
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon src/index.js",
         "start": "node --watch src/index.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@shreekanthlakka/common": "^1.0.18",
+        "@shreekanthlakka/common": "^1.0.23",
         "cookie-parser": "^1.4.6",
         "express": "^4.19.2",
         "express-validator": "^7.1.0",

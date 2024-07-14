@@ -7,17 +7,17 @@ const start = async () => {
         throw new Error("MONGO_URL must be defined!!!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined!!");
+        throw new Error("NATS Cluster Id not defined !!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined!!");
+        throw new Error("NATS Client Id not defined !!!");
     }
     if (!process.env.NATS_URL) {
-        throw new Error("NATS Url not defined!!");
+        throw new Error("NATS Url not defined!!!");
     }
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Author Server ==> Connected to MongoDB!");
+        console.log("Author Server ==> Connected to MongoDB!!!!");
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);
@@ -29,21 +29,21 @@ const start = async () => {
 
 start();
 
-const startNats = async (count = 0) => {
+const startNats = async () => {
+    var count = 0;
     try {
         await natsWrapper.connect(
             process.env.NATS_CLUSTER_ID,
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("Connected to NATS !");
+        console.log("Connected to NATS !!");
     } catch (error) {
-        count++;
         console.log(
-            ` <== error connecting to nats attempting ${count + 1} time ==>`
+            ` <== error connecting to nats attempting ${count + 1} time =>`
         );
         if (count < 3) {
-            setTimeout(() => startNats(count), 1400);
+            setTimeout(() => startNats(count++), 1400);
         }
     } finally {
         natsWrapper.client.on("close", () => {

@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import addProblemRoute from "./routes/problems.routes.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+console.log("DIRNAME =>", __dirname);
 const writeStream = fs.createWriteStream(path.join(__dirname, "access.log"));
 
 const app = express();
@@ -27,6 +28,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/api/v1/addProblems", addProblemRoute);
+app.use("/api/v1/author/problems", addProblemRoute);
 
 export default app;

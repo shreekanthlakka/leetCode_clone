@@ -12,19 +12,23 @@ const problemSchema = new mongoose.Schema(
             type: String,
             default: "easy",
         },
+        inputs: [],
+        output: [],
+        boilerPlate: {},
+        boilerPlateFull: {},
+        userId: {
+            type: String,
+        },
         testCases: [
             {
                 inputs: [{}],
-                output: "",
+                output: {},
             },
         ],
-        boilerPlate: {},
-        boilerPlateFull: {},
-        // sampleInput: {},
-        // sampleOutput: {},
     },
     { timestamps: true }
 );
 
 const Problem = mongoose.model("Problem", problemSchema);
+
 export default Problem;
