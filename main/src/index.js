@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import app from "./app.js";
 import { natsWrapper } from "./nats-wrapper.js";
 import { LeetCodeProblemCreatedListener } from "./events/listeners/leetcodeproblem-created-listener.js";
+import { JobCompletedStatusListener } from "./events/listeners/jobcompleted-status-listener.js";
 
 const start = async () => {
     if (!process.env.MONGO_URI) {
@@ -51,6 +52,7 @@ const startNats = async () => {
             process.exit();
         });
         new LeetCodeProblemCreatedListener(natsWrapper.client).listen();
+        new JobCompletedStatusListener(natsWrapper.client).listen();
         process.on("SIGINT", () => natsWrapper.client.close());
         process.on("SIGTERM", () => natsWrapper.client.close());
     }

@@ -38,10 +38,10 @@ const start = async () => {
         throw new Error("NATS Client Id not defined !!!");
     }
     if (!process.env.NATS_URL) {
-        throw new Error("NATS Url not defined!!!");
+        throw new Error("NATS Url not defined !!!");
     }
     if (!process.env.HOST_NM) {
-        throw new Error("Host name not defined!");
+        throw new Error("Host name not defined!!");
     }
     if (!process.env.PORT_NM) {
         throw new Error("Port not defined");

@@ -3,7 +3,7 @@ import {
     CustomError,
     CustomResponse,
 } from "@shreekanthlakka/common";
-import ProblemSubmit from "../models/problemSubmit.model.js";
+import Submission from "../models/submission.model.js";
 import { LeetCodeProblemSubmittedPublisher } from "../events/publishers/leetcode-problem-submitted.js";
 import { natsWrapper } from "../nats-wrapper.js";
 import Problems from "../models/problems.model.js";
@@ -20,14 +20,14 @@ const LanguageName = Object.freeze({
 const submitProblem = asyncHandler(async (req, res) => {
     const { problemId } = req.params;
     const { typedCode, title, language } = req.body;
-    const problem = await ProblemSubmit.create({
+    const submission = await Submission.create({
         problemId,
         userId: req.user._id,
         title,
         typedCode,
         language,
     });
-    if (!problem) {
+    if (!submission) {
         throw new CustomError(400, "failed to submit!");
     }
 
@@ -48,8 +48,12 @@ const submitProblem = asyncHandler(async (req, res) => {
         title: prob.title,
         typedCode: combinedCode,
         language,
+        inputs: prob.inputs,
+        output: prob.output,
     });
-    res.status(200).json(new CustomResponse(200, "problem submitted", problem));
+    res.status(200).json(
+        new CustomResponse(200, "problem submitted", submission)
+    );
 });
 
 const getAllProblems = asyncHandler(async (req, res) => {
@@ -59,6 +63,19 @@ const getAllProblems = asyncHandler(async (req, res) => {
     }
     res.status(200).json(
         new CustomResponse(200, "problems retrived", problems)
+    );
+});
+
+const getAllSubmissions = asyncHandler(async (req, res) => {
+    const submissions = await Submission.find({
+        userId: req.user._id,
+        problemId: req.params.problemId,
+    });
+    if (!submissions) {
+        throw new CustomError(400, "No submissions made");
+    }
+    res.status(200).json(
+        new CustomResponse(200, "all submissions", submissions)
     );
 });
 
@@ -81,4 +98,4 @@ const getBoilerPlateCode = asyncHandler(async (req, res) => {
     res.status(200).json(new CustomResponse(200, "boilerplate code", code));
 });
 
-export { submitProblem, getAllProblems, getBoilerPlateCode };
+export { submitProblem, getAllProblems, getBoilerPlateCode, getAllSubmissions };

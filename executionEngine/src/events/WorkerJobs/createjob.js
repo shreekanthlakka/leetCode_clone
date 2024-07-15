@@ -6,7 +6,7 @@ kc.loadFromDefault();
 const k8sBatchApi = kc.makeApiClient(k8s.BatchV1Api);
 const k8sCoreApi = kc.makeApiClient(k8s.CoreV1Api);
 
-const createJob = async (data, configMapName) => {
+const createJob = async (data, configMapName, inputs) => {
     const { language, title } = data;
 
     const jobManifest = {
@@ -25,6 +25,7 @@ const createJob = async (data, configMapName) => {
                                 .replace(/[^a-z0-9]+/g, "-"),
                             image: "node:alpine",
                             command: ["node", "/scripts/index.js"],
+                            args: inputs,
                             volumeMounts: [
                                 {
                                     name: "scripts",

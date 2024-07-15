@@ -13,7 +13,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@shreekanthlakka/common": "^1.0.25",
+        "@shreekanthlakka/common": "^1.0.28",
         "cookie-parser": "^1.4.6",
         "express": "^4.19.2",
         "express-validator": "^7.1.0",

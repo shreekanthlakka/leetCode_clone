@@ -5,6 +5,8 @@ import { getPodLogs } from "./getPodLogs.js";
 import { deleteJob } from "./deleteJob.js";
 import { deletePod } from "./deletepod.js";
 import { deleteConfigMap } from "./deleteconfigmap.js";
+import { JobCompletedStatusPublisher } from "../publishers/jobcompleted-status-publisher.js";
+import { natsWrapper } from "../../nats-wrapper.js";
 
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
@@ -12,21 +14,47 @@ kc.loadFromDefault();
 const k8sBatchApi = kc.makeApiClient(k8s.BatchV1Api);
 const k8sCoreApi = kc.makeApiClient(k8s.CoreV1Api);
 
-const startJob = async (data) => {
+const startJob = async (data, inputs, output) => {
     const { typedCode, language, problemId, userId, title } = data;
+    let STATUS = "FAILED";
     try {
         var configMap = await createConfigMap(data);
-        var jobName = await createJob(data, configMap);
+        var jobName = await createJob(data, configMap, inputs);
         var podName = await waitForJobCompletion(jobName);
         const result = await getPodLogs(podName);
+        if (output.split("=")[1].toString() === result.toString()) {
+            STATUS = "PASSED";
+        }
+        //publish an event
+        /**
+         * {
+         *      problemId,
+         *      inputs,
+         *      output
+         *      result,
+         *      status: PASSED/FAILD
+         *      typedCode
+         *
+         * }
+         */
+        new JobCompletedStatusPublisher(natsWrapper.client).publish({
+            problemId,
+            inputs,
+            output,
+            result,
+            status: STATUS,
+            typedCode,
+        });
+
+        console.log("Data =>", data);
         console.log("Result <===> ", result);
     } catch (error) {
         console.log(" ===> ", error);
         process.exit();
     } finally {
+        await deleteConfigMap(configMap);
         await deleteJob(jobName);
         await deletePod(podName);
-        await deleteConfigMap(configMap);
     }
 };
 

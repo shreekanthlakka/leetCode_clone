@@ -8,6 +8,7 @@ import { generateFullBoilerPlateCode } from "../utils/generateFullBoilerPlateCod
 import Problem from "../models/problems.model.js";
 import { LeetCodeProblemCreatedPublisher } from "../events/publisher/leetcode-problem-created.js";
 import { natsWrapper } from "../nats-wrapper.js";
+import { generateFullBoilerPlateCodeArgs } from "../utils/generateFullBoilerPlateCodeArgs.js";
 
 const addProblem = asyncHandler(async (req, res) => {
     const { title, description, testCases } = req.body;
@@ -16,7 +17,10 @@ const addProblem = asyncHandler(async (req, res) => {
         typeof testCases === "string" ? JSON.parse(testCases) : testCases;
 
     const boilerPlate = generateBoilerPlateCode(title, parsedTestCases);
-    const boilerPlateFull = generateFullBoilerPlateCode(title, parsedTestCases);
+    const boilerPlateFull = generateFullBoilerPlateCodeArgs(
+        title,
+        parsedTestCases
+    );
 
     const problem = await Problem.create({
         title: title.trim(),
@@ -45,8 +49,6 @@ const addProblem = asyncHandler(async (req, res) => {
         userId: problem.userId,
         testCases: problem.testCases,
     });
-
-    console.log("Problem ==>", problem);
 
     res.status(200).json(
         new CustomResponse(201, "new problem created", problem)

@@ -6,9 +6,39 @@ class LeetCodeProblemSubmittedListener extends Listener {
     subject = LeetCodeSubjects.LeetCodeProblemSubmitted;
     queueGroupName = queueGroupName;
     async onMessage(data, msg) {
-        const { problemId, userId, typedCode, language, title } = data;
-        console.log("DATA =>", data);
-        startJob(data, msg);
+        const {
+            problemId,
+            userId,
+            typedCode,
+            language,
+            title,
+            inputs,
+            output,
+        } = data;
+        console.log("DATA =>", Array.isArray(inputs));
+
+        const inputArr = [];
+
+        inputs.forEach((testCase, i) => {
+            console.log(`TEST CASE => ${i + 1}`, testCase);
+            const innerArray = [];
+            testCase.forEach((inp) => {
+                innerArray.push(inp.input.split("=")[1]);
+            });
+            inputArr.push(innerArray);
+        });
+
+        // inputs ==> [ [1,2,3] , [1,1,1] , [] ] something
+        // output ==> [ [1,2,3] , [1,1,1] , []]
+
+        inputArr.forEach(async (inp, i) => {
+            console.log("==========> inputs ===>", inp);
+            console.log("==========> output ===>", output);
+            startJob(data, inp, output[i]);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+        });
+
+        // startJob(data, msg);
         msg.ack();
     }
 }

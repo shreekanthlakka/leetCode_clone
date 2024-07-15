@@ -15,7 +15,7 @@ const startNats = async () => {
         console.log(error);
         if (count < 3) {
             console.log(
-                "execution Service ==> failed to connect to Nats, retrying ==>!"
+                "execution Service ==> failed to connect to Nats, retrying ==>"
             );
             setTimeout(() => startNats(count++), 1200);
         }
@@ -38,7 +38,7 @@ const start = async () => {
         console.log(error);
     } finally {
         natsWrapper.client.on("close", () => {
-            console.log("NATS connection closed !!!");
+            console.log("NATS connection closed !!");
             process.exit();
         });
         new LeetCodeProblemSubmittedListener(natsWrapper.client).listen();
