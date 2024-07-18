@@ -21,8 +21,16 @@ const startJob = async (data, inputs, output) => {
         var configMap = await createConfigMap(data);
         var jobName = await createJob(data, configMap, inputs);
         var podName = await waitForJobCompletion(jobName);
-        const result = await getPodLogs(podName);
-        if (output.split("=")[1].toString() === result.toString()) {
+        var result = await getPodLogs(podName);
+        if (
+            output
+                .split("=")[1]
+                .toString()
+                .replace(/\"/g, "")
+                .replace("\n", "")
+                .trim() ===
+            result.toString().replace(/\"/g, "").replace("\n", "").trim()
+        ) {
             STATUS = "PASSED";
         }
         //publish an event
@@ -37,24 +45,25 @@ const startJob = async (data, inputs, output) => {
          *
          * }
          */
-        new JobCompletedStatusPublisher(natsWrapper.client).publish({
+
+        // console.log("Data =>", data);
+        console.log("Result <===> ", result);
+    } catch (error) {
+        console.log(" ===> ", error);
+        process.exit(1);
+    } finally {
+        await new JobCompletedStatusPublisher(natsWrapper.client).publish({
             problemId,
             inputs,
             output,
             result,
             status: STATUS,
             typedCode,
+            submitId: data.submitId,
         });
-
-        console.log("Data =>", data);
-        console.log("Result <===> ", result);
-    } catch (error) {
-        console.log(" ===> ", error);
-        process.exit();
-    } finally {
-        await deleteConfigMap(configMap);
-        await deleteJob(jobName);
-        await deletePod(podName);
+        if (jobName) await deleteJob(jobName);
+        if (podName) await deletePod(podName);
+        if (configMap) await deleteConfigMap(configMap);
     }
 };
 

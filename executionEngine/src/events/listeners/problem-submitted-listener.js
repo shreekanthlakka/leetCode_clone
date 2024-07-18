@@ -35,7 +35,7 @@ class LeetCodeProblemSubmittedListener extends Listener {
             console.log("==========> inputs ===>", inp);
             console.log("==========> output ===>", output);
             startJob(data, inp, output[i]);
-            await new Promise((resolve) => setTimeout(resolve, 100));
+            await new Promise((resolve) => setTimeout(resolve, 300));
         });
 
         // startJob(data, msg);

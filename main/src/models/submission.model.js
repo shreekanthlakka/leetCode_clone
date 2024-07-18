@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+// import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { Languages } from "@shreekanthlakka/common";
 
 const submissionSchema = new mongoose.Schema(
@@ -13,10 +13,12 @@ const submissionSchema = new mongoose.Schema(
         title: String,
         typedCode: String,
         language: Object.values(Languages),
-        executedCide: String,
-        testCasesResults: [
+        executedCode: String,
+        inputs: [{}],
+        output: [],
+        testCaseResults: [
             {
-                inputs: [],
+                inputs: [{}],
                 output: String,
                 result: String,
                 status: {
@@ -29,8 +31,8 @@ const submissionSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-submissionSchema.set("versionKey", "version");
-submissionSchema.plugin(updateIfCurrentPlugin);
+// submissionSchema.set("versionKey", "version");
+// submissionSchema.plugin(updateIfCurrentPlugin);
 const Submission = mongoose.model("Submission", submissionSchema);
 
 export default Submission;

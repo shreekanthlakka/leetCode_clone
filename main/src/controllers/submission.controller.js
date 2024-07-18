@@ -20,12 +20,20 @@ const LanguageName = Object.freeze({
 const submitProblem = asyncHandler(async (req, res) => {
     const { problemId } = req.params;
     const { typedCode, title, language } = req.body;
+
+    const boilerPlateCodeFull = await getFullBoilerPlateCode(title, language);
+    const combinedCode = boilerPlateCodeFull.replace(
+        "##USER_CODE_HERE##",
+        typedCode
+    );
+
     const submission = await Submission.create({
         problemId,
         userId: req.user._id,
         title,
         typedCode,
         language,
+        executedCode: combinedCode,
     });
     if (!submission) {
         throw new CustomError(400, "failed to submit!");
@@ -36,12 +44,7 @@ const submitProblem = asyncHandler(async (req, res) => {
         throw new CustomError(400, "problem not found!");
     }
 
-    const boilerPlateCodeFull = await getFullBoilerPlateCode(title, language);
-
-    const combinedCode = boilerPlateCodeFull.replace(
-        "##USER_CODE_HERE##",
-        typedCode
-    );
+    console.log("Problem id ===>", prob);
     new LeetCodeProblemSubmittedPublisher(natsWrapper.client).publish({
         problemId,
         userId: req.user._id,
@@ -50,7 +53,20 @@ const submitProblem = asyncHandler(async (req, res) => {
         language,
         inputs: prob.inputs,
         output: prob.output,
+        submitId: submission._id,
     });
+    // const initialTestCaseResults = prob.testCases.map((ele) => {
+    //     return {
+    //         inputs: ele.inputs,
+    //         output: ele.output,
+    //         status: "PENDING",
+    //     };
+    // });
+    // console.log("Initial TestCase results  ===> ", initialTestCaseResults);
+    // submission.testCaseResults = initialTestCaseResults;
+    submission.inputs = prob.inputs;
+    submission.output = prob.output;
+    await submission.save();
     res.status(200).json(
         new CustomResponse(200, "problem submitted", submission)
     );

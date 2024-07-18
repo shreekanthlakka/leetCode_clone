@@ -6,11 +6,12 @@ const k8sCoreApi = kc.makeApiClient(k8s.CoreV1Api);
 
 const createConfigMap = async (data) => {
     const { typedCode, language } = data;
+    const configMapName = `script-${language}-${Math.random()}`;
     const configMap = {
         apiVersion: "v1",
         kind: "ConfigMap",
         metadata: {
-            name: `script-${language}-${Date.now()}`,
+            name: configMapName,
         },
         data: {
             "index.js": typedCode,
@@ -22,6 +23,7 @@ const createConfigMap = async (data) => {
             "default",
             configMap
         );
+        console.log("Config Map created==> ", res.body.metadata.name);
         return res.body.metadata.name;
     } catch (err) {
         console.error(err.body.message);

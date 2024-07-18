@@ -9,23 +9,23 @@ const start = async () => {
         throw new Error("MONGO_URL must be defined !!!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined !!");
+        throw new Error("NATS Cluster Id not defined !!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined !!!");
+        throw new Error("NATS Client Id not defined !!");
     }
     if (!process.env.NATS_URL) {
         throw new Error("NATS Url not defined !!!");
     }
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Main Server ==> Connected to MongoDB !!!");
+        console.log("Main Server ==> Connected to MongoDB !!");
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);
     }
     app.listen(3000, () => {
-        console.log("Main Server ==> Listening on port 3000 !!!");
+        console.log("Main Server ==> Listening on port 3000 !!");
     });
 };
 
@@ -48,7 +48,7 @@ const startNats = async () => {
         }
     } finally {
         natsWrapper.client.on("close", () => {
-            console.log("NATS connection closed!");
+            console.log("NATS connection closed !!!");
             process.exit();
         });
         new LeetCodeProblemCreatedListener(natsWrapper.client).listen();

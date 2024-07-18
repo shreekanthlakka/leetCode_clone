@@ -9,7 +9,25 @@ import styled from "styled-components";
 import CodeEditor from "./CodeEditor";
 import ProblemStatement from "./ProblemStatement";
 import Panel from "./Panel";
-import { submitProblemApi } from "../services/problemsServices";
+import { startAddSubmission } from "../actions/submissionActions";
+import toast from "react-hot-toast";
+import TestCase from "./TestCase";
+import { useSearchParams } from "react-router-dom";
+
+const TestCaseContainer = styled.div`
+    height: 200px;
+    /* overflow-x: auto; */
+    overflow-x: scroll;
+    padding-left: 2rem;
+    /* overflow-y: scroll; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    justify-content: start;
+`;
 
 const Box = styled.div`
     width: 100%;
@@ -31,6 +49,7 @@ const Container = styled.div`
     grid-template-columns: 40% 60%;
     width: 100%;
     height: 80vh;
+    overflow-y: scroll;
     grid-gap: 5px;
     padding: 0;
     box-sizing: border-box;
@@ -50,31 +69,40 @@ function Problem() {
     );
     const [language, setLanguage] = useState("");
     const [typedCode, setTypedCode] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
+    // const [socket, setSocket] = useState();
 
     async function handleProblemSubmit() {
         if (!typedCode) return;
-
         const obj = {
             language,
             typedCode,
             title: selectedProblem.title,
         };
-
-        console.log("DATA OBJ =>", obj);
-        const res = await submitProblemApi(obj, problemId);
-        if (res.success) {
-            console.log("RESPONCE =>", res);
-        }
-
-        //api call
+        dispatch(
+            startAddSubmission(obj, problemId, (id) => {
+                toast.success("your problem has been submitted");
+                setSearchParams({ submissionId: id });
+            })
+        );
     }
 
     useEffect(() => {
         if (!problemId) return;
         dispatch(startGetBoilerPlateCode(problemId, () => {}));
 
+        // const newSocket = new WebSocket("wss://leetcode.dev:3000/ws");
+        // newSocket.onopen = () => {
+        //     console.log("socket connected");
+        // };
+        // newSocket.onmessage = (e) => {
+        //     console.log("socket message", e.data);
+        // };
+        // setSocket(newSocket);
+
         return () => {
             dispatch(resetSelectedProblem());
+            // newSocket.close();
         };
     }, [problemId]);
     return (
@@ -84,6 +112,7 @@ function Problem() {
                     language={language}
                     setLanguage={setLanguage}
                     handleProblemSubmit={handleProblemSubmit}
+                    problemId={problemId}
                 />
             </div>
             <Container>
@@ -91,6 +120,11 @@ function Problem() {
                     <ProblemStatement problem={selectedProblem} />
                 </div>
                 <div className="rightpanel">
+                    <TestCaseContainer>
+                        {selectedProblem?.testCases.map((ele, i) => (
+                            <TestCase key={ele._id} testCase={ele} index={i} />
+                        ))}
+                    </TestCaseContainer>
                     <CodeEditor
                         language={language}
                         typedCode={typedCode}

@@ -32,7 +32,7 @@ const connectToNats = async () => {
 
 const start = async () => {
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined !!!");
+        throw new Error("NATS Cluster Id not defined !!");
     }
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error("NATS Client Id not defined !!!");
@@ -47,10 +47,10 @@ const start = async () => {
         throw new Error("Port not defined");
     }
     if (!process.env.USER_NM) {
-        throw new Error("user name not defined");
+        throw new Error("user name not defined!!");
     }
     if (!process.env.PASS_NM) {
-        throw new Error("password not defined");
+        throw new Error("password not defined!!");
     }
     try {
         await connectToNats();
@@ -58,7 +58,7 @@ const start = async () => {
         console.log("<== Error ==>", error.message);
     } finally {
         app.listen(3000, () => {
-            console.log(`Notification server ==> 3000 port`);
+            console.log(`Notification server ==> 3000 port!!!`);
         });
     }
 };

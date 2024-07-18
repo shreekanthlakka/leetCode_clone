@@ -1,8 +1,10 @@
 import { Button } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { useNavigate } from "react-router-dom";
 
-function Panel({ language, setLanguage, handleProblemSubmit }) {
+function Panel({ language, setLanguage, handleProblemSubmit, problemId }) {
+    const navigate = useNavigate();
     return (
         <>
             <div>
@@ -33,6 +35,9 @@ function Panel({ language, setLanguage, handleProblemSubmit }) {
                     variant="contained"
                     size="small"
                     sx={{ borderRadius: "15px" }}
+                    onClick={() =>
+                        navigate(`/problems/${problemId}/submissions`)
+                    }
                 >
                     Submissions
                 </Button>

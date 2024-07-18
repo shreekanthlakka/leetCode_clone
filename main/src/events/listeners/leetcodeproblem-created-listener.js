@@ -24,7 +24,6 @@ class LeetCodeProblemCreatedListener extends Listener {
         if (!problem) {
             throw new CustomError(400, "failed to create problem in listener");
         }
-        await problem.save();
         msg.ack();
     }
 }

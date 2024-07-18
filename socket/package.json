@@ -12,7 +12,9 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@shreekanthlakka/common": "^1.0.29",
         "express": "^4.19.2",
+        "node-nats-streaming": "^0.3.2",
         "ws": "^8.17.1"
     }
 }

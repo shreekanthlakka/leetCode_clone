@@ -1,7 +1,9 @@
 import { Editor } from "@monaco-editor/react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
 
+const Container = styled.div``;
 const Language = Object.freeze({
     cplusplus: "cpp",
     javascript: "javascript",
@@ -21,7 +23,7 @@ function CodeEditor({ language, typedCode, setTypedCode }) {
     }, [code, language]);
 
     return (
-        <div>
+        <Container>
             <Editor
                 height="90vh"
                 theme="vs-dark"
@@ -35,7 +37,7 @@ function CodeEditor({ language, typedCode, setTypedCode }) {
                 }}
                 onMount={handleEditorDidMount}
             />
-        </div>
+        </Container>
     );
 }
 
