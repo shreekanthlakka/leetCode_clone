@@ -33,4 +33,24 @@ const submitProblemApi = async (formData, problemId) => {
     }
 };
 
-export { getAllSubmissionsApi, submitProblemApi };
+const getSubmissionStatusApi = async (problemId, submissionId) => {
+    try {
+        const res = await fetch(
+            `${URI}/problems/submissionStatus/${problemId}/${submissionId}`,
+            {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+        const data = await res.json();
+        console.log("Data in service ===>", data);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export { getAllSubmissionsApi, submitProblemApi, getSubmissionStatusApi };

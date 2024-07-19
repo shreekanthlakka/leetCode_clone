@@ -4,6 +4,7 @@ import {
     getAllProblems,
     getAllSubmissions,
     getBoilerPlateCode,
+    getSubmissionStatus,
     submitProblem,
 } from "../controllers/submission.controller.js";
 import { checkSchema } from "express-validator";
@@ -23,5 +24,9 @@ router
         submitProblem
     )
     .get(isLoggedIn, getAllSubmissions);
+
+router
+    .route("/submissionStatus/:problemId/:submissionId")
+    .get(getSubmissionStatus);
 
 export default router;

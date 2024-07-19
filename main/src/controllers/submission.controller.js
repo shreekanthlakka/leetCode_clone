@@ -114,4 +114,24 @@ const getBoilerPlateCode = asyncHandler(async (req, res) => {
     res.status(200).json(new CustomResponse(200, "boilerplate code", code));
 });
 
-export { submitProblem, getAllProblems, getBoilerPlateCode, getAllSubmissions };
+const getSubmissionStatus = asyncHandler(async (req, res) => {
+    const { problemId, submissionId } = req.params;
+    const submission = await Submission.findOne({
+        _id: submissionId,
+        problemId,
+    });
+    if (!submission) {
+        throw new CustomError(400, "submission not found");
+    }
+    res.status(200).json(
+        new CustomResponse(200, "submission status", submission)
+    );
+});
+
+export {
+    submitProblem,
+    getAllProblems,
+    getBoilerPlateCode,
+    getAllSubmissions,
+    getSubmissionStatus,
+};

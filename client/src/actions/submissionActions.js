@@ -1,5 +1,6 @@
 import {
     getAllSubmissionsApi,
+    getSubmissionStatusApi,
     submitProblemApi,
 } from "../services/submissionService";
 
@@ -11,6 +12,7 @@ export const START_SUBMISSION_ISDELETING = "START_SUBMISSION_ISDELETING";
 export const GET_ALL_SUBMISSIONS = "GET_ALL_SUBMISSIONS";
 export const ADD_SUBMISSION = "ADD_SUBMISSION";
 export const SUBMISSION_ERROR = "SUBMISSION_ERROR";
+export const UPDATE_SUBMISSION_STATUS = "UPDATE_SUBMISSION_STATUS";
 
 const startGetAllSubmissions = (problemId) => {
     return async (dispatch) => {
@@ -52,6 +54,32 @@ const startAddSubmission = (formData, problemId, onSuccess) => {
     };
 };
 
+const startGetSubmissionStatus = (problemId, submissionId, onSuccess) => {
+    return async (dispatch) => {
+        dispatch({ type: START_SUBMISSION_ISUPDATING });
+        try {
+            const res = getSubmissionStatusApi(problemId, submissionId);
+            if (!res.success) {
+                throw {
+                    message: res.message,
+                    statusCode: res.statusCode,
+                };
+            }
+            dispatch(getSubmissionStatus(res.data));
+            onSuccess(res.data);
+        } catch (error) {
+            dispatch(submissionError(error));
+        }
+    };
+};
+
+const getSubmissionStatus = (data) => {
+    return {
+        type: UPDATE_SUBMISSION_STATUS,
+        payload: data,
+    };
+};
+
 const addSubmission = (data) => {
     return {
         type: ADD_SUBMISSION,
@@ -73,4 +101,4 @@ const submissionError = (error) => {
     };
 };
 
-export { startGetAllSubmissions, startAddSubmission };
+export { startGetAllSubmissions, startAddSubmission, startGetSubmissionStatus };

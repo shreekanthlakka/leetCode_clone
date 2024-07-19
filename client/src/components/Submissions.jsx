@@ -44,7 +44,7 @@ function Submissions() {
                 <TableHead>
                     <TableRow>
                         <TableCell align="center">Submissions</TableCell>
-                        {submissions[0].inputs?.map((ele, i) => (
+                        {submissions[0]?.inputs?.map((ele, i) => (
                             <React.Fragment key={i}>
                                 <TableCell key={i} align="center">
                                     <strong>testcase : {i + 1}</strong>

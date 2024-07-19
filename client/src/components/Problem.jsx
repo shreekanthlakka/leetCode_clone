@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +9,10 @@ import styled from "styled-components";
 import CodeEditor from "./CodeEditor";
 import ProblemStatement from "./ProblemStatement";
 import Panel from "./Panel";
-import { startAddSubmission } from "../actions/submissionActions";
+import {
+    startAddSubmission,
+    startGetSubmissionStatus,
+} from "../actions/submissionActions";
 import toast from "react-hot-toast";
 import TestCase from "./TestCase";
 import { useSearchParams } from "react-router-dom";
@@ -71,6 +74,10 @@ function Problem() {
     const [typedCode, setTypedCode] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
     // const [socket, setSocket] = useState();
+    const [startPolling, setStartPolling] = useState(false);
+    const interval = useRef("");
+    const numberOfTestCases = useRef(0);
+    // numberOfTestCases.current = selectedProblem?.testCases.length;
 
     async function handleProblemSubmit() {
         if (!typedCode) return;
@@ -83,9 +90,33 @@ function Problem() {
             startAddSubmission(obj, problemId, (id) => {
                 toast.success("your problem has been submitted");
                 setSearchParams({ submissionId: id });
+                setStartPolling(true);
             })
         );
     }
+
+    useEffect(() => {
+        if (
+            startPolling &&
+            numberOfTestCases.current <= selectedProblem?.testCases.length
+        ) {
+            interval.current = setInterval(() => {
+                dispatch(
+                    startGetSubmissionStatus(
+                        problemId,
+                        searchParams.get("submissionId"),
+                        (data) => {
+                            numberOfTestCases.current++;
+                            console.log("======> data ===>", data);
+                        }
+                    )
+                );
+            }, 1000);
+        }
+        return () => {
+            clearInterval(interval.current);
+        };
+    }, [startPolling]);
 
     useEffect(() => {
         if (!problemId) return;
