@@ -10,8 +10,11 @@ const Container = styled.div``;
 function TestCase({ testCase, index }) {
     const [searchParams] = useSearchParams();
     const submissionId = searchParams.get("submissionId");
-    const currentSubmission = useSelector((state) =>
-        state.submission.submissions?.find((ele) => ele._id === submissionId)
+    const testCaseResults = useSelector(
+        (state) =>
+            state.submission.submissions?.find(
+                (ele) => ele._id === submissionId
+            )?.testCaseResults
     );
 
     return (
@@ -25,13 +28,23 @@ function TestCase({ testCase, index }) {
                         <strong>Inputs</strong> :{" "}
                         {testCase.inputs.map((ele) => ele.input).join(", ")}
                     </Typography>
-                    {currentSubmission?.testCaseResults.length === 0 && (
+                    {/* {testCaseResults.length === 0 && (
                         <Typography>
                             Status :
-                            {currentSubmission?.testCaseResults.length === 0
+                            {testCaseResults.length === 0
                                 ? "Pending"
-                                : currentSubmission?.testCaseResults[index]
-                                      .status}
+                                : testCaseResults[index].status}
+                        </Typography>
+                    )} */}
+                    {testCaseResults?.length === 0 && (
+                        <Typography>
+                            Status : <strong>Pending</strong>
+                        </Typography>
+                    )}
+                    {testCaseResults?.length > 0 && (
+                        <Typography sx={{ fontSize: "small" }}>
+                            Status :{" "}
+                            <strong>{testCaseResults[index].status}</strong>
                         </Typography>
                     )}
                 </CardContent>

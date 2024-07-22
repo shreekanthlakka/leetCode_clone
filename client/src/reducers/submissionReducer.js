@@ -3,6 +3,7 @@ import {
     ADD_SUBMISSION,
     GET_ALL_SUBMISSIONS,
     START_SUBMISSION_ISLOADING,
+    START_SUBMISSION_ISUPDATING,
     SUBMISSION_ERROR,
     UPDATE_SUBMISSION_STATUS,
 } from "../actions/submissionActions";
@@ -51,14 +52,23 @@ const submissionReducer = (state = initialState, action) => {
                 status: { ...state.status, isAdding: false },
                 submissions: [...state.submissions, action.payload],
             };
-        case UPDATE_SUBMISSION_STATUS:
+        case START_SUBMISSION_ISUPDATING:
             return {
                 ...state,
                 status: { ...state.status, isUpdating: true },
+                error: null,
+            };
+        case UPDATE_SUBMISSION_STATUS:
+            return {
+                ...state,
+                status: { ...state.status, isUpdating: false },
                 submissions: state.submissions.map((ele) =>
                     ele._id === action.payload._id
-                        ? { ...ele, testCaseResults: ele.testCaseResults }
-                        : ele
+                        ? {
+                              ...ele,
+                              testCaseResults: action.payload.testCaseResults,
+                          }
+                        : { ...ele }
                 ),
             };
         default:

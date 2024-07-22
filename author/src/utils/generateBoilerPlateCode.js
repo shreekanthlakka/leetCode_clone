@@ -11,6 +11,7 @@ const generateBoilerPlateCode = (title, parsedTestCases) => {
         "/mnt/shared/problems",
         `boilerplate/${title}`
     );
+    console.log(" <==== boilerplatePath ====> ", boilerplatePath);
 
     // outputObj = {
     //     type: "list<int>",

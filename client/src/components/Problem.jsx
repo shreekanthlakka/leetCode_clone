@@ -96,10 +96,7 @@ function Problem() {
     }
 
     useEffect(() => {
-        if (
-            startPolling &&
-            numberOfTestCases.current <= selectedProblem?.testCases.length
-        ) {
+        if (startPolling) {
             interval.current = setInterval(() => {
                 dispatch(
                     startGetSubmissionStatus(
@@ -107,12 +104,19 @@ function Problem() {
                         searchParams.get("submissionId"),
                         (data) => {
                             numberOfTestCases.current++;
-                            console.log("======> data ===>", data);
+                            if (
+                                data?.testCaseResults.length ===
+                                selectedProblem?.testCases.length
+                            ) {
+                                setStartPolling(false);
+                                clearInterval(interval.current);
+                            }
                         }
                     )
                 );
             }, 1000);
         }
+
         return () => {
             clearInterval(interval.current);
         };

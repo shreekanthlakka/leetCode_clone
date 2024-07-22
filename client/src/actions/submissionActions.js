@@ -45,7 +45,6 @@ const startAddSubmission = (formData, problemId, onSuccess) => {
                     statusCode: res.statusCode,
                 };
             }
-            console.log("===== RESPONSE ======> ", res);
             dispatch(addSubmission(res.data));
             onSuccess(res.data._id);
         } catch (error) {
@@ -58,7 +57,7 @@ const startGetSubmissionStatus = (problemId, submissionId, onSuccess) => {
     return async (dispatch) => {
         dispatch({ type: START_SUBMISSION_ISUPDATING });
         try {
-            const res = getSubmissionStatusApi(problemId, submissionId);
+            const res = await getSubmissionStatusApi(problemId, submissionId);
             if (!res.success) {
                 throw {
                     message: res.message,

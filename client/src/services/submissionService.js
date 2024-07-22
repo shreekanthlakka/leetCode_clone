@@ -46,7 +46,6 @@ const getSubmissionStatusApi = async (problemId, submissionId) => {
             }
         );
         const data = await res.json();
-        console.log("Data in service ===>", data);
         return data;
     } catch (error) {
         console.log(error);
