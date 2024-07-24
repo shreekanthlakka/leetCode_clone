@@ -32,6 +32,13 @@ spec:
             name: author-srv
             port:
               number: 3000
+      - path: /api/v1/comments/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: comments-srv
+            port:
+              number: 3000
       - path: /ws
         pathType: Prefix
         backend:

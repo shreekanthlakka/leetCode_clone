@@ -16,6 +16,7 @@ import {
 import toast from "react-hot-toast";
 import TestCase from "./TestCase";
 import { useSearchParams } from "react-router-dom";
+import { startGetAllCommentsByProblemId } from "../actions/commentAction";
 
 const TestCaseContainer = styled.div`
     height: 200px;
@@ -140,6 +141,10 @@ function Problem() {
             // newSocket.close();
         };
     }, [problemId]);
+
+    useEffect(() => {
+        dispatch(startGetAllCommentsByProblemId(problemId));
+    }, []);
     return (
         <Box>
             <div className="mainpanel">

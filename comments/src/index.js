@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import app from "./app.js";
 import { natsWrapper } from "./nats-wrapper.js";
+import { UserCreatedListener } from "./events/listeners/user-created-listener.js";
 
 const start = async () => {
     if (!process.env.MONGO_URI) {
@@ -13,17 +14,17 @@ const start = async () => {
         throw new Error("NATS Client Id not defined !!!!");
     }
     if (!process.env.NATS_URL) {
-        throw new Error("NATS Url not defined !!!");
+        throw new Error("NATS Url not defined !!!!");
     }
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Author Server ==> Connected to MongoDB !!!");
+        console.log("Comments Service connected to MongoDB");
         startNats();
     } catch (error) {
-        console.log(" <== Error ==> ", error.message);
+        console.log("Error in comment service ", error);
     }
     app.listen(3000, () => {
-        console.log("Author Server ==> Listening on port 3000 !!!");
+        console.log("Comments Server ==> Listening on port 3000 !!");
     });
 };
 
@@ -38,6 +39,7 @@ const startNats = async () => {
             process.env.NATS_URL
         );
         console.log("Connected to NATS !!");
+        new UserCreatedListener(natsWrapper.client).listen();
     } catch (error) {
         console.log(
             ` <== error connecting to nats attempting ${count + 1} time =>`

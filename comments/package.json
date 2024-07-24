@@ -1,26 +1,35 @@
 {
-    "name": "leetcode-server",
+    "name": "comments",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "NODE_OPTIONS=--experimental-vm-modules jest ",
+        "dev": "nodemon src/index.js",
         "start": "node --watch src/index.js"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "setupFilesAfterEnv": [
+            "./src/test/setup.js"
+        ],
+        "transform": {}
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@shreekanthlakka/common": "^1.0.29",
+        "@shreekanthlakka/common": "^1.0.30",
         "cookie-parser": "^1.4.6",
         "express": "^4.19.2",
         "express-validator": "^7.1.0",
-        "mongoose": "^8.4.4",
+        "mongoose": "^8.5.1",
         "morgan": "^1.10.0",
         "node-nats-streaming": "^0.3.2"
     },
     "devDependencies": {
+        "jest": "^29.7.0",
         "mongodb-memory-server": "^10.0.0",
         "supertest": "^7.0.0"
     }

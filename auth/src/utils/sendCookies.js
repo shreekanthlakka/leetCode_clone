@@ -14,7 +14,7 @@ const sendCookies = async (id, res) => {
         await user.save({ validateBeforeSave: false });
         const options = {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV !== "test",
             maxAge: 1000 * 60 * 60 * 1,
         };
         res.status(200).cookie("accessToken", accessToken, options).json({
@@ -25,8 +25,11 @@ const sendCookies = async (id, res) => {
             message: "Logged In sucessfully",
         });
     } catch (error) {
-        user.accessToken = null;
-        await user.save({ validateBeforeSave: false });
+        console.log(error);
+        if (user) {
+            user.accessToken = null;
+            await user.save({ validateBeforeSave: false });
+        }
         res.status(error.statusCode || 400).json(
             new CustomError(
                 error.statusCode || 400,

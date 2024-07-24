@@ -3,6 +3,7 @@ const asyncHandler = (func) => {
         try {
             await func(req, res, next);
         } catch (error) {
+            console.log(" <== asyncHandler Error ==> ", error);
             return res.status(error.statusCode || 500).json({
                 statusCode: error.statusCode || 500,
                 message: error.message || "something went wrong",
