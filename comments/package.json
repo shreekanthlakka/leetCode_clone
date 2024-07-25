@@ -7,7 +7,8 @@
     "scripts": {
         "test": "NODE_OPTIONS=--experimental-vm-modules jest ",
         "dev": "nodemon src/index.js",
-        "start": "node --watch src/index.js"
+        "start": "node --watch src/index.js",
+        "test:ci": "jest"
     },
     "jest": {
         "testEnvironment": "node",
