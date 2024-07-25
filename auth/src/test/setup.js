@@ -1,5 +1,9 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
+import app from "../app.js";
+import { jest } from "@jest/globals";
+import request from "supertest";
+global.jest = jest;
 
 let mongo;
 beforeAll(async () => {
@@ -10,6 +14,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+    jest.clearAllMocks();
     const collections = await mongoose.connection.db.collections();
     for (let collection of collections) {
         await collection.deleteMany({});
@@ -29,27 +34,27 @@ const printCollectionData = async (collectionName) => {
     console.log(`Contents of ${collectionName}:`, documents);
 };
 
-// global.signin = async () => {
-//     const email = "test@test.com";
-//     const password = "test123";
-//     const username = "test";
-//     const response = await request(app)
-//         .post("/api/v1/users/register")
-//         .send({
-//             username,
-//             email,
-//             password,
-//         })
-//         .expect(201);
-//     const loginresponse = await request(app)
-//         .post("/api/v1/users/login")
-//         .send({
-//             email,
-//             password,
-//         })
-//         .expect(200);
-//     const cookie = loginresponse.get("Set-Cookie");
-//     return cookie;
-// };
+global.signin = async () => {
+    const email = "test@test.com";
+    const password = "test123";
+    const username = "test";
+    const response = await request(app)
+        .post("/api/v1/users/register")
+        .send({
+            username,
+            email,
+            password,
+        })
+        .expect(201);
+    const loginresponse = await request(app)
+        .post("/api/v1/users/login")
+        .send({
+            email,
+            password,
+        })
+        .expect(200);
+    const cookie = loginresponse.get("Set-Cookie");
+    return cookie;
+};
 
 export { printCollectionData };

@@ -8,12 +8,12 @@
         "test": "NODE_OPTIONS=--experimental-vm-modules jest ",
         "dev": "nodemon src/index.js",
         "start": "node --watch src/index.js",
-        "test:ci": "jest"
+        "test:ci": "NODE_OPTIONS=--experimental-vm-modules jest"
     },
     "jest": {
         "testEnvironment": "node",
         "setupFilesAfterEnv": [
-            "./src/test/setup.js"
+            "<rootDir>/src/test/setup.js"
         ],
         "transform": {}
     },
