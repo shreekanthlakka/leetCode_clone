@@ -1,7 +1,5 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
-import app from "../../../auth/src/app.js";
-import request from "supertest";
 
 let mongo;
 beforeAll(async () => {
