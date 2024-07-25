@@ -1,6 +1,6 @@
 name: test-auth
 on:
-  pull-request
+  pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
