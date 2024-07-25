@@ -45,7 +45,7 @@ const start = async () => {
         console.log("Connected to MongoDB !!!");
         startNats();
     } catch (error) {
-        console.log("error ==> ", error.message);
+        console.log("error ====> ", error.message);
     }
 
     app.listen(3000, () => {
