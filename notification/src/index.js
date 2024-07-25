@@ -32,7 +32,7 @@ const connectToNats = async () => {
 
 const start = async () => {
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined !!");
+        throw new Error("NATS Cluster Id not defined !!!!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error("NATS Client Id not defined !!!");
