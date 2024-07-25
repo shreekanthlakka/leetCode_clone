@@ -1,8 +1,9 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
-import app from "../../../auth/src/app.js";
+import app from "../app.js";
 import { jest } from "@jest/globals";
 import request from "supertest";
+global.jest = jest;
 
 let mongo;
 beforeAll(async () => {
