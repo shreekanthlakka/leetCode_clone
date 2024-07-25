@@ -46,7 +46,7 @@ function Login() {
             formData.password.trim().length > 12
         ) {
             cliErrors.password =
-                "password length should be in 6 and 12 characters";
+                "password length should be in 6 and 12 characters !!!";
         }
     }
 
