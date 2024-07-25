@@ -60,7 +60,7 @@ const registerUser = asyncHandler(async (req, res) => {
         email: user.email,
     });
     res.status(201).json(
-        new CustomResponse(201, "user created sucessfully !!!!!", user)
+        new CustomResponse(201, "user created sucessfully !!!", user)
     );
 });
 
