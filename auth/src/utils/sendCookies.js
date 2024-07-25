@@ -6,7 +6,7 @@ const sendCookies = async (id, res) => {
     try {
         user = await User.findById(id).select("+accessToken");
         if (!user) {
-            throw new CustomError(400, "user not found");
+            throw new CustomError(400, "user not found!!!");
         }
         const accessToken = await user.generateAccessToken();
         user.loggedInAt = [...user.loggedInAt, new Date().toISOString()];
