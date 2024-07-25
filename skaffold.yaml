@@ -3,6 +3,7 @@ kind: Congif
 manifests:
   rawYaml:
   - ./infra/k8s/*
+  - ./infra/k8s-dev/*
 build:
   local:
     push: false
