@@ -10,7 +10,7 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("execution Service ==> connected to Nats !!");
+        console.log("execution Service ==> connected to Nats !!!");
     } catch (error) {
         console.log(error);
         if (count < 3) {
@@ -27,7 +27,7 @@ const start = async () => {
         throw new Error("NATS Cluster Id not defined !!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined !!");
+        throw new Error("NATS Client Id not defined !!!");
     }
     if (!process.env.NATS_URL) {
         throw new Error("NATS Url not defined !!");

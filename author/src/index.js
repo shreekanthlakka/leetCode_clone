@@ -7,7 +7,7 @@ const start = async () => {
         throw new Error("MONGO_URL must be defined!!!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined !!!");
+        throw new Error("NATS Cluster Id not defined !!");
     }
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error("NATS Client Id not defined !!!!");
@@ -23,7 +23,7 @@ const start = async () => {
         console.log(" <== Error ==> ", error.message);
     }
     app.listen(3000, () => {
-        console.log("Author Server ==> Listening on port 3000 !!!");
+        console.log("Author Server ==> Listening on port 3000 !!");
     });
 };
 

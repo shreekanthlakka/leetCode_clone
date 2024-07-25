@@ -39,6 +39,13 @@ spec:
             name: comments-srv
             port:
               number: 3000
+      - path: /api/v1/payments/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: payments-srv
+            port:
+              number: 3000
       - path: /ws
         pathType: Prefix
         backend:
