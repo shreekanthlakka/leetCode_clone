@@ -32,12 +32,12 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         volumeMounts:
-        - mountPath: "/mnt/shared"
-          name: problems-data-storage
+        - name: nfs-storage
+          mountPath: "/mnt/shared"
       volumes:
-      - name: problems-data-storage
+      - name: nfs-storage
         persistentVolumeClaim:
-          claimName: problems-data-pvc
+          claimName: nfs-pvc
 ---
 apiVersion: v1
 kind: Service

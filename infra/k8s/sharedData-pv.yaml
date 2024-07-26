@@ -1,25 +1,64 @@
-# pv.yaml
+# # pv.yaml
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: problems-data-pv
+# spec:
+#   capacity:
+#     storage: 5Gi
+#   accessModes:
+#   - ReadWriteOnce
+#   persistentVolumeReclaimPolicy: Retain
+#   hostPath:
+#     path: /mnt/shared
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: problems-data-pvc
+# spec:
+#   accessModes:
+#   - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 5Gi
+#   storageClassName: do-block-storage
+# ---
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: do-block-storage
+# provisioner: dobs.csi.digitalocean.com
+# parameters:
+#   type: pd-standard
+# reclaimPolicy: Delete
+# volumeBindingMode: Immediate
+
+
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: problems-data-pv
+  name: nfs-pv
 spec:
   capacity:
-    storage: 5Gi
+    storage: 10Gi
   accessModes:
   - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  hostPath:
+  nfs:
     path: /mnt/shared
+    server: 159.65.146.91
+  persistentVolumeReclaimPolicy: Retain
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: problems-data-pvc
+  name: nfs-pvc
 spec:
   accessModes:
   - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
+
 
