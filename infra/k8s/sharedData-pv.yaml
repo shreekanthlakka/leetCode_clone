@@ -10,8 +10,7 @@ spec:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /mnt/data
-
+    path: /mnt/shared
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -23,14 +22,4 @@ spec:
   resources:
     requests:
       storage: 2Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: problems-author-data-pvc
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
+

@@ -38,11 +38,11 @@ const start = async () => {
         throw new Error("NATS Client Id not defined !!!");
     }
     if (!process.env.NATS_URL) {
-        throw new Error("NATS Url not defined !!!!!!");
+        throw new Error("NATS Url not defined !!!");
     }
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Connected to MongoDB !!!!");
+        console.log("Connected to MongoDB !!!");
         startNats();
     } catch (error) {
         console.log("error ==> ", error.message);
