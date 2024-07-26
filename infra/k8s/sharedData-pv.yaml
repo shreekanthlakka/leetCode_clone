@@ -7,7 +7,7 @@ spec:
   capacity:
     storage: 4Gi
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: /mnt/shared
@@ -18,8 +18,8 @@ metadata:
   name: problems-data-pvc
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   resources:
     requests:
-      storage: 2Gi
+      storage: 4Gi
 
