@@ -10,7 +10,7 @@ spec:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /data/temp
+    path: /mnt/data/temp
 
 ---
 apiVersion: v1
