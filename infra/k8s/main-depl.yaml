@@ -32,12 +32,12 @@ spec:
               name: jwt-secret
               key: JWT_SECRET
         volumeMounts:
-        - mountPath: "/mnt/shared"
-          name: problems-data-storage-mainservice
+        - name: nfs-storage
+          mountPath: "/mnt/shared"
       volumes:
-      - name: problems-data-storage-mainservice
+      - name: nfs-storage
         persistentVolumeClaim:
-          claimName: problems-data-pvc
+          claimName: nfs-pvc
 
 ---
 apiVersion: v1
