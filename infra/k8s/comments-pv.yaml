@@ -4,7 +4,7 @@ metadata:
   name: comments-pv
 spec:
   capacity:
-    storage: 5Gi
+    storage: 2Gi
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
@@ -20,6 +20,6 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 2Gi
 
 

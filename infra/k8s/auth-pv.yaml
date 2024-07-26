@@ -4,9 +4,9 @@ metadata:
   name: auth-pv
 spec:
   capacity:
-    storage: 5Gi
+    storage: 2Gi
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: /mnt/data
@@ -17,9 +17,9 @@ metadata:
   name: auth-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 2Gi
 
 
