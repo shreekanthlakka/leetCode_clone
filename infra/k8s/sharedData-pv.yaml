@@ -34,20 +34,20 @@
 # reclaimPolicy: Delete
 # volumeBindingMode: Immediate
 
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: do-block-storage
-provisioner: dobs.csi.digitalocean.com
-parameters:
-  type: pd-standard
-reclaimPolicy: Delete
-volumeBindingMode: Immediate
----
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: do-block-storage
+# provisioner: dobs.csi.digitalocean.com
+# parameters:
+#   type: pd-standard
+# reclaimPolicy: Delete
+# volumeBindingMode: Immediate
+# ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-pv
+  name: nfs-pv2
 spec:
   capacity:
     storage: 10Gi
@@ -63,7 +63,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-pvc
+  name: nfs-pvc2
 spec:
   accessModes:
   - ReadWriteMany
