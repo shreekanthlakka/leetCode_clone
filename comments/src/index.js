@@ -24,7 +24,7 @@ const start = async () => {
         console.log("Error in comment service ", error);
     }
     app.listen(3000, () => {
-        console.log("Comments Server ==> Listening on port 3000 !!!");
+        console.log("Comments Server!! ==> Listening on port 3000 !!!");
     });
 };
 
