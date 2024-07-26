@@ -37,7 +37,7 @@ spec:
       volumes:
       - name: problems-data-storage
         persistentVolumeClaim:
-          claimName: problems-data-pvc
+          claimName: problems-author-data-pvc
 ---
 apiVersion: v1
 kind: Service
