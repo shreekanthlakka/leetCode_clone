@@ -57,6 +57,7 @@ spec:
     path: /mnt/shared
     server: 159.65.146.91
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-storage
 
 ---
 apiVersion: v1
@@ -69,4 +70,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: do-block-storage
+  storageClassName: nfs-storage
