@@ -7,10 +7,10 @@ spec:
   capacity:
     storage: 2Gi
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /mnt/data/temp
+    path: /mnt/data
 
 ---
 apiVersion: v1
@@ -19,7 +19,7 @@ metadata:
   name: problems-data-pvc
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
