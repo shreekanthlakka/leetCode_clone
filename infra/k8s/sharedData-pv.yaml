@@ -5,7 +5,7 @@ metadata:
   name: problems-data-pv
 spec:
   capacity:
-    storage: 4Gi
+    storage: 5Gi
   accessModes:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -21,5 +21,5 @@ spec:
   - ReadWriteMany
   resources:
     requests:
-      storage: 4Gi
+      storage: 5Gi
 
