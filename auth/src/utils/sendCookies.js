@@ -14,7 +14,7 @@ const sendCookies = async (id, res) => {
         await user.save({ validateBeforeSave: false });
         const options = {
             httpOnly: true,
-            secure: process.env.NODE_ENV !== "test",
+            secure: false,
             maxAge: 1000 * 60 * 60 * 1,
         };
         res.status(200).cookie("accessToken", accessToken, options).json({
