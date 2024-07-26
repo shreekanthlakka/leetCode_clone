@@ -34,7 +34,16 @@
 # reclaimPolicy: Delete
 # volumeBindingMode: Immediate
 
-
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: do-block-storage
+provisioner: dobs.csi.digitalocean.com
+parameters:
+  type: pd-standard
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -60,5 +69,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
-
-
+  storageClassName: do-block-storage
