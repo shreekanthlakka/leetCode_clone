@@ -7,7 +7,6 @@ import { IoAddCircle } from "react-icons/io5";
 import { FaCircleXmark } from "react-icons/fa6";
 import { green, red } from "@mui/material/colors";
 import styled from "styled-components";
-import { addProblemApi } from "../services/problemsServices";
 import { useDispatch } from "react-redux";
 import { startAddProblem } from "../actions/problemActions";
 import { toast } from "react-hot-toast";
