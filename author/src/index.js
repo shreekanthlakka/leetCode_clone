@@ -17,13 +17,13 @@ const start = async () => {
     }
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Author Server ==> Connected to MongoDB !!!");
+        console.log("Author Server ==> Connected to MongoDB !!");
         startNats();
     } catch (error) {
         console.log(" <== Error ====> ", error.message);
     }
     app.listen(3000, () => {
-        console.log("Author Server ====> Listening on port 3000 !!");
+        console.log("Author Server ====> Listening on port 3000 !!!");
     });
 };
 

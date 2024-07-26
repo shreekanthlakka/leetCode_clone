@@ -41,7 +41,7 @@ const startNats = async () => {
         );
     } catch (error) {
         console.log(
-            ` <== error connecting to nats attempting ${count + 1} time !!`
+            ` <== error connecting to nats attempting ${count + 1} time !!!`
         );
         if (count < 3) {
             setTimeout(() => startNats(count++), 1400);
