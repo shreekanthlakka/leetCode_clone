@@ -16,6 +16,7 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     try {
+        console.log("Starting author service ...");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Author Server ==> Connected to MongoDB !!");
         startNats();
