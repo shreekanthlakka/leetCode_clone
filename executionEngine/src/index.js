@@ -33,6 +33,7 @@ const start = async () => {
         throw new Error("NATS Url not defined !!");
     }
     try {
+        console.log("Starting executionEngine service ...");
         await startNats();
     } catch (error) {
         console.log(error);
