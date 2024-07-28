@@ -15,8 +15,6 @@ class LeetCodeProblemSubmittedListener extends Listener {
             inputs,
             output,
         } = data;
-        console.log("DATA =>", Array.isArray(inputs));
-
         const inputArr = [];
 
         inputs.forEach((testCase, i) => {
@@ -34,6 +32,8 @@ class LeetCodeProblemSubmittedListener extends Listener {
         inputArr.forEach(async (inp, i) => {
             console.log("==========> inputs ===>", inp);
             console.log("==========> output ===>", output);
+            console.log("DATA =>", Array.isArray(inputs));
+            console.log("language =>", language);
             startJob(data, inp, output[i]);
             await new Promise((resolve) => setTimeout(resolve, 300));
         });

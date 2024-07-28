@@ -4,6 +4,12 @@ kc.loadFromDefault();
 const k8sBatchApi = kc.makeApiClient(k8s.BatchV1Api);
 const k8sCoreApi = kc.makeApiClient(k8s.CoreV1Api);
 
+const LanguageFileExtensions = Object.freeze({
+    javascript: "js",
+    rust: "rs",
+    cplusplus: "cpp",
+});
+
 const createConfigMap = async (data) => {
     const { typedCode, language } = data;
     const configMapName = `script-${language}-${Math.random()}`;
@@ -14,7 +20,7 @@ const createConfigMap = async (data) => {
             name: configMapName,
         },
         data: {
-            "index.js": typedCode,
+            [`function.${LanguageFileExtensions[language]}`]: typedCode,
         },
     };
 
