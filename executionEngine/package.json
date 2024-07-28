@@ -13,7 +13,7 @@
     "license": "ISC",
     "dependencies": {
         "@kubernetes/client-node": "^0.21.0",
-        "@shreekanthlakka/common": "^1.0.29",
+        "@shreekanthlakka/common": "^1.0.46",
         "express": "^4.19.2",
         "morgan": "^1.10.0",
         "node-nats-streaming": "^0.3.2"
