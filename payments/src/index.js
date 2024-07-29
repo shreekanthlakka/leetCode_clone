@@ -38,7 +38,7 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("Payment Service ==> connected to NATS");
+        console.log("Payment Service => connected to NATS");
         new OrderCreatedListener(natsWrapper.client).listen();
         new OrderCancelledListener(natsWrapper.client).listen();
     } catch (error) {
