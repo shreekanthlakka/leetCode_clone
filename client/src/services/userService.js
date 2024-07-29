@@ -1,6 +1,13 @@
 // export const URI = "http://localhost:5000/api/v1";
-export const URI = "http://www.leetcode-dev.store/api/v1";
+// export const URI = "http://www.leetcode-dev.store/api/v1";
 // export const URI = "http://leetcode.dev/api/v1";
+
+console.log("URL ==>", window.location);
+
+export const URI =
+    window.location.hostname === "leetcode.dev"
+        ? "https://leetcode.dev/api/v1"
+        : "http://www.leetcode-dev.store/api/v1";
 
 const loginApi = async (formData) => {
     try {

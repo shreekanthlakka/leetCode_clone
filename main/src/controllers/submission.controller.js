@@ -27,6 +27,8 @@ const submitProblem = asyncHandler(async (req, res) => {
         typedCode
     );
 
+    console.log("executed code ==> ", combinedCode);
+
     const submission = await Submission.create({
         problemId,
         userId: req.user._id,
