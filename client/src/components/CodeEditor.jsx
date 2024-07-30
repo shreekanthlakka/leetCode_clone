@@ -25,7 +25,7 @@ function CodeEditor({ language, typedCode, setTypedCode }) {
     return (
         <Container>
             <Editor
-                height="90vh"
+                height="50vh"
                 theme="vs-dark"
                 value={typedCode}
                 onChange={(value) => setTypedCode(value)}

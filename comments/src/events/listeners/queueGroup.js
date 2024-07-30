@@ -1,1 +1,1 @@
-export const queueGroupName = "user-created-queueGroup";
+export const queueGroupName = "comment-service";

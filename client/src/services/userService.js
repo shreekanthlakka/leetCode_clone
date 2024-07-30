@@ -5,7 +5,7 @@
 console.log("URL ==>", window.location);
 
 export const URI =
-    window.location.hostname === "leetcode.dev"
+    window.location.origin === "https://leetcode.dev"
         ? "https://leetcode.dev/api/v1"
         : "http://www.leetcode-dev.store/api/v1";
 
