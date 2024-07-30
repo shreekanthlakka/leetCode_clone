@@ -46,6 +46,13 @@ spec:
             name: payments-srv
             port:
               number: 3000
+      - path: /api/v1/likes/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: likes-srv
+            port:
+              number: 3000
       - path: /ws
         pathType: Prefix
         backend:
