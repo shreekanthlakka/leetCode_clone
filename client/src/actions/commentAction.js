@@ -1,5 +1,6 @@
 import {
     createCommentApi,
+    deleteCommentApi,
     getCommentsByProblemIdApi,
 } from "../services/commentsServices";
 
@@ -9,6 +10,8 @@ export const START_COMMENT_ISUPDATING = "START_COMMENT_ISUPDATING";
 export const START_COMMENT_ISDELETING = "START_COMMENT_ISDELETING";
 
 export const CREATE_COMMENT = "CREATE_COMMENT";
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
 export const COMMENT_ERROR = "COMMENT_ERROR";
 export const COMMENTS_BY_PROBLEMID = "COMMENTS_BY_PROBLEMID";
 
@@ -51,6 +54,33 @@ const startGetAllCommentsByProblemId = (id) => {
     };
 };
 
+const startDeleteComment = (problemId, commentId, onSuccess) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: START_COMMENT_ISDELETING });
+            const res = await deleteCommentApi(problemId, commentId);
+            if (!res.success) {
+                throw {
+                    message: res.message,
+                    statusCode: res.statusCode,
+                    error: res.error,
+                };
+            }
+            dispatch(deleteComment(res.data._id));
+            onSuccess();
+        } catch (error) {
+            dispatch(commentError(error));
+        }
+    };
+};
+
+const deleteComment = (id) => {
+    return {
+        type: DELETE_COMMENT,
+        payload: id,
+    };
+};
+
 const getAllCommentsByProblemId = (data) => {
     return {
         type: COMMENTS_BY_PROBLEMID,
@@ -72,4 +102,8 @@ const commentError = (err) => {
     };
 };
 
-export { startCreateComment, startGetAllCommentsByProblemId };
+export {
+    startCreateComment,
+    startGetAllCommentsByProblemId,
+    startDeleteComment,
+};

@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import TestCase from "./TestCase";
 import { useSearchParams } from "react-router-dom";
 import { startGetAllCommentsByProblemId } from "../actions/commentAction";
+import Comments from "./Comments";
 
 const TestCaseContainer = styled.div`
     height: 200px;
@@ -58,7 +59,7 @@ const Container = styled.div`
     padding: 0;
     box-sizing: border-box;
     .leftpanel {
-        background-color: #eceae9;
+        /* background-color: #eceae9; */
     }
     .rightpanel {
         background-color: #eceae9;
@@ -158,18 +159,20 @@ function Problem() {
             <Container>
                 <div className="leftpanel">
                     <ProblemStatement problem={selectedProblem} />
+                    {/* <hr style={{}} /> */}
+                    <Comments />
                 </div>
                 <div className="rightpanel">
-                    <TestCaseContainer>
-                        {selectedProblem?.testCases.map((ele, i) => (
-                            <TestCase key={ele._id} testCase={ele} index={i} />
-                        ))}
-                    </TestCaseContainer>
                     <CodeEditor
                         language={language}
                         typedCode={typedCode}
                         setTypedCode={setTypedCode}
                     />
+                    <TestCaseContainer>
+                        {selectedProblem?.testCases.map((ele, i) => (
+                            <TestCase key={ele._id} testCase={ele} index={i} />
+                        ))}
+                    </TestCaseContainer>
                 </div>
             </Container>
         </Box>

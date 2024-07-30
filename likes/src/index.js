@@ -1,32 +1,36 @@
 import mongoose from "mongoose";
 import app from "./app.js";
 import { natsWrapper } from "./nats-wrapper.js";
-import { UserCreatedListener } from "./events/listeners/user-created-listener.js";
-import { ProblemCreatedListener } from "./events/listeners/problem-created-listener.js";
 
 const start = async () => {
     if (!process.env.MONGO_URI) {
-        throw new Error("MONGO_URL must be defined!!!");
+        throw new Error("MONGO_URL must be defined !!!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
         throw new Error("NATS Cluster Id not defined !!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined !!!");
+        throw new Error("NATS Client Id not defined !!");
     }
     if (!process.env.NATS_URL) {
         throw new Error("NATS Url not defined !!!");
     }
+    if (!process.env.JWT_SECRET) {
+        throw new Error("JWT Key not defined !!!");
+    }
+    if (!process.env.PORT) {
+        throw new Error("PORT not defined !!!");
+    }
     try {
-        console.log("Starting comment service ==>");
+        console.log("Starting Likes service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Comments Service connected to MongoDB !!!");
+        console.log("likes service ==> Connected to MongoDB");
         startNats();
     } catch (error) {
-        console.log("Error in comment service ", error);
+        console.error(error);
     }
-    app.listen(3000, () => {
-        console.log("Comments Server!! ==> Listening on port 3000 !!!");
+    app.listen(process.env.PORT, () => {
+        console.log(`likes Service  on port ${process.env.PORT}`);
     });
 };
 
@@ -40,9 +44,7 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("Connected to NATS !!");
-        new UserCreatedListener(natsWrapper.client).listen();
-        new ProblemCreatedListener(natsWrapper.client).listen();
+        console.log("like service ==> Connected to NATS !!");
     } catch (error) {
         console.log(
             ` <== error connecting to nats attempting ${count + 1} time =>`

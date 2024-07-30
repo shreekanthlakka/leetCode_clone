@@ -1,8 +1,12 @@
 import Comment from "../models/comments.model.js";
-import { asyncHandler } from "@shreekanthlakka/common";
-import { CustomError, CustomResponse } from "@shreekanthlakka/common";
+import {
+    CustomError,
+    CustomResponse,
+    asyncHandler,
+} from "@shreekanthlakka/common";
 
 const createComment = asyncHandler(async (req, res) => {
+    console.log("IN create comment model");
     const { comment } = req.body;
     const commentsObj = await Comment.create({
         comment,
@@ -47,10 +51,12 @@ const getCommentsByProblemId = asyncHandler(async (req, res) => {
 });
 
 const deleteCommentByProblemId = asyncHandler(async (req, res) => {
-    const comment = await Comment.find({
+    console.log("commentId =>", req.params.commentId);
+    console.log("problemId =>", req.params.problemId);
+    const comment = await Comment.findOneAndDelete({
+        _id: req.params.commentId,
         problemId: req.params.problemId,
         userId: req.user._id,
-        _id: req.params.commentId,
     });
     if (!comment) {
         throw new CustomError(
@@ -58,12 +64,8 @@ const deleteCommentByProblemId = asyncHandler(async (req, res) => {
             "comment not found / not authorized to delete the comment"
         );
     }
-    const delcomment = await Comment.findByIdAndDelete(comment._id);
-    if (!delcomment) {
-        throw new CustomError(400, "Unable to delete comment");
-    }
     res.status(200).json(
-        new CustomResponse(200, "Comment deleted successfully", delcomment)
+        new CustomResponse(200, "Comment deleted successfully", comment)
     );
 });
 

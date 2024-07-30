@@ -25,13 +25,6 @@ spec:
             name: main-srv
             port:
               number: 3000
-      - path: /api/v1/author/problems/?(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: author-srv
-            port:
-              number: 3000
       - path: /api/v1/comments/?(.*)
         pathType: Prefix
         backend:
@@ -39,11 +32,25 @@ spec:
             name: comments-srv
             port:
               number: 3000
+      - path: /api/v1/author/problems/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: author-srv
+            port:
+              number: 3000
       - path: /api/v1/payments/?(.*)
         pathType: Prefix
         backend:
           service:
             name: payments-srv
+            port:
+              number: 3000
+      - path: /api/v1/likes/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: likes-srv
             port:
               number: 3000
       - path: /ws

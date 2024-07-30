@@ -80,4 +80,12 @@ build:
       manual:
       - src: 'src/**/*.js*'
         dest: .
+  - image: sreekanthlakka/likes
+    context: likes
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
 

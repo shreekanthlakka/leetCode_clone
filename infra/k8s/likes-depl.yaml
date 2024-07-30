@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: comments-depl
+  name: likes-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: comments
+      app: likes
   template:
     metadata:
       labels:
-        app: comments
+        app: likes
     spec:
       containers:
-      - name: comments
-        image: sreekanthlakka/comments
+      - name: likes
+        image: sreekanthlakka/likes
         env:
         - name: MONGO_URI
-          value: "mongodb://comments-mongo-srv:27017/comments"
+          value: "mongodb://likes-mongo-srv:27017/likes"
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
@@ -31,16 +31,21 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: PORT
+          value: '3000'
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: comments-srv
+  name: likes-srv
 spec:
   selector:
-    app: comments
+    app: likes
   ports:
-  - name: comments
+  - name: likes
     protocol: TCP
     port: 3000
     targetPort: 3000
+
+
