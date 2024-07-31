@@ -15,6 +15,13 @@ spec:
       containers:
       - name: author
         image: sreekanthlakka/author
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
         env:
         - name: MONGO_URI
           value: "mongodb://author-mongo-srv:27017/problems"

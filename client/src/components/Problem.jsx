@@ -18,6 +18,7 @@ import TestCase from "./TestCase";
 import { useSearchParams } from "react-router-dom";
 import { startGetAllCommentsByProblemId } from "../actions/commentAction";
 import Comments from "./Comments";
+import { startLikesByProblemId } from "../actions/likeAction";
 
 const TestCaseContainer = styled.div`
     height: 200px;
@@ -60,6 +61,7 @@ const Container = styled.div`
     box-sizing: border-box;
     .leftpanel {
         /* background-color: #eceae9; */
+        overflow-y: scroll;
     }
     .rightpanel {
         background-color: #eceae9;
@@ -145,6 +147,7 @@ function Problem() {
 
     useEffect(() => {
         dispatch(startGetAllCommentsByProblemId(problemId));
+        dispatch(startLikesByProblemId(problemId));
     }, []);
     return (
         <Box>

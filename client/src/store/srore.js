@@ -3,6 +3,7 @@ import { thunk } from "redux-thunk";
 import { problemReducer } from "../reducers/problemsReducer";
 import { submissionReducer } from "../reducers/submissionReducer";
 import { commentReducer } from "../reducers/commentsReducer";
+import { likesReducer } from "../reducers/likesReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const configurStore = () => {
@@ -11,6 +12,7 @@ const configurStore = () => {
             problem: problemReducer,
             submission: submissionReducer,
             comment: commentReducer,
+            likes: likesReducer,
         }),
         composeEnhancers(applyMiddleware(thunk))
     );

@@ -1,0 +1,100 @@
+# # # pv.yaml
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: nfs-pv2
+# spec:
+#   capacity:
+#     storage: 5Gi
+#   accessModes:
+#   - ReadWriteOnce
+#   persistentVolumeReclaimPolicy: Retain
+#   hostPath:
+#     path: /mnt/shared
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: nfs-pvc2
+# spec:
+#   accessModes:
+#   - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 5Gi
+#   storageClassName: do-block-storage
+# ---
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: do-block-storage
+# provisioner: dobs.csi.digitalocean.com
+# parameters:
+#   type: pd-standard
+# reclaimPolicy: Delete
+# volumeBindingMode: Immediate
+
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: do-block-storage
+# provisioner: dobs.csi.digitalocean.com
+# parameters:
+#   type: pd-standard
+# reclaimPolicy: Delete
+# volumeBindingMode: Immediate
+# ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv2
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+  - ReadWriteMany
+  nfs:
+    path: /mnt/shared
+    server: 64.227.185.240
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-storage
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc2
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: nfs-storage
+
+
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: nfs-pv2
+# spec:
+#   capacity:
+#     storage: 2Gi
+#   accessModes:
+#   - ReadWriteOnce
+#   persistentVolumeReclaimPolicy: Delete
+#   hostPath:
+#     path: /mnt/data
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: nfs-pvc2
+# spec:
+#   accessModes:
+#   - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 2Gi
+
+

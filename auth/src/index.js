@@ -13,13 +13,13 @@ const startNats = async () => {
             process.env.NATS_URL
         );
     } catch (error) {
-        console.log("error ==> ", error);
+        console.log("error ==-> ", error);
         if (count < 3) {
             setTimeout(() => startNats(count++), 1000);
         }
     } finally {
         natsWrapper.client.on("close", () => {
-            console.log("NATS connection closed !!!");
+            console.log("NATS connection closed !!");
             process.exit();
         });
         process.on("SIGINT", () => natsWrapper.client.close());

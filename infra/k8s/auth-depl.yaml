@@ -15,6 +15,13 @@ spec:
       containers:
       - name: auth
         image: sreekanthlakka/auth
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
         env:
         - name: MONGO_URI
           value: "mongodb://auth-mongo-srv:27017/users"
@@ -31,7 +38,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-
 ---
 apiVersion: v1
 kind: Service

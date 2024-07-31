@@ -10,17 +10,29 @@ const Container = styled.div`
     flex-direction: column;
     gap: 10px;
     margin: 10px;
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .title {
+        font-weight: 600;
+    }
 `;
 
 function ProblemStatement({ problem }) {
     return (
         <Container>
-            <Typography sx={{ marginLeft: "0.5rem" }}>
-                Title: {problem?.title}
-            </Typography>
-            <Typography sx={{ marginLeft: "0.5rem" }}>
-                Description : {problem?.description}
-            </Typography>
+            <div className="hero">
+                <Typography sx={{ marginLeft: "0.5rem" }}>
+                    title: <span className="title"> {problem?.title}</span>
+                </Typography>
+                <Typography sx={{ marginLeft: "0.5rem" }}>
+                    description :
+                    <span className="title"> {problem?.description}</span>
+                </Typography>
+            </div>
             {problem?.testCases?.map((ele, i) => {
                 return <TestCase key={i} testCase={ele} index={i} />;
             })}
