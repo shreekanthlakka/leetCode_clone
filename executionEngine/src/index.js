@@ -39,7 +39,7 @@ const start = async () => {
         console.log(error);
     } finally {
         natsWrapper.client.on("close", () => {
-            console.log("NATS connection closed !!!!!");
+            console.log("NATS connection closed !!!");
             process.exit();
         });
         new LeetCodeProblemSubmittedListener(natsWrapper.client).listen();
