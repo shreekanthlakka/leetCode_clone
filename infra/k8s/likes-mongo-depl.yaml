@@ -15,6 +15,13 @@ spec:
       containers:
       - name: likes-mongo
         image: mongo
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "250m"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
         volumeMounts:
         - name: likes-mongo-storage
           mountPath: /data/db
@@ -22,6 +29,7 @@ spec:
       - name: likes-mongo-storage
         persistentVolumeClaim:
           claimName: likes-pvc
+
 ---
 apiVersion: v1
 kind: Service

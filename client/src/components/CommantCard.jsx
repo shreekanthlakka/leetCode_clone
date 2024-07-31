@@ -13,14 +13,19 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ReplyIcon from "@mui/icons-material/Reply";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startDeleteComment } from "../actions/commentAction";
 import { useParams } from "react-router";
 import toast from "react-hot-toast";
 import { URI } from "../services/userService.js";
-import { useState } from "react";
-import { like_dislikeCommentApi } from "../services/likesServices.js";
+import { useEffect, useState } from "react";
+import {
+    like_dislikeCommentApi,
+    totalLikes,
+} from "../services/likesServices.js";
+import { startLikesByProblemId } from "../actions/likeAction.js";
 
 const Container = styled.div`
     margin: 1rem;
@@ -45,33 +50,82 @@ const Div = styled.div`
 `;
 
 function CommantCard({ comment }) {
+    const commentId = comment._id;
     const { userAccount } = useAuth();
     const isOwner = comment.userId._id === userAccount._id;
+    const likeStatus = useSelector((state) =>
+        state.likes.likesByProblemId.find(
+            (ele) =>
+                ele.commentId === commentId && ele.userId === userAccount?._id
+        )
+    );
     const [like, setLike] = useState(false);
-    const [dislike, setDislike] = useState(false);
-
+    const [toggle, setToggle] = useState(false);
     const dispatch = useDispatch();
     const { problemId } = useParams();
+
+    const totalLikes = useSelector(
+        (state) =>
+            state.likes.likesByProblemId.filter(
+                (ele) => ele.commentId === commentId
+            ).length
+    );
+
+    console.log("total likes", totalLikes);
 
     function handleCommentDelete() {
         if (!isOwner) return;
         dispatch(
-            startDeleteComment(problemId, comment._id, () => {
+            startDeleteComment(problemId, comment?._id, () => {
                 toast.success("comment deleted");
             })
         );
     }
 
-    async function handleClick(status) {
+    async function handleClick() {
         try {
-            const res = like_dislikeCommentApi(status, problemId, comment._id);
-            if (res.success) {
-                console.log(res);
+            const res = await like_dislikeCommentApi(
+                problemId,
+                commentId,
+                toggle
+            );
+            if (res.success && res.data.liked) {
+                setLike(true);
             }
+            if (res.success && !res.data.liked) {
+                setLike(false);
+            }
+            console.log("like ==> ", like);
+            console.log("res ==> ", res);
+            // const likedObj = res.stats.likes.find(
+            //     (ele) => ele.commentId === comment._id
+            // );
+            // const dislikeObj = res.stats.dislikes.find(
+            //     (ele) => ele.commentId === comment._id
+            // );
+            // console.log("Response ==>", res);
+            // if (likedObj?.liked) {
+            //     setLike(true);
+            //     setDislike(false);
+            // }
+            // if (dislikeObj?.disliked) {
+            //     setLike(false);
+            //     setDislike(true);
+            // }
         } catch (error) {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        if (likeStatus?.liked) {
+            setLike(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        dispatch(startLikesByProblemId(problemId));
+    }, [like]);
 
     return (
         <Container>
@@ -116,17 +170,39 @@ function CommantCard({ comment }) {
                                 </Button>
                             </>
                         )}
-                        <Button
+                        {/* <Button
                             size="small"
                             onClick={() => handleClick("liked")}
                         >
-                            <ThumbUpOffAltIcon fontSize="small" />
+                            {!like ? (
+                                <ThumbUpOffAltIcon fontSize="small" />
+                            ) : (
+                                <ThumbUpAltIcon fontSize="small" />
+                            )}
                         </Button>
                         <Button
                             size="small"
                             onClick={() => handleClick("disliked")}
                         >
-                            <ThumbDownOffAltIcon fontSize="small" />
+                            {!dislike ? (
+                                <ThumbDownOffAltIcon fontSize="small" />
+                            ) : (
+                                <ThumbDownIcon fontSize="snall" />
+                            )}
+                        </Button> */}
+                        <Button
+                            size="small"
+                            onClick={() => {
+                                setToggle((e) => !e);
+                                handleClick();
+                            }}
+                        >
+                            {totalLikes}
+                            {!like ? (
+                                <FavoriteBorderIcon fontSize="small" />
+                            ) : (
+                                <FavoriteIcon fontSize="small" />
+                            )}
                         </Button>
                         <Button size="small">
                             <ReplyIcon fontSize="small" /> Replay

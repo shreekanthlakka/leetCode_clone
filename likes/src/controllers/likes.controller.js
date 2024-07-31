@@ -4,7 +4,7 @@ import {
     CustomResponse,
 } from "@shreekanthlakka/common";
 
-import { Status } from "../models/likes.model.js";
+import { Status, Like } from "../models/likes.model.js";
 
 const toggleLike = asyncHandler(async (req, res) => {
     const { problemId, commentId } = req.params;
@@ -240,12 +240,49 @@ const statusController = asyncHandler(async (req, res) => {
     console.log(dislikesOnProblemIdCommentId);
 
     res.status(200).json({
-        stats: {
-            likes: likesOnProblemIdCommentId,
-            dislikes: dislikesOnProblemIdCommentId,
-        },
-        status: userStatus,
+        userStatus,
     });
 });
 
-export { toggleDislike, toggleLike, statusController };
+const likeController = asyncHandler(async (req, res) => {
+    const { problemId, commentId } = req.params;
+    const userId = req.user._id;
+    const { liked } = req.body;
+    console.log("Liked ", liked);
+    const userLike = await Like.findOne({
+        userId,
+        problemId,
+        commentId,
+    });
+    //if object not found that means that he hasnt liked, now trying to hit the like button
+    if (!userLike && liked) {
+        var newLike = await Like.create({
+            userId,
+            problemId,
+            commentId,
+            liked,
+        });
+    }
+    //if object is found that means that he has liked, now trying to hit the dislike button
+    else {
+        var delLiked = await Like.findByIdAndDelete(userLike._id);
+    }
+    res.status(200).json(
+        new CustomResponse(200, "status", liked ? newLike : { liked: false })
+    );
+});
+
+const getAllLikes = asyncHandler(async (req, res) => {
+    const { problemId } = req.params;
+    console.log("problemId ==>", problemId);
+    const likes = await Like.find({ problemId });
+    res.status(200).json(new CustomResponse(200, "status", likes));
+});
+
+export {
+    toggleDislike,
+    toggleLike,
+    statusController,
+    likeController,
+    getAllLikes,
+};

@@ -53,13 +53,13 @@ const start = async () => {
         throw new Error("password not defined!!");
     }
     try {
-        console.log("Starting notification service ==>");
+        console.log("Starting notification service =>");
         await connectToNats();
     } catch (error) {
         console.log("<== Error ==>", error.message);
     } finally {
         app.listen(3000, () => {
-            console.log(`Notification server ==> 3000 port!!!`);
+            console.log(`Notification server ==> 3000 port!!`);
         });
     }
 };
