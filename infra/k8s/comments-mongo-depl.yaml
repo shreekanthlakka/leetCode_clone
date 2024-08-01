@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: comments-mongo
-        image: mongo
+        image: mongo:5.0
         volumeMounts:
         - name: comments-mongo-storage
           mountPath: /data/db

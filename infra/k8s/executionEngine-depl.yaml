@@ -16,13 +16,6 @@ spec:
       containers:
       - name: execution-engine
         image: sreekanthlakka/execution-engine
-        resources:
-          requests:
-            memory: "500Mi"
-            cpu: "250m"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
         env:
         - name: NATS_URL
           value: 'http://nats-srv:4222'

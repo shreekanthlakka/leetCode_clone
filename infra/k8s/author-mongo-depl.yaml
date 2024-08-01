@@ -14,14 +14,7 @@ spec:
     spec:
       containers:
       - name: author-mongo
-        image: mongo
-        resources:
-          requests:
-            memory: "250Mi"
-            cpu: "250m"
-          limits:
-            memory: "500Mi"
-            cpu: "500m"
+        image: mongo:5.0
         volumeMounts:
         - name: author-mongo-storage
           mountPath: /data/db

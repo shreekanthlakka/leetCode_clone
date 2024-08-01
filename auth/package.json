@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "nodemon ./src/index.js",
-        "start": "node --watch ./src/index.js",
+        "start": "node --watch src/index.js",
         "test": "NODE_OPTIONS=--experimental-vm-modules jest",
         "test:ci": "NODE_OPTIONS=--experimental-vm-modules jest"
     },
