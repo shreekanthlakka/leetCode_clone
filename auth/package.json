@@ -1,0 +1,50 @@
+{
+    "name": "auth",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon ./src/index.js",
+        "start": "node --watch src/index.js",
+        "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+        "test:ci": "NODE_OPTIONS=--experimental-vm-modules jest"
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ]
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "setupFilesAfterEnv": [
+            "<rootDir>/src/test/setup.js"
+        ],
+        "transform": {}
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@shreekanthlakka/common": "^1.0.30",
+        "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.6",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "express-validator": "^7.1.0",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.4.1",
+        "morgan": "^1.10.0",
+        "node-nats-streaming": "^0.3.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.24.9",
+        "@babel/preset-env": "^7.24.8",
+        "babel-jest": "^29.7.0",
+        "jest": "^29.7.0",
+        "jest-esm-transformer": "^1.0.0",
+        "mongodb-memory-server": "^10.0.0",
+        "nodemon": "^3.1.4",
+        "supertest": "^7.0.0"
+    }
+}

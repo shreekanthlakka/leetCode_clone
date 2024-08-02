@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: socket-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: socket
+  template:
+    metadata:
+      labels:
+        app: socket
+    spec:
+      containers:
+      - name: socket
+        image: sreekanthlakka/socket
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        env:
+        - name: NATS_CLIENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NATS_URL
+          value: 'http://nats-srv:4222'
+        - name: NATS_CLUSTER_ID
+          value: 'leetcode'
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: socket-srv
+spec:
+  selector:
+    app: socket
+  ports:
+  - name: socket
+    protocol: TCP
+    port: 3000
+    targetPort: 3000

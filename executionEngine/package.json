@@ -1,0 +1,24 @@
+{
+    "name": "executionengine",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node --watch src/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@kubernetes/client-node": "^0.21.0",
+        "@shreekanthlakka/common": "^1.0.46",
+        "express": "^4.19.2",
+        "morgan": "^1.10.0",
+        "node-nats-streaming": "^0.3.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.4"
+    }
+}

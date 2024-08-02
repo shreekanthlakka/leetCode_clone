@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification
+  template:
+    metadata:
+      labels:
+        app: notification
+    spec:
+      containers:
+      - name: notification
+        image: sreekanthlakka/notification
+        env:
+        - name: NATS_URL
+          value: 'http://nats-srv:4222'
+        - name: NATS_CLUSTER_ID
+          value: 'leetcode'
+        - name: NATS_CLIENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: HOST_NM
+          value: sandbox.smtp.mailtrap.io
+        - name: PORT_NM
+          value: '2525'
+        - name: USER_NM
+          value: 767318465cf4b6
+        - name: PASS_NM
+          value: b74a5a964ef2a9
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-srv
+spec:
+  selector:
+    app: notification
+  ports:
+  - name: notification
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
+
+
+

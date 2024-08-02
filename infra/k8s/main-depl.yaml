@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: main-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: main
+  template:
+    metadata:
+      labels:
+        app: main
+    spec:
+      containers:
+      - name: main
+        image: sreekanthlakka/main
+        env:
+        - name: NATS_CLIENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NATS_URL
+          value: 'http://nats-srv:4222'
+        - name: NATS_CLUSTER_ID
+          value: 'leetcode'
+        - name: MONGO_URI
+          value: "mongodb://main-mongo-srv:27017/main"
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_SECRET
+        volumeMounts:
+        - name: nfs-storage
+          mountPath: "/mnt/shared"
+      volumes:
+      - name: nfs-storage
+        persistentVolumeClaim:
+          claimName: nfs-pvc2
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: main-srv
+spec:
+  selector:
+    app: main
+  ports:
+  - name: main
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
+
+

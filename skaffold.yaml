@@ -1,0 +1,92 @@
+apiVersion: skaffold/v4beta3
+kind: Congif
+manifests:
+  rawYaml:
+  - ./infra/k8s/*
+  - ./infra/k8s-dev/*
+build:
+  local:
+    push: false
+  artifacts:
+  - image: sreekanthlakka/auth
+    context: auth
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js'
+        dest: .
+  - image: sreekanthlakka/client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/main
+    context: main
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/notification
+    context: notification
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/execution-engine
+    context: executionEngine
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/author
+    context: author
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/socket
+    context: socket
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/comments
+    context: comments
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/payments
+    context: payments
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+  - image: sreekanthlakka/likes
+    context: likes
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'src/**/*.js*'
+        dest: .
+
+

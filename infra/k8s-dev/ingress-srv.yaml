@@ -1,0 +1,69 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/websocket-services: "socket-srv"
+spec:
+  rules:
+  - host: leetcode.dev
+    http:
+      paths:
+      - path: /api/v1/users/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: auth-srv
+            port:
+              number: 3000
+      - path: /api/v1/problems/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: main-srv
+            port:
+              number: 3000
+      - path: /api/v1/comments/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: comments-srv
+            port:
+              number: 3000
+      - path: /api/v1/author/problems/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: author-srv
+            port:
+              number: 3000
+      - path: /api/v1/payments/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: payments-srv
+            port:
+              number: 3000
+      - path: /api/v1/likes/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: likes-srv
+            port:
+              number: 3000
+      - path: /ws
+        pathType: Prefix
+        backend:
+          service:
+            name: socket-srv
+            port:
+              number: 3000
+      - path: /?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: client-srv
+            port:
+              number: 5173

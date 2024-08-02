@@ -1,0 +1,21 @@
+{
+    "name": "notification",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node  src/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@shreekanthlakka/common": "^1.0.16",
+        "express": "^4.19.2",
+        "morgan": "^1.10.0",
+        "node-nats-streaming": "^0.3.2",
+        "nodemailer": "^6.9.14"
+    }
+}

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: likes-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: likes
+  template:
+    metadata:
+      labels:
+        app: likes
+    spec:
+      containers:
+      - name: likes
+        image: sreekanthlakka/likes
+        env:
+        - name: MONGO_URI
+          value: "mongodb://likes-mongo-srv:27017/likes"
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_SECRET
+        - name: NATS_URL
+          value: 'http://nats-srv:4222'
+        - name: NATS_CLUSTER_ID
+          value: 'leetcode'
+        - name: NATS_CLIENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: PORT
+          value: '3000'
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: likes-srv
+spec:
+  selector:
+    app: likes
+  ports:
+  - name: likes
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
+
+
