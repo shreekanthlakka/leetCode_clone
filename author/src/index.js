@@ -21,7 +21,7 @@ const start = async () => {
         console.log("Author Server ==> Connected to MongoDB !!");
         startNats();
     } catch (error) {
-        console.log(" <== Error ====> ", error.message);
+        console.log(" <== Error ==> ", error.message);
     }
     app.listen(3000, () => {
         console.log("Author Server ====> Listening on port 3000 !!!");
