@@ -4,6 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import MediumCard from "@mui/joy/Card";
 
 const Container = styled.div`
     display: flex;
@@ -26,11 +27,14 @@ function ProblemStatement({ problem }) {
         <Container>
             <div className="hero">
                 <Typography sx={{ marginLeft: "0.5rem" }}>
-                    title: <span className="title"> {problem?.title}</span>
+                    <h2>
+                        <span className="title"> {problem?.title}</span>
+                    </h2>
                 </Typography>
-                <Typography sx={{ marginLeft: "0.5rem" }}>
-                    description :
-                    <span className="title"> {problem?.description}</span>
+                <Typography>
+                    <MediumCard>
+                        description : {problem?.description}
+                    </MediumCard>
                 </Typography>
             </div>
             {problem?.testCases?.map((ele, i) => {
@@ -66,11 +70,15 @@ function TestCase({ testCase, index }) {
                     Test Case {index + 1}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Inputs :{" "}
-                    {testCase?.inputs.map((ele) => ele.input).join(", ")}
+                    <MediumCard size="sm">
+                        Inputs :{" "}
+                        {testCase?.inputs.map((ele) => ele.input).join(", ")}
+                    </MediumCard>
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Output : {testCase?.output}
+                    <MediumCard size="sm">
+                        Output : {testCase?.output}
+                    </MediumCard>
                 </Typography>
             </CardContent>
         </Card>

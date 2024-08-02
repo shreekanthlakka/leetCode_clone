@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.5",
     "@monaco-editor/react": "^4.6.0",
     "@mui/icons-material": "^5.16.5",
+    "@mui/joy": "^5.0.0-beta.48",
     "@mui/material": "^5.16.0",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@shreekanthlakka/common": "^1.0.25",

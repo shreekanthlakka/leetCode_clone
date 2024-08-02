@@ -44,7 +44,7 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("like service ===> Connected to NATS !!");
+        console.log("like service ===> Connected to NATS !!!");
     } catch (error) {
         console.log(
             ` <== error connecting to nats attempting ${count + 1} time =>`
