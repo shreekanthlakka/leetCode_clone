@@ -12,10 +12,6 @@ done
 echo "Deleting all other resources..."
 kubectl delete all --all --grace-period=0 --force
 
-# Optionally delete and recreate the namespace if needed
-echo "Deleting and recreating namespace..."
-kubectl delete namespace default --grace-period=0 --force
-kubectl create namespace default
 
 # Run Skaffold
 echo "Running Skaffold..."

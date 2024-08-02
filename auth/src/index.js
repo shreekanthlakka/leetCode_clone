@@ -32,7 +32,7 @@ const start = async () => {
         throw new Error("MONGO_URL must be defined !!!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined !!!");
+        throw new Error("NATS Cluster Id not defined !!");
     }
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error("NATS Client Id not defined !!!");
@@ -41,16 +41,17 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!!");
     }
     try {
-        console.log("Starting auth service =>");
+        console.log("Starting auth service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Connected to MongoDB !!!");
+        console.log("Connected to MongoDB !!");
+
         startNats();
     } catch (error) {
         console.log("error ==> ", error.message);
     }
 
     app.listen(3000, () => {
-        console.log(`Auth Server ==> port 3000 !!!!`);
+        console.log(`Auth Server ==> port 3000 !!!`);
     });
 };
 

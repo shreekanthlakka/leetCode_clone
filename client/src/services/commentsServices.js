@@ -1,8 +1,8 @@
-// import { URI } from "./userService";
-const URI =
-    window.location.origin === "https://leetcode.dev"
-        ? "https://leetcode.dev/api/v1"
-        : "http://www.leetcode-dev.store/api/v1";
+import { URI } from "./userService";
+// const URI =
+//     window.location.origin === "https://leetcode.dev"
+//         ? "https://leetcode.dev/api/v1"
+//         : "http://www.leetcode-dev.store/api/v1";
 
 const createCommentApi = async (id, commentObj) => {
     console.log("problemObj =>", id, "comment obj =>", commentObj);

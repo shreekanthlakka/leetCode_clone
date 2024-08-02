@@ -19,12 +19,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { startDeleteComment } from "../actions/commentAction";
 import { useParams } from "react-router";
 import toast from "react-hot-toast";
-import { URI } from "../services/userService.js";
 import { useEffect, useState } from "react";
-import {
-    like_dislikeCommentApi,
-    totalLikes,
-} from "../services/likesServices.js";
+import { like_dislikeCommentApi } from "../services/likesServices.js";
 import { startLikesByProblemId } from "../actions/likeAction.js";
 
 const Container = styled.div`

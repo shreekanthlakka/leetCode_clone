@@ -34,7 +34,7 @@ const AddProblems = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         const outputObj = {
-            title,
+            title: title.trim(),
             description,
             testCases,
         };

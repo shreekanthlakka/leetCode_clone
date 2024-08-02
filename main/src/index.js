@@ -18,12 +18,12 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     try {
-        console.log("Starting main service ===>");
+        console.log("Starting main service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Main Server ==> Connected to MongoDB !!");
+        console.log("Main Server ==> Connected to MongoDB !!!");
         startNats();
     } catch (error) {
-        console.log(" <== Error => ", error.message);
+        console.log(" <== Error ==> ", error.message);
     }
     app.listen(3000, () => {
         console.log("Main Server => Listening on port 3000 !!");

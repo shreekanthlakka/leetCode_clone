@@ -23,7 +23,7 @@ const addProblem = asyncHandler(async (req, res) => {
     );
 
     const problem = await Problem.create({
-        title: title.trim(),
+        title,
         description,
         testCases: parsedTestCases,
         inputs: parsedTestCases.map((ele) => ele.inputs),
