@@ -4,11 +4,12 @@
 
     Auth Service
     Main Service
-    Problem Service(admin)
+    author Service(admin) -- for adding problems , for testing default role is admin for now , will change 
     Common Service
-    Notification Service / Email Service
+    Notification Service / Email Service --> for sending emails to natify
     Comment Service
-    Payment Service
+    Payment Service 
+    execution Service --> this service executes the code in contanerised env and logs the result 
 
 ## Auth Service
 
@@ -46,19 +47,19 @@
 
 ## author service
 
+    ### Model
+        title:String
+        description:String
+        inputs: [],
+        output: [],
+        boilerPlate: {},
+        boilerPlateFull: {},
+        userId:String
+        testCases:[]
+
 ### Model Problem Model
 
-    <!-- usersId: {}, -->
-
-    problemDescription: {},
-    problemImage: {},
-    problemCode: {},
-    problemTestCases: {},
-    problemLanguage: {},
-    problemDifficulty: {},
-    problemTime: {},
-    problemViews: {},
-    problemLikes: {},
+   
     problemDislikes: {},
     problemComments: {},
     problemTags: {},
