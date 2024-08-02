@@ -6,11 +6,7 @@ import { ProblemCreatedListener } from "./events/listeners/problem-created-liste
 
 const start = async () => {
     if (!process.env.MONGO_URI) {
-<<<<<<< HEAD
         throw new Error("MONGO_URL must be defined!!!!");
-=======
-        throw new Error("MONGO_URL must be defined!!!");
->>>>>>> 3a04ebd4d78b1e6a120d4f9818d777b1aa4ba0dd
     }
     if (!process.env.NATS_CLUSTER_ID) {
         throw new Error("NATS Cluster Id not defined !!");
@@ -19,11 +15,7 @@ const start = async () => {
         throw new Error("NATS Client Id not defined !!!");
     }
     if (!process.env.NATS_URL) {
-<<<<<<< HEAD
         throw new Error("NATS Url not defined !!!");
-=======
-        throw new Error("NATS Url not defined !!");
->>>>>>> 3a04ebd4d78b1e6a120d4f9818d777b1aa4ba0dd
     }
     try {
         console.log("Starting comment service ==>");
