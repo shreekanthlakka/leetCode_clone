@@ -4,8 +4,23 @@ import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import CircularProgress from "@mui/joy/CircularProgress";
+import Box from "@mui/joy/Box";
 
-const Container = styled.div``;
+const Container = styled.div`
+    .circle {
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .passed {
+        color: green;
+    }
+    .failed {
+        color: red;
+    }
+`;
 
 function TestCase({ testCase, index }) {
     const [searchParams] = useSearchParams();
@@ -19,7 +34,7 @@ function TestCase({ testCase, index }) {
 
     return (
         <Container>
-            <Card sx={{ minWidth: 100, minHeight: 100, maxWidth: 300 }}>
+            <Card sx={{ minWidth: 100, minHeight: 100 }}>
                 <CardContent>
                     <Typography>
                         <strong>TestCase</strong> : {index + 1}
@@ -28,23 +43,31 @@ function TestCase({ testCase, index }) {
                         <strong>Inputs</strong> :{" "}
                         {testCase.inputs.map((ele) => ele.input).join(", ")}
                     </Typography>
-                    {/* {testCaseResults.length === 0 && (
-                        <Typography>
-                            Status :
-                            {testCaseResults.length === 0
-                                ? "Pending"
-                                : testCaseResults[index].status}
-                        </Typography>
-                    )} */}
                     {testCaseResults?.length === 0 && (
-                        <Typography>
-                            Status : <strong>Pending</strong>
-                        </Typography>
+                        <Box
+                            className="circle"
+                            sx={{
+                                display: "flex",
+                                gap: 4,
+                                alignItems: "center",
+                                flexWrap: "wrap",
+                            }}
+                        >
+                            <CircularProgress variant="plain" size="sm" />
+                        </Box>
                     )}
                     {testCaseResults?.length > 0 && (
                         <Typography sx={{ fontSize: "small" }}>
-                            Status :{" "}
-                            <strong>{testCaseResults[index].status}</strong>
+                            Status :
+                            <strong
+                                className={`${
+                                    testCaseResults[index].status === "PASSED"
+                                        ? "passed"
+                                        : "failed"
+                                }`}
+                            >
+                                {testCaseResults[index].status}
+                            </strong>
                         </Typography>
                     )}
                 </CardContent>
