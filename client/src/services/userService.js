@@ -2,7 +2,7 @@
 // export const URI = "http://www.leetcode-dev.store/api/v1";
 // export const URI = "http://leetcode.dev/api/v1";
 
-console.log("URL ==>", window.location);
+console.log("URL ===>", window.location);
 
 export const URI =
     window.location.origin === "https://leetcode.dev"
