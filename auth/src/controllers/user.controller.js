@@ -73,7 +73,7 @@ const logout = asyncHandler(async (req, res) => {
     await user.save({ validateBeforeSave: false });
     const options = {
         httpOnly: true,
-        secure: process.env.NODE_ENV !== "test",
+        // secure: process.env.NODE_ENV !== "test",
         maxAge: 0,
     };
     res.status(200)
