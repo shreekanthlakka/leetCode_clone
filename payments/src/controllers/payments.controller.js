@@ -2,9 +2,6 @@ import { asyncHandler, CustomError } from "@shreekanthlakka/common";
 import Order from "../models/orders.model.js";
 import { stripe } from "../stripe.js";
 
-const endpointSecret =
-    "whsec_fa3b48126d155917ad36125d74402ca3b1ca890ba7fc5d02bd01833329b6ad5f";
-
 const createCharge = asyncHandler(async (req, res) => {
     const { token, orderId } = req.body;
     const order = await Order.findById(orderId);
@@ -65,7 +62,11 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
     const sig = req.headers["stripe-signature"];
     let event;
     try {
-        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+        event = stripe.webhooks.constructEvent(
+            req.body,
+            sig,
+            process.env.WEBHOOK_SECRET
+        );
     } catch (err) {
         res.status(400).send(`Webhook Error: ${err.message}`);
         return;

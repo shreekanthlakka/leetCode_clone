@@ -36,6 +36,11 @@ spec:
             secretKeyRef:
               name: stripe-secret
               key: STRIPE_KEY
+        - name: WEBHOOK_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: checkout-webhook
+              key: CHECKOUT_WEBHOOK_SECRET
 ---
 apiVersion: v1
 kind: Service
