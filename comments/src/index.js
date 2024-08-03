@@ -9,16 +9,16 @@ const start = async () => {
         throw new Error("MONGO_URL must be defined !!!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined !!");
+        throw new Error("NATS Cluster Id not defined !!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined !!!");
+        throw new Error("NATS Client Id not defined !!!!");
     }
     if (!process.env.NATS_URL) {
         throw new Error("NATS Url not defined !!!");
     }
     try {
-        console.log("Starting comment service ==>");
+        console.log("Starting comment service ===>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Comments Service connected to MongoDB !!!");
         startNats();
@@ -26,7 +26,7 @@ const start = async () => {
         console.log("Error in comment service ", error);
     }
     app.listen(3000, () => {
-        console.log("Comments Server!! ==> Listening on port 3000 !!!");
+        console.log("Comments Server!! ===> Listening on port 3000 !!!");
     });
 };
 
