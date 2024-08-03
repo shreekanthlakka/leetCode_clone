@@ -12,6 +12,7 @@ import AddProblems from "./components/AddProblems";
 import Problem from "./components/Problem";
 import Submissions from "./components/Submissions";
 import Pro from "./components/Pro";
+import Success from "./components/Success";
 
 function App() {
     return (
@@ -42,6 +43,7 @@ function App() {
                             path="/problems/:problemId/submissions"
                             element={<Submissions />}
                         />
+                        <Route path="/payments/success" element={<Success />} />
                     </Route>
                     <Route element={<Layout />}>
                         <Route path="/login" element={<Login />} />

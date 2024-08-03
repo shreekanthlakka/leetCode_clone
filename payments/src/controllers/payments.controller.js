@@ -14,9 +14,9 @@ const createCharge = asyncHandler(async (req, res) => {
     if (order.status === "cancelled") {
         throw new CustomError(400, "order is cancelled");
     }
-    const customar = await stripe.customars.create({
+    const customer = await stripe.customers.create({
         name: "Testing",
-        email: "testing@gmail.com",
+        email: req.user.email,
         address: {
             line1: "1234 Main St",
             city: "San Francisco",
@@ -36,6 +36,18 @@ const createCharge = asyncHandler(async (req, res) => {
 const createCheckoutSession = asyncHandler(async (req, res) => {
     const { subscription } = req.body;
 
+    const customer = await stripe.customers.create({
+        name: "Testing",
+        email: req.user.email,
+        address: {
+            line1: "1234 Main St",
+            city: "San Francisco",
+            state: "CA",
+            country: "US",
+            postal_code: "94111",
+        },
+    });
+
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -50,9 +62,10 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
                 quantity: 1,
             },
         ],
+        customer: customer.id,
         mode: "payment",
-        success_url: "https://leetcode.dev/account/success",
-        cancel_url: "https://leetcode.dev/account/cancel",
+        success_url: "http://leetcode.dev-store/payments/success",
+        cancel_url: "http://leetcode.dev-store/payments/cancel",
     });
     res.status(303).send({ url: session.url });
     // res.redirect(303, session.url);
