@@ -12,7 +12,7 @@ const connectToNats = async () => {
         );
     } catch (error) {
         console.log(
-            `error connecting to NATS , attempting ${count} th time !!!`,
+            `error connecting to NATS , attempting ${count} th time !!`,
             error.message
         );
         if (count < 3) {
@@ -32,7 +32,7 @@ const connectToNats = async () => {
 
 const start = async () => {
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined !!!!!");
+        throw new Error("NATS Cluster Id not defined !!!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error("NATS Client Id not defined !!!");

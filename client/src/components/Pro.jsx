@@ -10,8 +10,8 @@ import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Typography from "@mui/joy/Typography";
 import Check from "@mui/icons-material/Check";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-
 import styled from "styled-components";
+import { URI } from "../services/userService";
 
 const Container = styled.div`
     display: flex;
@@ -22,6 +22,27 @@ const Container = styled.div`
 `;
 
 function Pro() {
+    async function handleCheckoutSession() {
+        try {
+            const res = await fetch(`${URI}/payments/create-checkout-session`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const data = await res.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                console.log("DATA ==>", data);
+            }
+            console.log("no url found");
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <Container>
             <Card size="lg" variant="outlined">
@@ -116,6 +137,7 @@ function Pro() {
                         variant="soft"
                         color="neutral"
                         endDecorator={<KeyboardArrowRight />}
+                        onClick={handleCheckoutSession}
                     >
                         Start now
                     </Button>

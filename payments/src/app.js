@@ -14,6 +14,37 @@ app.use(express.json());
 app.use(morgan("combined", { stream: writestream }));
 app.use(cookieParser());
 
+const allowedOrigins = ["https://checkout.stripe.com", "https://leetcode.dev"];
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin);
+        res.header("Access-Control-Allow-Credentials", true);
+    }
+    // res.header(
+    //     "Access-Control-Allow-Methods",
+    //     "GET,HEAD,OPTIONS,POST,PUT,DELETE ,PATCH"
+    // );
+    // res.header(
+    //     "Access-Control-Allow-Headers",
+    //     "Origin, X-Requested-With, Content-Type, Accept, Authorization "
+    // );
+
+    if (req.method === "OPTIONS") {
+        res.header(
+            "Access-Control-Allow-Methods",
+            "GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH"
+        );
+        res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+        );
+        return res.sendStatus(200); // Respond immediately for OPTIONS requests
+    }
+
+    next();
+});
+
 app.use((req, res, next) => {
     console.log(
         `===> ${req.ip} ===> ${req.path} ===> ${req.url} ===> ${new Date()}`
