@@ -11,6 +11,7 @@ import Problems from "./components/Problems";
 import AddProblems from "./components/AddProblems";
 import Problem from "./components/Problem";
 import Submissions from "./components/Submissions";
+import Pro from "./components/Pro";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                         />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/account" element={<Account />} />
+                        <Route path="/account/pro" element={<Pro />} />
                         <Route path="/problems" element={<Problems />} />
                         <Route
                             path="/problems/:problemId"
