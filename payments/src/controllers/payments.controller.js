@@ -36,6 +36,16 @@ const createCharge = asyncHandler(async (req, res) => {
 const createCheckoutSession = asyncHandler(async (req, res) => {
     const { subscription } = req.body;
 
+    const host = `${req.headers.host}`;
+
+    const uri =
+        host === "leetcode.dev"
+            ? "https://leetcode.dev"
+            : "http://leetcode-dev.store";
+
+    console.log("HOST ", host);
+    console.log("< ========== URI =========> ", uri);
+
     const customer = await stripe.customers.create({
         name: "Testing",
         email: req.user.email,
@@ -63,8 +73,8 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
         ],
         customer: customer.id,
         mode: "payment",
-        success_url: "/payments/success",
-        cancel_url: "/payments/cancel",
+        success_url: `${uri}/success`,
+        cancel_url: `${uri}/cancel`,
     });
     res.status(303).send({ url: session.url });
     // res.redirect(303, session.url);
@@ -81,7 +91,7 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
             process.env.WEBHOOK_SECRET
         );
     } catch (err) {
-        res.status(400).send(`Webhook Error: ${err.message}`);
+        res.status(400).send(`==> Webhook Error: ${err.message}`);
         return;
     }
 

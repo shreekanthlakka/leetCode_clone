@@ -32,10 +32,9 @@ function Pro() {
                 },
             });
             const data = await res.json();
+            console.log("Res ==> ", data);
             if (data.url) {
                 window.location.href = data.url;
-            } else {
-                console.log("DATA ==>", data);
             }
             console.log("no url found");
         } catch (error) {

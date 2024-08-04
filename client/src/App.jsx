@@ -13,6 +13,7 @@ import Problem from "./components/Problem";
 import Submissions from "./components/Submissions";
 import Pro from "./components/Pro";
 import Success from "./components/Success";
+import { Cancel } from "@mui/icons-material";
 
 function App() {
     return (
@@ -43,7 +44,8 @@ function App() {
                             path="/problems/:problemId/submissions"
                             element={<Submissions />}
                         />
-                        <Route path="/payments/success" element={<Success />} />
+                        <Route path="/success" element={<Success />} />
+                        <Route path="/cancel" element={<Cancel />} />
                     </Route>
                     <Route element={<Layout />}>
                         <Route path="/login" element={<Login />} />

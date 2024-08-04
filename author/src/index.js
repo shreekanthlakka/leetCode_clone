@@ -10,13 +10,13 @@ const start = async () => {
         throw new Error("NATS Cluster Id not defined !!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined !!!");
+        throw new Error("NATS Client Id not defined !!!!");
     }
     if (!process.env.NATS_URL) {
         throw new Error("NATS Url not defined !!!");
     }
     try {
-        console.log("Starting author service ===>");
+        console.log("Starting author service ==>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Author Server ==> Connected to MongoDB !!!");
         startNats();
