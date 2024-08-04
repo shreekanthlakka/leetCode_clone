@@ -5,6 +5,9 @@ import { OrderCreatedListener } from "./events/listeners/order-created-listener.
 import { OrderCancelledListener } from "./events/listeners/order-cancelled-listener.js";
 
 const start = async () => {
+    if (!process.env.WEBHOOK_SECRET) {
+        throw new Error("WEBHOOK_SECRET must be defined !!!");
+    }
     if (!process.env.MONGO_URI) {
         throw new Error("MONGO_URL must be defined !!!");
     }
@@ -18,7 +21,7 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     try {
-        console.log("Starting payment service ===>");
+        console.log("Starting payment service ==>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Payment service connected to MongoDB");
         startNats();
