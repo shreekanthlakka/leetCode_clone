@@ -41,10 +41,9 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
         email: req.user.email,
         address: {
             line1: "1234 Main St",
-            city: "San Francisco",
-            state: "CA",
+            city: "Tirupati",
+            state: "AP",
             country: "US",
-            postal_code: "94111",
         },
     });
 
@@ -64,14 +63,15 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
         ],
         customer: customer.id,
         mode: "payment",
-        success_url: "http://leetcode.dev-store/payments/success",
-        cancel_url: "http://leetcode.dev-store/payments/cancel",
+        success_url: "http://www.leetcode-dev.store/payments/success",
+        cancel_url: "http://www.leetcode.dev-store/payments/cancel",
     });
     res.status(303).send({ url: session.url });
     // res.redirect(303, session.url);
 });
 
 const checkoutWebhook = asyncHandler(async (req, res) => {
+    console.log("<========= IN WEBHOOK =========>");
     const sig = req.headers["stripe-signature"];
     let event;
     try {

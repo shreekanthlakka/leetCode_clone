@@ -47,7 +47,7 @@ const start = async () => {
 
         startNats();
     } catch (error) {
-        console.log("error =-=> ", error.message);
+        console.log("error ==> ", error.message);
     }
 
     app.listen(3000, () => {
