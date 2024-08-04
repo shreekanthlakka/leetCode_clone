@@ -63,8 +63,8 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
         ],
         customer: customer.id,
         mode: "payment",
-        success_url: "http://www.leetcode-dev.store/payments/success",
-        cancel_url: "http://www.leetcode.dev-store/payments/cancel",
+        success_url: "/payments/success",
+        cancel_url: "/payments/cancel",
     });
     res.status(303).send({ url: session.url });
     // res.redirect(303, session.url);
