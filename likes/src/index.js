@@ -13,7 +13,7 @@ const start = async () => {
         throw new Error("NATS Client Id not defined !!!");
     }
     if (!process.env.NATS_URL) {
-        throw new Error("NATS Url not defined !!!!");
+        throw new Error("NATS Url not defined !!!");
     }
     if (!process.env.JWT_SECRET) {
         throw new Error("JWT Key not defined !!!");
