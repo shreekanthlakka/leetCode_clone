@@ -13,7 +13,7 @@ function Account() {
         <Container>
             <ButtonGroup variant="outlined" aria-label="Basic button group">
                 <Button>Account</Button>
-                <Button>Settings</Button>
+                <Button>Solved Problems</Button>
                 <Button onClick={() => navigate("/account/pro")}>
                     Pro Plan
                 </Button>
