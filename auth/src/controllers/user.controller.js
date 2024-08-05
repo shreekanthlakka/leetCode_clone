@@ -7,6 +7,7 @@ import { CustomResponse } from "../utils/CustomResponse.js";
 import { UserLoggedInPublisher } from "../events/publisher/user-login-publisher.js";
 import { natsWrapper } from "../natsWrapper.js";
 import { UserCreatedPublisher } from "../events/publisher/user-created-publisher.js";
+import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 
 const login = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
@@ -94,4 +95,78 @@ const loggedInUserDetails = asyncHandler(async (req, res) => {
     });
 });
 
-export { registerUser, loggedInUserDetails, login, logout };
+const addPhoneNumber = asyncHandler(async (req, res) => {
+    const userId = req.user._id;
+    const { phonenumber } = req.body;
+    const user = await User.findByIdAndUpdate(
+        userId,
+        { phonenumber },
+        { new: true }
+    );
+    if (!user) {
+        throw new CustomError(404, "user not found");
+    }
+    res.status(200).json(
+        new CustomResponse(200, "phone number added sucessfully", user)
+    );
+});
+
+const addProfilePic = asyncHandler(async (req, res) => {
+    const userId = req.user._id;
+    let result;
+    console.log("REQ FILES ==> ", req.files);
+    if (req.files) {
+        result = await uploadToCloudinary(req.files.profilepic[0].path);
+    }
+    const profilepic = {
+        url: result.url,
+        public_id: result.public_id,
+    };
+    const user = await User.findByIdAndUpdate(
+        userId,
+        { profilepic },
+        { new: true }
+    );
+    if (!user) {
+        throw new CustomError(404, "user not found");
+    }
+    res.status(200).json(
+        new CustomResponse(200, "profile picture added sucessfully", user)
+    );
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+    const userId = req.user._id;
+    const { username, phonenumber } = req.body;
+    let result;
+    if (req.files) {
+        result = await uploadToCloudinary(req.files.profilepic[0].path);
+    }
+    const profilepic = {
+        url: result.url,
+        public_id: result.public_id,
+    };
+    const user = await User.findByIdAndUpdate(
+        userId,
+        {
+            username,
+            phonenumber,
+            profilepic,
+        },
+        { new: true }
+    );
+    if (!user) {
+        throw new CustomError(400, "failed to update");
+    }
+    res.status(200).json(new CustomResponse(200, "updated sucessfully", user));
+});
+
+export {
+    registerUser,
+    loggedInUserDetails,
+    login,
+    logout,
+    addPhoneNumber,
+    addProfilePic,
+    updateUser,
+};

@@ -87,7 +87,7 @@ const getCurrentLoggedInUser = async () => {
 
 const getProfileApi = async () => {
     try {
-        const res = await fetch(`${URI}/profile`, {
+        const res = await fetch(`${URI}/users/profile`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -106,7 +106,7 @@ const getProfileApi = async () => {
 
 const createProfileApi = async (formData) => {
     try {
-        const res = await fetch(`${URI}/profile`, {
+        const res = await fetch(`${URI}/users/profile`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -129,21 +129,32 @@ const createProfileApi = async (formData) => {
 
 const updateProfileApi = async (updatedData) => {
     try {
-        const res = await fetch(`${URI}/profile`, {
+        const fd = new FormData();
+        fd.append("profilepic", updatedData.profilepic);
+        fd.append("username", updatedData.username);
+        fd.append("phonenumber", updatedData.phonenumber);
+        const res = await fetch(`${URI}/users/profile`, {
             method: "PUT",
             credentials: "include",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(updatedData),
+            body: fd,
         });
-        if (!res.ok) {
-            throw {
-                status: res.status,
-                message: res.message,
-            };
-        }
         return await res.json();
+    } catch (error) {
+        console.log("error while updating  the user profile : ", error);
+    }
+};
+
+const uploadProfilePicApi = async (pic) => {
+    try {
+        const fd = new FormData();
+        fd.append("profilepic", pic);
+        const res = await fetch(`${URI}/users/profilepic`, {
+            method: "PUT",
+            credentials: "include",
+            body: fd,
+        });
+        const data = await res.json();
+        return data;
     } catch (error) {
         console.log("error while updating  the user profile : ", error);
     }
@@ -159,4 +170,5 @@ export {
     getCurrentLoggedInUser,
     createProfileApi,
     updateProfileApi,
+    uploadProfilePicApi,
 };

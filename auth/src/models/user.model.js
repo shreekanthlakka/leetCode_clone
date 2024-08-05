@@ -18,6 +18,17 @@ const userSchema = new mongooes.Schema(
         },
         forgotPasswordToken: String,
         forgotPasswordExpiry: String,
+        phonenumber: {
+            type: String,
+        },
+        profilepic: {
+            url: { type: String },
+            public_id: { type: String },
+        },
+        plan: {
+            type: String,
+            default: "free",
+        },
     },
     { timestamps: true }
 );

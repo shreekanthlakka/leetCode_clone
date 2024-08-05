@@ -3,6 +3,8 @@ import {
     getCurrentLoggedInUser,
     loginApi,
     logoutApi,
+    updateProfileApi,
+    uploadProfilePicApi,
 } from "../services/userService";
 
 const authContext = createContext();
@@ -37,6 +39,24 @@ function authReducer(state, action) {
                 isLoading: false,
                 userAccount: action.payload,
                 isAuthenticated: action.isAuthenticated,
+            };
+
+        case "UPLOAD_PROFILE_PIC":
+            return {
+                ...state,
+                isLoading: false,
+                userAccount: {
+                    ...state.userAccount,
+                    profilepic: action.payload.profilepic,
+                },
+            };
+        case "UPDATE_PROFILE":
+            return {
+                ...state,
+                isLoading: false,
+                userAccount: {
+                    ...action.payload,
+                },
             };
         case "INTIAL_STATE":
             return { ...initialState };
@@ -122,6 +142,44 @@ function AuthContextProvider({ children }) {
         }
     };
 
+    const uploadProfilePic = async (pic) => {
+        let res;
+        try {
+            dispatch({ type: "START" });
+            res = await uploadProfilePicApi(pic);
+            if (!res.success) {
+                throw {
+                    status: res.statusCode,
+                    message: res.message,
+                };
+            }
+            dispatch({ type: "UPLOAD_PROFILE_PIC", payload: res.data });
+            return res;
+        } catch {
+            dispatch({ type: "ERROR", payload: error });
+            return res;
+        }
+    };
+
+    const updateProfile = async (obj) => {
+        let res;
+        try {
+            dispatch({ type: "START" });
+            res = await updateProfileApi(obj);
+            if (!res.success) {
+                throw {
+                    status: res.statusCode,
+                    message: res.message,
+                };
+            }
+            dispatch({ type: "UPDATE_PROFILE", payload: res.data });
+            return res;
+        } catch {
+            dispatch({ type: "ERROR", payload: error });
+            return res;
+        }
+    };
+
     const value = {
         userAccount,
         isLoading,
@@ -131,6 +189,8 @@ function AuthContextProvider({ children }) {
         logout,
         loggedInUser,
         isAuthenticated,
+        uploadProfilePic,
+        updateProfile,
     };
     return (
         <authContext.Provider value={value}>{children}</authContext.Provider>
