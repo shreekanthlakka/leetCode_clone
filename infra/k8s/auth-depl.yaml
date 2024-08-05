@@ -31,6 +31,15 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: CLOUDINARY_CLOUD_NAME
+          value: dwtlupkux
+        - name: CLOUDINARY_API_KEY
+          value: "829526614166557"
+        - name: CLOUDINARY_API_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: cloudinary-api-secret
+              key: CLOUDINARY_API_SECRET
 ---
 apiVersion: v1
 kind: Service

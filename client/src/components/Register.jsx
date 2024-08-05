@@ -61,10 +61,10 @@ function Register() {
             // api call
             setServerErrors({});
             const res = await registerApi(formData);
-            if (res.success) {
+            if (res?.success) {
                 toast.success(res.message);
                 navigate("/login");
-            } else if (!res.success && res.statusCode === 400) {
+            } else if (!res?.success && res?.statusCode === 400) {
                 if (Array.isArray(res.error)) {
                     res.error.map((ele) => {
                         serErrors[ele.path] = ele.msg;

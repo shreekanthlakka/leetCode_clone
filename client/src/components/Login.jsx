@@ -58,7 +58,7 @@ function Login() {
             //api call
             const res = await login(formData);
             console.log("RES LOGIN ==>", res);
-            if (res.success) {
+            if (res?.success) {
                 toast.success("Login sucessfull");
                 navigate("/dashboard");
             }

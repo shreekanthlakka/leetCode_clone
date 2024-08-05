@@ -55,7 +55,7 @@ spec:
   - ReadWriteMany
   nfs:
     path: /mnt/shared
-    server: 139.59.30.169
+    server: 64.227.170.89
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs-storage
 

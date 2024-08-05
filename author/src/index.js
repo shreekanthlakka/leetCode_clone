@@ -10,7 +10,7 @@ const start = async () => {
         throw new Error("NATS Cluster Id not defined !!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
-        throw new Error("NATS Client Id not defined !!!!");
+        throw new Error("NATS Client Id not defined !!!");
     }
     if (!process.env.NATS_URL) {
         throw new Error("NATS Url not defined !!!");
@@ -41,7 +41,7 @@ const startNats = async () => {
         console.log("Connected to NATS !!");
     } catch (error) {
         console.log(
-            ` <== error connecting to nats attempting ${count + 1} time =>`
+            ` <== error connecting to nats attempting ${count + 1} time ==>`
         );
         if (count < 3) {
             setTimeout(() => startNats(count++), 1400);
