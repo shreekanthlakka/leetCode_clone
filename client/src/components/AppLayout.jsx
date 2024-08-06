@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { startGetAllProblems } from "../actions/problemActions";
+import ResponsiveAppBar from "./AppBar";
 
 const Container = styled.main``;
 
@@ -22,6 +23,7 @@ function AppLayout() {
     return (
         <Container>
             <Header />
+            {/* <ResponsiveAppBar /> */}
             <Main>
                 <Outlet />
             </Main>
