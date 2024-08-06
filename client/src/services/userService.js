@@ -20,7 +20,7 @@ const loginApi = async (formData) => {
             body: JSON.stringify(formData),
         });
         const data = await res.json();
-        console.log("data in res ===>", data);
+        console.log("data in res ====>", data);
         return data;
     } catch (error) {
         console.log(error);
