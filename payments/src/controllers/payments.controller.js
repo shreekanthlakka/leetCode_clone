@@ -41,7 +41,7 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
     const uri =
         host === "leetcode.dev"
             ? "https://leetcode.dev"
-            : "http://leetcode-dev.store";
+            : "http://www.leetcode-dev.store";
 
     console.log("HOST ", host);
     console.log("< ========== URI =========> ", uri);
