@@ -51,6 +51,7 @@ const generateFullBoilerPlateCodeArgs = (title, parsedTestCases) => {
     fs.writeFileSync(path.join(boilerplatePath, "function.rs"), rust);
 
     return {
+        boilerplateFullDirPath: boilerplatePath,
         cpp: path.join(
             `/mnt/shared/problems/boilerplate/${title}/function.cpp`,
             "./"

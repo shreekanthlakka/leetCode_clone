@@ -21,7 +21,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@shreekanthlakka/common": "^1.0.45",
+        "@shreekanthlakka/common": "^1.0.47",
         "cookie-parser": "^1.4.6",
         "express": "^4.19.2",
         "express-validator": "^7.1.0",
@@ -33,7 +33,7 @@
     "devDependencies": {
         "jest": "^29.7.0",
         "mongodb-memory-server": "^10.0.0",
-        "supertest": "^7.0.0",
-        "nodemon": "^3.1.4"
+        "nodemon": "^3.1.4",
+        "supertest": "^7.0.0"
     }
 }

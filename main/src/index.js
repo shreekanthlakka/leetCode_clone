@@ -3,10 +3,11 @@ import app from "./app.js";
 import { natsWrapper } from "./nats-wrapper.js";
 import { LeetCodeProblemCreatedListener } from "./events/listeners/leetcodeproblem-created-listener.js";
 import { JobCompletedStatusListener } from "./events/listeners/jobcompleted-status-listener.js";
+import { LeetCodeProblemDeletedListener } from "./events/listeners/leetcodeproblem-deleted-listener.js";
 
 const start = async () => {
     if (!process.env.MONGO_URI) {
-        throw new Error("MONGO_URL must be defined !!!");
+        throw new Error("MONGO_URL must be defined !!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
         throw new Error("NATS Cluster Id not defined !!!");
@@ -18,7 +19,7 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     try {
-        console.log("Starting main service ==>");
+        console.log("Starting main service =>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Main Server => Connected to MongoDB !!!");
         startNats();
@@ -40,6 +41,10 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
+        console.log("Main Service ==> Connected to NATS");
+        new LeetCodeProblemCreatedListener(natsWrapper.client).listen();
+        new JobCompletedStatusListener(natsWrapper.client).listen();
+        new LeetCodeProblemDeletedListener(natsWrapper.client).listen();
     } catch (error) {
         console.log(
             ` <== error connecting to nats attempting ${count + 1} time !!!`
@@ -52,8 +57,6 @@ const startNats = async () => {
             console.log("NATS connection closed !!!");
             process.exit();
         });
-        new LeetCodeProblemCreatedListener(natsWrapper.client).listen();
-        new JobCompletedStatusListener(natsWrapper.client).listen();
         process.on("SIGINT", () => natsWrapper.client.close());
         process.on("SIGTERM", () => natsWrapper.client.close());
     }

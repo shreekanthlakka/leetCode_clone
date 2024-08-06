@@ -32,7 +32,7 @@ const connectToNats = async () => {
 
 const start = async () => {
     if (!process.env.NATS_CLUSTER_ID) {
-        throw new Error("NATS Cluster Id not defined !!!!");
+        throw new Error("NATS Cluster Id not defined !!!");
     }
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error("NATS Client Id not defined !!!");
@@ -44,7 +44,7 @@ const start = async () => {
         throw new Error("Host name not defined !!!");
     }
     if (!process.env.PORT_NM) {
-        throw new Error("Port not defined !");
+        throw new Error("Port not defined !!");
     }
     if (!process.env.USER_NM) {
         throw new Error("user name not defined!!");

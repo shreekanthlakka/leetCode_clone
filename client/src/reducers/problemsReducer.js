@@ -1,11 +1,13 @@
 import {
     ADD_PROBLEM,
+    DELETE_PROBLEM,
     GET_ALL_PROBLEMS,
     GET_BOILERPLATE_CODE,
     PROBLEMS_ERROR,
     RESET_SELECTED_PROBLEM_ID,
     SET_SELECTED_PROBLEM_ID,
     START_PROBLEMS_ISADDING,
+    START_PROBLEMS_ISDELETING,
     START_PROBLEMS_ISLOADING,
 } from "../actions/problemActions";
 
@@ -73,6 +75,19 @@ function problemReducer(state = initialState, action) {
                 ...state,
                 selectedProblem: null,
                 boilerPlateCode: null,
+            };
+        case START_PROBLEMS_ISDELETING:
+            return {
+                ...state,
+                status: { ...state.status, isDeleting: true },
+            };
+        case DELETE_PROBLEM:
+            return {
+                ...state,
+                status: { ...state.status, isDeleting: false },
+                problems: state.problems.filter(
+                    (ele) => ele._id !== action.payload
+                ),
             };
         default:
             return state;

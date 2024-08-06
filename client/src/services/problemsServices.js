@@ -17,6 +17,22 @@ const addProblemApi = async (formData) => {
     }
 };
 
+const deleteProblemApi = async (id) => {
+    try {
+        const res = await fetch(`${URI}/author/problems/${id}`, {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const getAllProblemsApi = async () => {
     try {
         const res = await fetch(`${URI}/problems`, {
@@ -49,4 +65,9 @@ const getBoilerPlateCodeApi = async (id) => {
     }
 };
 
-export { addProblemApi, getAllProblemsApi, getBoilerPlateCodeApi };
+export {
+    addProblemApi,
+    getAllProblemsApi,
+    getBoilerPlateCodeApi,
+    deleteProblemApi,
+};

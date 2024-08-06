@@ -1,15 +1,20 @@
 import {
     addProblemApi,
+    deleteProblemApi,
     getAllProblemsApi,
     getBoilerPlateCodeApi,
 } from "../services/problemsServices";
 
 export const START_PROBLEMS_ISLOADING = "START_PROBLEMS_ISLOADING";
 export const START_PROBLEMS_ISADDING = "START_PROBLEMS_ISADDING";
+export const START_PROBLEMS_ISDELETING = "START_PROBLEMS_ISDELETING";
+
 export const PROBLEMS_ERROR = "PROBLEMS_ERROR";
 
 export const GET_ALL_PROBLEMS = "GET_ALL_PROBLEMS";
 export const ADD_PROBLEM = "ADD_PROBLEM";
+export const DELETE_PROBLEM = "DELETE_PROBLEM";
+
 export const GET_BOILERPLATE_CODE = "GET_BOILERPLATE_CODE";
 export const SET_SELECTED_PROBLEM_ID = "SET_SELECTED_PROBLEM_ID";
 export const RESET_SELECTED_PROBLEM_ID = "RESET_SELECTED_PROBLEM_ID";
@@ -51,6 +56,25 @@ const startAddProblem = (formData, onSuccess) => {
     };
 };
 
+const startDeleteProblem = (id, onSuccess) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: START_PROBLEMS_ISDELETING });
+            const res = await deleteProblemApi(id);
+            if (!res.success) {
+                throw {
+                    message: res.message,
+                    statusCode: res.statusCode,
+                };
+            }
+            dispatch(deleteProblem(id));
+            onSuccess();
+        } catch (error) {
+            dispatch(problemError(error));
+        }
+    };
+};
+
 const startGetBoilerPlateCode = (id, onSuccess) => {
     return async (dispatch) => {
         try {
@@ -67,6 +91,13 @@ const startGetBoilerPlateCode = (id, onSuccess) => {
         } catch (error) {
             dispatch(problemError(error));
         }
+    };
+};
+
+const deleteProblem = (id) => {
+    return {
+        type: DELETE_PROBLEM,
+        payload: id,
     };
 };
 
@@ -117,4 +148,5 @@ export {
     startGetBoilerPlateCode,
     setSelectedProblem,
     resetSelectedProblem,
+    startDeleteProblem,
 };
