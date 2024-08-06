@@ -44,7 +44,7 @@ const start = async () => {
         throw new Error("Host name not defined !!!");
     }
     if (!process.env.PORT_NM) {
-        throw new Error("Port not defined");
+        throw new Error("Port not defined !");
     }
     if (!process.env.USER_NM) {
         throw new Error("user name not defined!!");

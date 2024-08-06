@@ -38,7 +38,7 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("Connected to NATS !!!");
+        console.log("Connected to NATS !!");
     } catch (error) {
         console.log(
             ` <== error connecting to nats attempting ${count + 1} time ==>`
