@@ -3,6 +3,7 @@ import app from "./app.js";
 import { natsWrapper } from "./nats-wrapper.js";
 import { UserCreatedListener } from "./events/listeners/user-created-listener.js";
 import { ProblemCreatedListener } from "./events/listeners/problem-created-listener.js";
+import { LeetCodeProblemDeletedListener } from "./events/listeners/leetcodeproblem-deleted-listener.js";
 
 const start = async () => {
     if (!process.env.MONGO_URI) {
@@ -18,7 +19,7 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     try {
-        console.log("Starting comment service ==>");
+        console.log("Starting comment service =>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Comments Service connected to MongoDB !!!");
         startNats();
@@ -40,12 +41,13 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("Connected to NATS !!");
+        console.log("Connected to NATS !!!");
         new UserCreatedListener(natsWrapper.client).listen();
         new ProblemCreatedListener(natsWrapper.client).listen();
+        new LeetCodeProblemDeletedListener(natsWrapper.client).listen();
     } catch (error) {
         console.log(
-            ` <== error connecting to nats attempting ${count + 1} time =>`
+            ` <== error connecting to nats attempting ${count + 1} time ==>`
         );
         if (count < 3) {
             setTimeout(() => startNats(count++), 1400);

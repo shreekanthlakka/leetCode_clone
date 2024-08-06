@@ -4,12 +4,32 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setSelectedProblem } from "../actions/problemActions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    setSelectedProblem,
+    startDeleteProblem,
+} from "../actions/problemActions";
 import { lightBlue } from "@mui/material/colors";
+import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function ProblemCard({ problem }) {
     const dispatch = useDispatch();
+    const { userAccount } = useAuth();
+    const { userId } = problem;
+    const isOwner = userAccount._id === userId;
+    const navigate = useNavigate();
+    const isDeleting = useSelector((state) => state.problem.status.isDeleting);
+
+    function handleDeleteProblem() {
+        dispatch(
+            startDeleteProblem(problem._id, () => {
+                toast.success("Problem Deleted Sucessfully");
+            })
+        );
+    }
+
     return (
         <Card
             sx={{
@@ -31,17 +51,21 @@ function ProblemCard({ problem }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Link to={`/problems/${problem._id}`}>
-                    <Button
-                        size="small"
-                        variant="contained"
-                        onClick={() =>
-                            dispatch(setSelectedProblem(problem._id))
-                        }
-                    >
-                        Solve
+                <Button
+                    size="small"
+                    variant="contained"
+                    onClick={() => {
+                        dispatch(setSelectedProblem(problem._id));
+                        navigate(`/problems/${problem._id}`);
+                    }}
+                >
+                    Solve
+                </Button>
+                {isOwner && (
+                    <Button onClick={handleDeleteProblem} disabled={isDeleting}>
+                        Delete
                     </Button>
-                </Link>
+                )}
             </CardActions>
         </Card>
     );

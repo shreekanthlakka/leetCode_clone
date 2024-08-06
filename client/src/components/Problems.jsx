@@ -23,6 +23,7 @@ const Box = styled.div`
 function Problems() {
     const problems = useSelector((state) => state.problem.problems);
     console.log("problems =>", problems);
+
     return (
         <Box>
             <h2>List of problems</h2>

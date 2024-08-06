@@ -9,6 +9,9 @@ import Problem from "../models/problems.model.js";
 import { LeetCodeProblemCreatedPublisher } from "../events/publisher/leetcode-problem-created.js";
 import { natsWrapper } from "../nats-wrapper.js";
 import { generateFullBoilerPlateCodeArgs } from "../utils/generateFullBoilerPlateCodeArgs.js";
+import fs from "fs";
+import { LeetCodeProblemDeletedPublisher } from "../events/publisher/leetcode-problem-deleted.js";
+import path from "path";
 
 const addProblem = asyncHandler(async (req, res) => {
     const { title, description, testCases } = req.body;
@@ -55,7 +58,40 @@ const addProblem = asyncHandler(async (req, res) => {
     );
 });
 
-export { addProblem };
+const deleteProblem = asyncHandler(async (req, res) => {
+    const { problemId } = req.params;
+    const problem = await Problem.findById(problemId);
+    if (!problem) {
+        throw new CustomError(400, "not able to find the problem");
+    }
+    const remProblemId = problem._id;
+    const dirpathBoilerplate = path.join(
+        problem.boilerPlate.boilerplateDirPath,
+        "./"
+    );
+    const dirpathFullBoilerplate = path.join(
+        problem.boilerPlateFull.boilerplateFullDirPath,
+        "./"
+    );
+    if (!dirpathBoilerplate && !dirpathFullBoilerplate) {
+        throw new CustomError(400, "failed to locate problem dir");
+    }
+    console.log("boiler Plate =>", dirpathBoilerplate);
+    console.log("full boiler palte =>", dirpathFullBoilerplate);
+    fs.rmSync(dirpathBoilerplate, { recursive: true });
+    fs.rmSync(dirpathFullBoilerplate, { recursive: true });
+
+    await problem.deleteOne();
+
+    new LeetCodeProblemDeletedPublisher(natsWrapper.client).publish({
+        _id: remProblemId,
+    });
+    res.status(200).json(
+        new CustomResponse(200, "deleted sucessfully", { _id: remProblemId })
+    );
+});
+
+export { addProblem, deleteProblem };
 
 //1 --> we need to get the boiler plate code for c, c++ , javaScript , java
 
