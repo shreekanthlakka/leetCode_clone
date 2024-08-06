@@ -12,7 +12,7 @@ const getAllSubmissionsApi = async (problemId) => {
         const data = await res.json();
         return data;
     } catch (error) {
-        console.log(error);
+        console.log("ERROR ", error);
     }
 };
 
