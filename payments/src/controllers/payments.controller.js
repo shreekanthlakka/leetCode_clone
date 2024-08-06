@@ -83,6 +83,7 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
 const checkoutWebhook = asyncHandler(async (req, res) => {
     console.log("<========= IN WEBHOOK =========>");
     const sig = req.headers["stripe-signature"];
+    console.log("Sig =>", sig);
     let event;
     try {
         event = stripe.webhooks.constructEvent(
@@ -108,7 +109,7 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
     }
 
     // Return a 200 res to acknowledge receipt of the event
-    res.send().end();
+    res.status(200).send();
 });
 
 export { createCharge, createCheckoutSession, checkoutWebhook };
