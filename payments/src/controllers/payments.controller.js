@@ -111,6 +111,7 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
                 customer_details,
                 payment_intent,
                 payment_status,
+                data,
             } = checkoutSessionCompleted;
 
             const payment = await Payment.create({
