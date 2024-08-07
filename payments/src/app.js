@@ -10,7 +10,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const writestream = fs.createWriteStream(path.join(__dirname, "access.log"));
 
 const app = express();
-app.use(express.json());
 app.use(morgan("combined", { stream: writestream }));
 app.use(cookieParser());
 
@@ -21,15 +20,6 @@ app.use((req, res, next) => {
         res.header("Access-Control-Allow-Origin", origin);
         res.header("Access-Control-Allow-Credentials", true);
     }
-    // res.header(
-    //     "Access-Control-Allow-Methods",
-    //     "GET,HEAD,OPTIONS,POST,PUT,DELETE ,PATCH"
-    // );
-    // res.header(
-    //     "Access-Control-Allow-Headers",
-    //     "Origin, X-Requested-With, Content-Type, Accept, Authorization "
-    // );
-
     if (req.method === "OPTIONS") {
         res.header(
             "Access-Control-Allow-Methods",
@@ -53,5 +43,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/v1/payments", paymentRoutes);
+
+app.use(express.json());
 
 export default app;
