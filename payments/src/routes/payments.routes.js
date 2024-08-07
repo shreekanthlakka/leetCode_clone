@@ -5,7 +5,6 @@ import {
     createCheckoutSession,
 } from "../controllers/payments.controller.js";
 import { isLoggedIn } from "@shreekanthlakka/common";
-import bodyParser from "body-parser";
 
 const router = express.Router();
 
@@ -13,8 +12,8 @@ router.route("/").post(isLoggedIn, createCharge);
 router
     .route("/create-checkout-session")
     .post(isLoggedIn, createCheckoutSession);
-router
-    .route("/webhook")
-    .post(bodyParser.raw({ type: "application/json" }), checkoutWebhook);
+// router
+//     .route("/webhook")
+//     .post(bodyParser.raw({ type: "application/json" }), checkoutWebhook);
 
 export default router;
