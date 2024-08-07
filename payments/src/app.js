@@ -5,6 +5,8 @@ import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import paymentRoutes from "./routes/payments.routes.js";
+import bodyParser from "body-parser";
+import { checkoutWebhook } from "./controllers/payments.controller.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const writestream = fs.createWriteStream(path.join(__dirname, "access.log"));
@@ -41,9 +43,13 @@ app.use((req, res, next) => {
     );
     next();
 });
-
-app.use("/api/v1/payments", paymentRoutes);
+app.post(
+    "/api/v1/payments/webhook",
+    bodyParser.raw({ type: "application/json" }),
+    checkoutWebhook
+);
 
 app.use(express.json());
+app.use("/api/v1/payments", paymentRoutes);
 
 export default app;
