@@ -8,8 +8,9 @@ const orderSchema = new mongoose.Schema(
         price: {
             type: Number,
         },
-        status: {
+        stripeId: {
             type: String,
+            default: null,
         },
     },
     { timestamps: true }
