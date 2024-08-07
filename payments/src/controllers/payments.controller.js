@@ -82,6 +82,7 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
 
 const checkoutWebhook = asyncHandler(async (req, res) => {
     console.log("<========= IN WEBHOOK =========>");
+    console.log("TYpe of req.body ==>", typeof req.body);
     const sig = req.headers["stripe-signature"];
     console.log("Sig =>", sig);
     console.log("secret ==>", process.env.WEBHOOK_SECRET);
@@ -94,6 +95,7 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
         );
         console.log("Event =>", event);
     } catch (err) {
+        console.log("Error in construct event ===>", err);
         res.status(400).send(`==> Webhook Error: ${err.message}`);
         return;
     }
