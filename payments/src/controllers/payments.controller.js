@@ -87,7 +87,7 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
     console.log("secret ==>", process.env.WEBHOOK_SECRET);
     let event;
     try {
-        event = stripe.webhooks.constructEvent(
+        event = await stripe.webhooks.constructEvent(
             req.body,
             sig,
             process.env.WEBHOOK_SECRET
@@ -111,7 +111,7 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
     }
 
     // Return a 200 res to acknowledge receipt of the event
-    res.status(200).send("payment details updated sucessfully").end();
+    res.status(200).end();
 });
 
 export { createCharge, createCheckoutSession, checkoutWebhook };
