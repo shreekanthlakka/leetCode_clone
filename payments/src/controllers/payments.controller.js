@@ -114,7 +114,8 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
             } = checkoutSessionCompleted;
 
             const payment = await Payment.create({
-                userId: req.user._id,
+                // userId: req.user._id,
+                email: data.email,
                 stripeId: id,
                 customer,
                 amount_total,
