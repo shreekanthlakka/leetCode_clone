@@ -106,7 +106,6 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
             console.log("=========> web hook hit", checkoutSessionCompleted);
             const {
                 id,
-                customer,
                 amount_total,
                 customer_details,
                 payment_intent,
@@ -116,7 +115,6 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
             const payment = await Payment.create({
                 // userId: req.user._id,
                 stripeId: id,
-                customer,
                 amount_total,
                 customer_details,
                 payment_intent,

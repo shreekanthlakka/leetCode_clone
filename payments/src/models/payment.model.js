@@ -9,7 +9,7 @@ const paymentSchema = new mongoose.Schema(
         amount: Number,
         customer_details: {},
         payment_intent: String,
-        payment_status: Boolean,
+        payment_status: String,
     },
     { timestamps: true }
 );
