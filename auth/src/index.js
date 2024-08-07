@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import app from "./app.js";
 import { natsWrapper } from "./natsWrapper.js";
 import { v2 as cloudinary } from "cloudinary";
+import { PaymentStatusListener } from "./events/listener/payment-status-listener.js";
 
 const startNats = async () => {
     var count = 0;
@@ -13,6 +14,7 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
+        new PaymentStatusListener(natsWrapper.client).listen();
     } catch (error) {
         console.log("error ==-> ", error);
         if (count < 3) {
@@ -51,7 +53,7 @@ const start = async () => {
         throw new Error("CLOUDINARY_API_SECRET not found");
     }
     try {
-        console.log("Starting auth service ===>");
+        console.log("Starting auth service ==>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Connected to MongoDB !!");
         await cloudinary.config({

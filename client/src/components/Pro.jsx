@@ -12,6 +12,7 @@ import Check from "@mui/icons-material/Check";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
 import { URI } from "../services/userService";
+import { useAuth } from "../context/AuthContext";
 
 const Container = styled.div`
     display: flex;
@@ -22,6 +23,8 @@ const Container = styled.div`
 `;
 
 function Pro() {
+    const { userAccount } = useAuth();
+
     async function handleCheckoutSession() {
         try {
             const res = await fetch(`${URI}/payments/create-checkout-session`, {
@@ -139,7 +142,9 @@ function Pro() {
                             endDecorator={<KeyboardArrowRight />}
                             onClick={handleCheckoutSession}
                         >
-                            Start now
+                            {userAccount.plan === "free"
+                                ? "Start now"
+                                : "Pro Member"}
                         </Button>
                     </CardActions>
                 </Card>
