@@ -92,6 +92,7 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
             sig,
             process.env.WEBHOOK_SECRET
         );
+        console.log("Event =>", event);
     } catch (err) {
         res.status(400).send(`==> Webhook Error: ${err.message}`);
         return;
