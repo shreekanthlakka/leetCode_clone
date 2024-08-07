@@ -126,10 +126,10 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
                 throw new CustomError(400, "failed to create payment");
             }
             new PaymentStatusPublisher(natsWrapper.client).publish({
-                userId: payment.userId,
                 stripeId: payment.stripeId,
                 paymentStatus: payment.payment_status,
                 amount: payment.amount_total,
+                customer: payment.customer_details,
             });
 
             break;
