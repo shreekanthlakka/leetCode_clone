@@ -103,7 +103,7 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
         case "checkout.session.completed":
             const checkoutSessionCompleted = event.data.object;
             // Then define and call a function to handle the event checkout.session.completed
-            // console.log("=========> web hook hit", checkoutSessionCompleted);
+            console.log("=========> web hook hit", checkoutSessionCompleted);
             const {
                 id,
                 customer,
@@ -111,12 +111,10 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
                 customer_details,
                 payment_intent,
                 payment_status,
-                data,
             } = checkoutSessionCompleted;
 
             const payment = await Payment.create({
                 // userId: req.user._id,
-                email: data.email,
                 stripeId: id,
                 customer,
                 amount_total,
@@ -128,10 +126,10 @@ const checkoutWebhook = asyncHandler(async (req, res) => {
                 throw new CustomError(400, "failed to create payment");
             }
             new PaymentStatusPublisher(natsWrapper.client).publish({
-                userId: payment.userId,
                 stripeId: payment.stripeId,
                 paymentStatus: payment.payment_status,
                 amount: payment.amount_total,
+                customer: payment.customer_details,
             });
 
             break;

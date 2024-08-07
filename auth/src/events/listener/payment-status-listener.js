@@ -5,7 +5,8 @@ class PaymentStatusListener extends Listener {
     subject = LeetCodeSubjects.PaymentStatus;
     queueGroupName = queueGroupName;
     async onMessage(data, msg) {
-        const user = await findOne({ email: data.email });
+        console.log(" => ", data);
+        const user = await findOne({ email: data.customer.email });
         if (!user) {
             throw new Error("failed to find the user");
         }
