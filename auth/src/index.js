@@ -53,7 +53,7 @@ const start = async () => {
         throw new Error("CLOUDINARY_API_SECRET not found");
     }
     try {
-        console.log("Starting auth service ==>");
+        console.log("Starting auth service ===>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Connected to MongoDB !!");
         await cloudinary.config({

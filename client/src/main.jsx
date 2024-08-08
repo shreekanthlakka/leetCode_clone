@@ -5,6 +5,7 @@ import "./index.css";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { Provider } from "react-redux";
 import { configurStore } from "./store/srore.js";
+import "./App.css";
 
 const store = configurStore();
 

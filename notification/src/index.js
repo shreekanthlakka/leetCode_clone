@@ -47,7 +47,7 @@ const start = async () => {
         throw new Error("Port not defined !!!");
     }
     if (!process.env.USER_NM) {
-        throw new Error("user name not defined!!");
+        throw new Error("user name not defined !!!");
     }
     if (!process.env.PASS_NM) {
         throw new Error("password not defined!!");
