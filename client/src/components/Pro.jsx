@@ -141,6 +141,7 @@ function Pro() {
                             color="neutral"
                             endDecorator={<KeyboardArrowRight />}
                             onClick={handleCheckoutSession}
+                            disabled={userAccount.plan === "Pro"}
                         >
                             {userAccount.plan === "free"
                                 ? "Start now"
