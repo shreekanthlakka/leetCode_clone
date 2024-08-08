@@ -15,11 +15,13 @@ import { URI } from "../services/userService";
 import { useAuth } from "../context/AuthContext";
 
 const Container = styled.div`
+    margin-top: 1rem;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: center; */
     gap: 2rem;
+    overflow-y: auto;
 `;
 
 function Pro() {
@@ -48,11 +50,11 @@ function Pro() {
     return (
         <>
             <Container>
-                <Card size="lg" variant="outlined">
+                <Card size="lg" variant="outlined" sx={{ minWidth: "250px" }}>
                     <Chip size="sm" variant="outlined" color="neutral">
                         BASIC
                     </Chip>
-                    <Typography level="h2">Current Plan</Typography>
+                    <Typography level="h2">Free Plan</Typography>
                     <Divider inset="none" />
                     <List
                         size="sm"
