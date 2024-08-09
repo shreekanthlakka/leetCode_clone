@@ -38,6 +38,7 @@ const generateBoilerPlateCode = (title, parsedTestCases) => {
     const js = parser.generateJavaScript();
     const cpp = parser.generateCpp();
     const rust = parser.generateRust();
+    const py = parser.generatePython();
 
     if (!fs.existsSync(boilerplatePath)) {
         fs.mkdirSync(boilerplatePath, { recursive: true });
@@ -46,6 +47,7 @@ const generateBoilerPlateCode = (title, parsedTestCases) => {
     fs.writeFileSync(path.join(boilerplatePath, "function.cpp"), cpp);
     fs.writeFileSync(path.join(boilerplatePath, "function.js"), js);
     fs.writeFileSync(path.join(boilerplatePath, "function.rs"), rust);
+    fs.writeFileSync(path.join(boilerplatePath, "function.py"), py);
 
     return {
         boilerplateDirPath: boilerplatePath,
@@ -59,6 +61,10 @@ const generateBoilerPlateCode = (title, parsedTestCases) => {
         ),
         rust: path.join(
             `/mnt/shared/problems/boilerplate/${title}/function.rs`,
+            "./"
+        ),
+        py: path.join(
+            `/mnt/shared/problems/boilerplate/${title}/function.py`,
             "./"
         ),
     };

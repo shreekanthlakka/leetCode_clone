@@ -26,6 +26,7 @@ const Container = styled.div`
 
 function Pro() {
     const { userAccount } = useAuth();
+    const isPro = userAccount.plan === "Pro";
 
     async function handleCheckoutSession() {
         try {
@@ -53,6 +54,9 @@ function Pro() {
                 <Card size="lg" variant="outlined" sx={{ minWidth: "250px" }}>
                     <Chip size="sm" variant="outlined" color="neutral">
                         BASIC
+                    </Chip>
+                    <Chip size="sm" variant="outlined" color="neutral">
+                        {userAccount.plan === "Free" ? "CurrentPlan" : ""}
                     </Chip>
                     <Typography level="h2">Free Plan</Typography>
                     <Divider inset="none" />
@@ -98,6 +102,9 @@ function Pro() {
                 <Card size="lg" variant="outlined">
                     <Chip size="sm" variant="outlined" color="neutral">
                         PRO
+                    </Chip>
+                    <Chip size="sm" variant="outlined" color="neutral">
+                        {userAccount.plan === "Pro" ? "CurrentPlan" : ""}
                     </Chip>
                     <Typography level="h2">Professional</Typography>
                     <Divider inset="none" />

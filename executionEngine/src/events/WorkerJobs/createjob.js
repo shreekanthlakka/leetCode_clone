@@ -29,6 +29,9 @@ const createJob = async (data, configMapName, inputs) => {
             image = BaseImages.rust;
             command = Commend.rust;
             break;
+        case "python":
+            image = BaseImages.python;
+            command = Commend.python;
         default:
             image = "";
             command = [];

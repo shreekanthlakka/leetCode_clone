@@ -8,6 +8,7 @@ const LanguageFileExtensions = Object.freeze({
     javascript: "js",
     rust: "rs",
     cplusplus: "cpp",
+    python: "py",
 });
 
 const createConfigMap = async (data) => {

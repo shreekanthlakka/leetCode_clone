@@ -50,7 +50,7 @@ const startJob = async (data, inputs, output) => {
         console.log("Result <===> ", result);
     } catch (error) {
         console.log(" ===> ", error);
-        process.exit(1);
+        STATUS = "FAILED";
     } finally {
         await new JobCompletedStatusPublisher(natsWrapper.client).publish({
             problemId,
@@ -90,7 +90,7 @@ const waitForJobCompletion = async (jobName) => {
                 completed = true;
             }
         }
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // wait for 5 seconds before checking again
+        await new Promise((resolve) => setTimeout(resolve, 3000));
     }
     return podName;
 };
