@@ -55,9 +55,11 @@ function Pro() {
                     <Chip size="sm" variant="outlined" color="neutral">
                         BASIC
                     </Chip>
-                    <Chip size="sm" variant="outlined" color="neutral">
-                        {userAccount.plan === "Free" ? "CurrentPlan" : ""}
-                    </Chip>
+                    {userAccount.plan === "Free" && (
+                        <Chip size="sm" variant="outlined" color="neutral">
+                            CurrentPlan
+                        </Chip>
+                    )}
                     <Typography level="h2">Free Plan</Typography>
                     <Divider inset="none" />
                     <List
@@ -103,9 +105,11 @@ function Pro() {
                     <Chip size="sm" variant="outlined" color="neutral">
                         PRO
                     </Chip>
-                    <Chip size="sm" variant="outlined" color="neutral">
-                        {userAccount.plan === "Pro" ? "CurrentPlan" : ""}
-                    </Chip>
+                    {userAccount.plan === "Pro" && (
+                        <Chip size="sm" variant="outlined" color="neutral">
+                            CurrentPlan
+                        </Chip>
+                    )}
                     <Typography level="h2">Professional</Typography>
                     <Divider inset="none" />
                     <List
