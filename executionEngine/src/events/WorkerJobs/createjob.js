@@ -23,7 +23,6 @@ const createJob = async (data, configMapName, inputs) => {
         case "cplusplus":
             image = BaseImages.cplusplus;
             command = Commend.cplusplus;
-            console.log("COMMEND +++++   =====> ", command);
             break;
         case "rust":
             image = BaseImages.rust;
@@ -32,6 +31,7 @@ const createJob = async (data, configMapName, inputs) => {
         case "python":
             image = BaseImages.python;
             command = Commend.python;
+            break;
         default:
             image = "";
             command = [];
