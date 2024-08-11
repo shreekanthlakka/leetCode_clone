@@ -23,7 +23,7 @@ const start = async () => {
     try {
         console.log("Starting payment service ===>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Payment service connected to MongoDB !!");
+        console.log("Payment service connected to MongoDB !!!");
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);

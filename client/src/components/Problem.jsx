@@ -69,6 +69,7 @@ const Container = styled.div`
 `;
 
 function Problem() {
+    const [socket, setSocket] = useState(null);
     const dispatch = useDispatch();
     const { problemId } = useParams();
     const selectedProblem = useSelector((state) =>
@@ -130,18 +131,18 @@ function Problem() {
         if (!problemId) return;
         dispatch(startGetBoilerPlateCode(problemId, () => {}));
 
-        // const newSocket = new WebSocket("wss://leetcode.dev:3000/ws");
-        // newSocket.onopen = () => {
-        //     console.log("socket connected");
-        // };
-        // newSocket.onmessage = (e) => {
-        //     console.log("socket message", e.data);
-        // };
-        // setSocket(newSocket);
+        const newSocket = new WebSocket("wss://leetcode.dev/websocket");
+        newSocket.onopen = () => {
+            console.log("socket connected");
+        };
+        newSocket.onmessage = (e) => {
+            console.log("socket message", e.data);
+        };
+        setSocket(newSocket);
 
         return () => {
             dispatch(resetSelectedProblem());
-            // newSocket.close();
+            newSocket.close();
         };
     }, [problemId]);
 

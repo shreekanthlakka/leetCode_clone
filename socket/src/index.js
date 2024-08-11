@@ -4,14 +4,13 @@ import { natsWrapper } from "./nats-wrapper.js";
 import { socketWrapper } from "./socket-wrapper.js";
 import { JobCompletedStatusListener } from "./events/listeners/jobcompleted-status-listener.js";
 
-// const httpServer = app.listen(8000, () => {
-//     console.log("Server is running on port 8000");
+// const httpServer = app.listen(3000, () => {
+//     console.log("Server is running on port 3000");
 // });
 
 // const wss = new WebSocketServer({ server: httpServer });
 
 // wss.on("connection", (ws) => {
-//     console.log("New connection", ws);
 //     ws.on("message", (data) => {
 //         console.log(`Received message: ${data}`);
 //     });

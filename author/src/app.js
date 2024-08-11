@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import addProblemRoute from "./routes/problems.routes.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-console.log("DIRNAME =>", __dirname);
+console.log("DIRNAME ==>", __dirname);
 const writeStream = fs.createWriteStream(path.join(__dirname, "access.log"));
 
 const app = express();

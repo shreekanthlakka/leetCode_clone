@@ -4,7 +4,7 @@ import { natsWrapper } from "./nats-wrapper.js";
 
 const start = async () => {
     if (!process.env.MONGO_URI) {
-        throw new Error("MONGO_URL must be defined !!!");
+        throw new Error("MONGO_URL must be defined !!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
         throw new Error("NATS Cluster Id not defined !!!");
@@ -16,7 +16,7 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     if (!process.env.JWT_SECRET) {
-        throw new Error("JWT Key not defined !!!!");
+        throw new Error("JWT Key not defined !!!");
     }
     if (!process.env.PORT) {
         throw new Error("PORT not defined !!!");
@@ -24,7 +24,7 @@ const start = async () => {
     try {
         console.log("Starting Likes service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("likes service => Connected to MongoDB !!");
+        console.log("likes service => Connected to MongoDB !!!");
         startNats();
     } catch (error) {
         console.error(error);

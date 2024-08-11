@@ -15,7 +15,7 @@ const startNats = async () => {
         console.log(error);
         if (count < 3) {
             console.log(
-                "execution Service ==> failed to connect to Nats, retrying =>"
+                "execution Service ==> failed to connect to Nats, retrying ===>"
             );
             setTimeout(() => startNats(count++), 1200);
         }

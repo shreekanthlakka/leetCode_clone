@@ -53,7 +53,7 @@ spec:
             name: likes-srv
             port:
               number: 3000
-      - path: /ws
+      - path: /websocket
         pathType: Prefix
         backend:
           service:

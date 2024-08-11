@@ -6,7 +6,7 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-console.log("--dir ==> ", __dirname);
+console.log("---dir ==> ", __dirname);
 
 const app = express();
 const morganStream = fs.createWriteStream(

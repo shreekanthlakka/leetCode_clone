@@ -4,6 +4,7 @@ const LanguageExtension = Object.freeze({
     javascript: "js",
     cplusplus: "cpp",
     rust: "rs",
+    python: "py",
 });
 
 const getFullBoilerPlateCode = (title, language) => {

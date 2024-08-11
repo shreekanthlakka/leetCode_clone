@@ -19,7 +19,7 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     try {
-        console.log("Starting comment service ===>");
+        console.log("Starting comment service ==>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Comments Service connected to MongoDB !!!");
         startNats();

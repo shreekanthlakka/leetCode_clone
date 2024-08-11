@@ -54,7 +54,9 @@ function CommantCard({ comment }) {
             (ele) =>
                 ele.commentId === commentId && ele.userId === userAccount?._id
         )
-    );
+    ); // const comments = useSelector((state) =>
+    //     state.comment.comments.filter((ele) => ele.problemId._id === problemId)
+    // );
     const [like, setLike] = useState(false);
     const [toggle, setToggle] = useState(false);
     const dispatch = useDispatch();
@@ -83,7 +85,7 @@ function CommantCard({ comment }) {
             const res = await like_dislikeCommentApi(
                 problemId,
                 commentId,
-                toggle
+                !toggle
             );
             if (res.success && res.data.liked) {
                 setLike(true);
@@ -189,7 +191,7 @@ function CommantCard({ comment }) {
                         <Button
                             size="small"
                             onClick={() => {
-                                setToggle((e) => !e);
+                                // setToggle((e) => !e);
                                 handleClick();
                             }}
                         >

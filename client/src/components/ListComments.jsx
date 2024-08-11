@@ -4,9 +4,13 @@ import CommantCard from "./CommantCard";
 
 function ListComments() {
     const { problemId } = useParams();
-    const comments = useSelector((state) =>
-        state.comment.comments.filter((ele) => ele.problemId?._id === problemId)
+    const totalcomments = useSelector((state) => state.comment.comments);
+    const comments = totalcomments.filter(
+        (ele) => ele.problemId._id === problemId
     );
+    // const comments = useSelector((state) =>
+    //     state.comment.comments.filter((ele) => ele.problemId._id === problemId)
+    // );
     return (
         <div>
             {comments?.map((comment) => (
