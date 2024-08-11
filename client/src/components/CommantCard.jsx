@@ -83,7 +83,7 @@ function CommantCard({ comment }) {
             const res = await like_dislikeCommentApi(
                 problemId,
                 commentId,
-                toggle
+                !toggle
             );
             if (res.success && res.data.liked) {
                 setLike(true);
@@ -91,23 +91,6 @@ function CommantCard({ comment }) {
             if (res.success && !res.data.liked) {
                 setLike(false);
             }
-            console.log("like ==> ", like);
-            console.log("res ==> ", res);
-            // const likedObj = res.stats.likes.find(
-            //     (ele) => ele.commentId === comment._id
-            // );
-            // const dislikeObj = res.stats.dislikes.find(
-            //     (ele) => ele.commentId === comment._id
-            // );
-            // console.log("Response ==>", res);
-            // if (likedObj?.liked) {
-            //     setLike(true);
-            //     setDislike(false);
-            // }
-            // if (dislikeObj?.disliked) {
-            //     setLike(false);
-            //     setDislike(true);
-            // }
         } catch (error) {
             console.log(error);
         }
@@ -166,26 +149,6 @@ function CommantCard({ comment }) {
                                 </Button>
                             </>
                         )}
-                        {/* <Button
-                            size="small"
-                            onClick={() => handleClick("liked")}
-                        >
-                            {!like ? (
-                                <ThumbUpOffAltIcon fontSize="small" />
-                            ) : (
-                                <ThumbUpAltIcon fontSize="small" />
-                            )}
-                        </Button>
-                        <Button
-                            size="small"
-                            onClick={() => handleClick("disliked")}
-                        >
-                            {!dislike ? (
-                                <ThumbDownOffAltIcon fontSize="small" />
-                            ) : (
-                                <ThumbDownIcon fontSize="snall" />
-                            )}
-                        </Button> */}
                         <Button
                             size="small"
                             onClick={() => {
