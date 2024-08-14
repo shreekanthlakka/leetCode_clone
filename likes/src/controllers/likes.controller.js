@@ -248,7 +248,6 @@ const likeController = asyncHandler(async (req, res) => {
     const { problemId, commentId } = req.params;
     const userId = req.user._id;
     const { liked } = req.body;
-    console.log("Liked ", liked);
     const userLike = await Like.findOne({
         userId,
         problemId,
@@ -264,17 +263,20 @@ const likeController = asyncHandler(async (req, res) => {
         });
     }
     //if object is found that means that he has liked, now trying to hit the dislike button
-    else {
+    else if (userLike && !liked) {
+        if (userLike.liked) {
+            userLike.liked = false;
+            await userLike.save();
+        }
         var delLiked = await Like.findByIdAndDelete(userLike._id);
     }
     res.status(200).json(
-        new CustomResponse(200, "status", liked ? newLike : { liked: false })
+        new CustomResponse(200, "status", liked ? newLike : delLiked)
     );
 });
 
 const getAllLikes = asyncHandler(async (req, res) => {
     const { problemId } = req.params;
-    console.log("problemId ==>", problemId);
     const likes = await Like.find({ problemId });
     res.status(200).json(new CustomResponse(200, "status", likes));
 });

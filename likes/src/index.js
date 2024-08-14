@@ -16,7 +16,7 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     if (!process.env.JWT_SECRET) {
-        throw new Error("JWT Key not defined !!!!");
+        throw new Error("JWT Key not defined !!!");
     }
     if (!process.env.PORT) {
         throw new Error("PORT not defined !!!");
@@ -24,13 +24,13 @@ const start = async () => {
     try {
         console.log("Starting Likes service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("likes service => Connected to MongoDB !!");
+        console.log("likes service => Connected to MongoDB !!!");
         startNats();
     } catch (error) {
         console.error(error);
     }
     app.listen(process.env.PORT, () => {
-        console.log(`likes Service  on port ${process.env.PORT}`);
+        console.log(`likes Service  on port ${process.env.PORT} !`);
     });
 };
 

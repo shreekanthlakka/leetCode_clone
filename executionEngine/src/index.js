@@ -10,12 +10,12 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("execution Service ==> connected to Nats !!!");
+        console.log("execution Service ==> connected to Nats !!");
     } catch (error) {
         console.log(error);
         if (count < 3) {
             console.log(
-                "execution Service ==> failed to connect to Nats, retrying =>"
+                "execution Service ==> failed to connect to Nats, retrying ==>"
             );
             setTimeout(() => startNats(count++), 1200);
         }
