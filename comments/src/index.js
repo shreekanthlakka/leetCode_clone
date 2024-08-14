@@ -19,12 +19,12 @@ const start = async () => {
         throw new Error("NATS Url not defined !!!");
     }
     try {
-        console.log("Starting comment service ===>");
+        console.log("Starting comment service ==>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Comments Service connected to MongoDB !!!");
         startNats();
     } catch (error) {
-        console.log("Error in comment service ", error);
+        console.log("Error in comment service !!", error);
     }
     app.listen(3000, () => {
         console.log("Comments Server!! ===> Listening on port 3000 !!!");

@@ -13,6 +13,11 @@ const commentsSchema = new mongoose.Schema(
         comment: {
             type: String,
         },
+        replayTo: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment",
+            default: null,
+        },
     },
     { timestamps: true }
 );

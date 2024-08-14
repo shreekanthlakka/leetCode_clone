@@ -6,19 +6,21 @@ import {
 } from "@shreekanthlakka/common";
 
 const createComment = asyncHandler(async (req, res) => {
-    console.log("IN create comment model");
-    const { comment } = req.body;
+    console.log("IN create comment model REPLAY TO ==> ", req.body);
+    const { comment, replayTo } = req.body;
     const commentsObj = await Comment.create({
         comment,
         userId: req.user._id,
         problemId: req.params.problemId,
+        replayTo,
     });
     if (!commentsObj) {
         throw new CustomError(400, "Unable to create comment");
     }
     const comm = await Comment.findById(commentsObj._id)
         .populate("userId")
-        .populate("problemId");
+        .populate("problemId")
+        .populate("replayTo");
     res.status(200).json(
         new CustomResponse(200, "Comment created successfully", comm)
     );
@@ -92,6 +94,10 @@ const updateCommentByProblemId = asyncHandler(async (req, res) => {
     res.status(200).json(
         new CustomResponse(200, "Comment updated successfully", updatedComment)
     );
+});
+
+const createReplay = asyncHandler(async (req, res) => {
+    const { comment } = req.body;
 });
 
 export {
