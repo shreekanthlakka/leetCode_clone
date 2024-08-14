@@ -30,7 +30,7 @@ const start = async () => {
         console.error(error);
     }
     app.listen(process.env.PORT, () => {
-        console.log(`likes Service  on port ${process.env.PORT} !`);
+        console.log(`likes Service  on port ${process.env.PORT} !!`);
     });
 };
 
