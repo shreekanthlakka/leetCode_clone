@@ -41,7 +41,7 @@ const startNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("Main Service ==> Connected to NATS");
+        console.log("Main Service ==> Connected to NATS!");
         new LeetCodeProblemCreatedListener(natsWrapper.client).listen();
         new JobCompletedStatusListener(natsWrapper.client).listen();
         new LeetCodeProblemDeletedListener(natsWrapper.client).listen();
