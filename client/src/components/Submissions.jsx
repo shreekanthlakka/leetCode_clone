@@ -9,7 +9,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { startGetAllSubmissions } from "../actions/submissionActions";
 import styled from "styled-components";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 const Container = styled.div`
     display: flex;
@@ -47,10 +47,11 @@ function Submissions() {
             ? "PASSED"
             : "FAILED";
     });
-    100;
     return (
         <Container>
-            <h2>Problem name : {currentProblem?.title}</h2>
+            <Typography sx={{ fontSize: "2rem", fontWeight: "600" }}>
+                {currentProblem?.title}
+            </Typography>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>

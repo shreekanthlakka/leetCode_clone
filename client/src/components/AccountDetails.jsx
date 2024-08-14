@@ -129,6 +129,10 @@ function AccountDetails() {
                         <TableCell>Email</TableCell>
                         <TableCell>{userAccount.email}</TableCell>
                     </TableRow>
+                    <TableRow align="center">
+                        <TableCell> Current Subscription</TableCell>
+                        <TableCell>{userAccount.plan}</TableCell>
+                    </TableRow>
                     <TableRow>
                         <TableCell>phone number</TableCell>
                         <TableCell>

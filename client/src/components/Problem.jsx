@@ -77,7 +77,7 @@ function Problem() {
     const [language, setLanguage] = useState("");
     const [typedCode, setTypedCode] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
-    // const [socket, setSocket] = useState();
+    // const [socket, setSocket] = useState(null);
     const [startPolling, setStartPolling] = useState(false);
     const interval = useRef("");
     const numberOfTestCases = useRef(0);
@@ -130,18 +130,24 @@ function Problem() {
         if (!problemId) return;
         dispatch(startGetBoilerPlateCode(problemId, () => {}));
 
-        // const newSocket = new WebSocket("wss://leetcode.dev:3000/ws");
-        // newSocket.onopen = () => {
+        // const newSoc = new WebSocket("wss://leetcode.dev:3000/ws");
+        // newSoc.onopen = () => {
         //     console.log("socket connected");
         // };
-        // newSocket.onmessage = (e) => {
+        // newSoc.onmessage = (e) => {
         //     console.log("socket message", e.data);
         // };
-        // setSocket(newSocket);
+        // newSoc.onerror = (error) => {
+        //     console.error("WebSocket error", error);
+        // };
+        // newSoc.onclose = () => {
+        //     console.log("socket disconnected");
+        // };
+        // setSocket(newSoc);
 
         return () => {
             dispatch(resetSelectedProblem());
-            // newSocket.close();
+            // newSoc.close();
         };
     }, [problemId]);
 
@@ -149,6 +155,11 @@ function Problem() {
         dispatch(startGetAllCommentsByProblemId(problemId));
         dispatch(startLikesByProblemId(problemId));
     }, []);
+
+    useEffect(() => {
+        if (!problemId) return;
+    }, [problemId]);
+
     return (
         <Box>
             <div className="mainpanel">
