@@ -21,7 +21,7 @@ const start = async () => {
     try {
         console.log("Starting main service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Main Server => Connected to MongoDB !!!");
+        console.log("Main Server => Connected to MongoDB !!");
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);
@@ -54,7 +54,7 @@ const startNats = async () => {
         }
     } finally {
         natsWrapper.client.on("close", () => {
-            console.log("NATS connection closed !!!");
+            console.log("NATS connection closed !!");
             process.exit();
         });
         process.on("SIGINT", () => natsWrapper.client.close());

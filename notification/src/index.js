@@ -50,7 +50,7 @@ const start = async () => {
         throw new Error("user name not defined !!!");
     }
     if (!process.env.PASS_NM) {
-        throw new Error("password not defined!!");
+        throw new Error("password not defined !!");
     }
     try {
         console.log("Starting notification service =>");
