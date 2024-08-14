@@ -1,5 +1,5 @@
 function CollaborativeEditor() {
-    return <div>CollaborativeEditor </div>;
+    return <div>CollaborativeEditor... </div>;
 }
 
 export default CollaborativeEditor;
