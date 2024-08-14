@@ -41,7 +41,7 @@ const start = async () => {
         throw new Error("NATS Client Id not defined !!!");
     }
     if (!process.env.NATS_URL) {
-        throw new Error("NATS Url not defined !!!!");
+        throw new Error("NATS Url not defined !!!");
     }
     if (!process.env.CLOUDINARY_CLOUD_NAME) {
         throw new Error("CLOUDINARY_CLOUD_NAME not found !!!");
