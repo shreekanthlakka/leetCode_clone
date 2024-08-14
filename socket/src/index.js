@@ -14,7 +14,7 @@ const connectToNats = async () => {
             process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        console.log("Connected to NATS");
+        console.log("Connected to NATS !");
         new JobCompletedStatusListener(natsWrapper.client).listen();
     } catch (error) {
         console.log(
