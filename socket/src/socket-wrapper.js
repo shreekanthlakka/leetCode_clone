@@ -11,7 +11,7 @@ class SocketWrapper {
         return this._client;
     }
     connect(port) {
-        this._client = new WebSocketServer({ port });
+        this._client = new WebSocketServer({ port: port });
         return new Promise((resolve, reject) => {
             this.client.on("listening", (ws) => {
                 console.log("Connected to WebSocket !!!");
