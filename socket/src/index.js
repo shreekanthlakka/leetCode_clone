@@ -18,7 +18,7 @@ const connectToNats = async () => {
         new JobCompletedStatusListener(natsWrapper.client).listen();
     } catch (error) {
         console.log(
-            `error connecting to NATS , attempting ${count} th time !!`,
+            `error connecting to NATS , attempting ${count} th time !!!`,
             error.message
         );
         if (count < 3) {

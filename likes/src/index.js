@@ -24,7 +24,7 @@ const start = async () => {
     try {
         console.log("Starting Likes service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("likes service => Connected to MongoDB !!");
+        console.log("likes service => Connected to MongoDB !!!");
         startNats();
     } catch (error) {
         console.error(error);
