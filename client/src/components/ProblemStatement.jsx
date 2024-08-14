@@ -26,10 +26,8 @@ function ProblemStatement({ problem }) {
     return (
         <Container>
             <div className="hero">
-                <Typography sx={{ marginLeft: "0.5rem" }}>
-                    <h2>
-                        <span className="title"> {problem?.title}</span>
-                    </h2>
+                <Typography sx={{ marginLeft: "0.5rem", fontSize: "2rem" }}>
+                    <span className="title"> {problem?.title}</span>
                 </Typography>
                 <Typography>
                     <MediumCard>
@@ -37,9 +35,9 @@ function ProblemStatement({ problem }) {
                     </MediumCard>
                 </Typography>
             </div>
-            {problem?.testCases?.map((ele, i) => {
-                return <TestCase key={i} testCase={ele} index={i} />;
-            })}
+            {problem?.testCases?.map((ele, i) => (
+                <TestCase key={i} testCase={ele} index={i} />
+            ))}
         </Container>
     );
 }

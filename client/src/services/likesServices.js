@@ -13,14 +13,14 @@ const like_dislikeCommentApi = async (problemId, commentId, liked) => {
             }),
         });
         const data = await res.json();
-        console.log(" ==> ", data);
+        // console.log(" ==> ", data);
         return data;
     } catch (error) {
         console.log(error);
     }
 };
 
-const totalLikes = async (problemId) => {
+const totalLikesApi = async (problemId) => {
     try {
         const res = await fetch(`${URI}/likes/all/${problemId}`, {
             method: "GET",
@@ -30,11 +30,11 @@ const totalLikes = async (problemId) => {
             },
         });
         const data = await res.json();
-        console.log(" ==> ", data);
+        // console.log(" Total Likes ==> ", data);
         return data;
     } catch (error) {
         console.log(error);
     }
 };
 
-export { like_dislikeCommentApi, totalLikes };
+export { like_dislikeCommentApi, totalLikesApi };

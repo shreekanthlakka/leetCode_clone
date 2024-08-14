@@ -1,4 +1,4 @@
-import { totalLikes } from "../services/likesServices";
+import { totalLikesApi } from "../services/likesServices";
 
 export const START_LIKE_ISLOADING = "START_LIKE_ISLOADING";
 export const START_LIKE_ISADDING = "START_LIKE_ISADDING";
@@ -9,11 +9,11 @@ export const TOTAL_LIKES = "TOTAL_LIKES";
 export const TOTAL_LIKES_SUCCESS = "TOTAL_LIKES_SUCCESS";
 export const TOTAL_LIKES_ERROR = "TOTAL_LIKES_ERROR";
 
-const startLikesByProblemId = (problemId) => {
+const startLikesByProblemId = (problemId, onSuccess) => {
     return async (dispatch) => {
         try {
             dispatch({ type: START_LIKE_ISLOADING });
-            const res = await totalLikes(problemId);
+            const res = await totalLikesApi(problemId);
             if (!res.success) {
                 throw {
                     message: res.message,
@@ -21,6 +21,7 @@ const startLikesByProblemId = (problemId) => {
                 };
             }
             dispatch(likesByProblemId(res.data));
+            onSuccess(res.data);
         } catch (error) {
             dispatch({ type: TOTAL_LIKES_ERROR, payload: error });
         }
