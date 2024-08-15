@@ -8,6 +8,7 @@ const Language = Object.freeze({
     cplusplus: "cpp",
     javascript: "javascript",
     rust: "rust",
+    python: "python",
 });
 
 function CodeEditor({ language, typedCode, setTypedCode }) {

@@ -15,6 +15,7 @@ const LanguageName = Object.freeze({
     cpp: "cplusplus",
     js: "javascript",
     rs: "rust",
+    py: "python",
 });
 
 const submitProblem = asyncHandler(async (req, res) => {
