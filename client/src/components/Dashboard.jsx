@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 function Dashboard() {
     const [socket, setSocket] = useState(null);
     useEffect(() => {
-        const newSocket = new WebSocket("ws://leetcode-dev.store/ws");
+        const newSocket = new WebSocket("wss://leetcode-dev.store/ws");
         newSocket.onopen = () => {
             console.log("Connected to the server");
             newSocket.send("Hello Server!");

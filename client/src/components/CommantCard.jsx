@@ -218,7 +218,9 @@ function CommantCard({ comment }) {
                         comment={comment}
                     />
                 )}
-                {showReplies && <ShowReplies commentId={commentId} />}
+                {showReplies && (
+                    <ShowReplies commentId={commentId} comment={comment} />
+                )}
             </Card>
         </Container>
     );
