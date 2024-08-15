@@ -27,6 +27,7 @@ const start = async () => {
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);
+        process.exit(1);
     }
     app.listen(3000, () => {
         console.log("Payment service listening on port 3000 !!!");

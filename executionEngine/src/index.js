@@ -13,11 +13,12 @@ const startNats = async () => {
         console.log("execution Service ==> connected to Nats !!!");
     } catch (error) {
         console.log(error);
+        count++;
         if (count < 3) {
             console.log(
                 "execution Service ==> failed to connect to Nats, retrying ==>"
             );
-            setTimeout(() => startNats(count++), 100);
+            setTimeout(() => startNats(), 100);
         }
     }
 };
@@ -37,6 +38,7 @@ const start = async () => {
         await startNats();
     } catch (error) {
         console.log(error);
+        process.exit(1);
     } finally {
         natsWrapper.client.on("close", () => {
             console.log("NATS connection closed !!!");
