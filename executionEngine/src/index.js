@@ -17,7 +17,7 @@ const startNats = async () => {
             console.log(
                 "execution Service ==> failed to connect to Nats, retrying ==>"
             );
-            setTimeout(() => startNats(count++), 1200);
+            setTimeout(() => startNats(count++), 100);
         }
     }
 };
