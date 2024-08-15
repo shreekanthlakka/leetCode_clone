@@ -22,9 +22,10 @@ const start = async () => {
         console.log("Starting comment service ==>");
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Comments Service connected to MongoDB !!!");
-        startNats();
+        await startNats();
     } catch (error) {
         console.log("Error in comment service !!", error);
+        process.exit(1);
     }
     app.listen(3000, () => {
         console.log("Comments Server!! ===> Listening on port 3000 !!!");

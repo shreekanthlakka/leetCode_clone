@@ -62,9 +62,10 @@ const start = async () => {
             api_secret: process.env.CLOUDINARY_API_SECRET,
         });
         console.log("Cloudinary configured !!!");
-        startNats();
+        await startNats();
     } catch (error) {
         console.log("error ==> ", error.message);
+        process.exit(1);
     }
 
     app.listen(3000, () => {

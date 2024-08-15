@@ -28,6 +28,7 @@ const start = async () => {
         startNats();
     } catch (error) {
         console.error(error);
+        process.exit(1);
     }
     app.listen(process.env.PORT, () => {
         console.log(`likes Service  on port ${process.env.PORT} !!`);
