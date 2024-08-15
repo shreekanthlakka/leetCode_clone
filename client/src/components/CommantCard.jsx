@@ -51,6 +51,8 @@ const Div = styled.div`
 function CommantCard({ comment }) {
     const commentId = comment._id;
     const { userAccount } = useAuth();
+    const dispatch = useDispatch();
+    const { problemId } = useParams();
     const isOwner = comment.userId._id === userAccount._id;
     const likeStatus = useSelector((state) =>
         state.likes.likesByProblemId.find(
@@ -58,11 +60,7 @@ function CommantCard({ comment }) {
                 ele.commentId === commentId && ele.userId === userAccount?._id
         )
     );
-    // console.log("LIKES STATUS => ", likeStatus);
     const [like, setLike] = useState(() => (likeStatus?.liked ? true : false));
-    const [toggle, setToggle] = useState(false);
-    const dispatch = useDispatch();
-    const { problemId } = useParams();
     const [replayToggle, setReplayToggle] = useState(false);
     const [replay, setReplay] = useState("");
     const [showReplies, setShowReplies] = useState(false);
@@ -87,7 +85,7 @@ function CommantCard({ comment }) {
             const res = await like_dislikeCommentApi(
                 problemId,
                 commentId,
-                toggle
+                !like
             );
             // console.log("RESPONSE ==> ", res);
             if (res.success && res.data.liked) {
@@ -99,10 +97,6 @@ function CommantCard({ comment }) {
         } catch (error) {
             console.log(error);
         }
-    }
-
-    function handleToggel() {
-        setToggle((prev) => !prev);
     }
 
     useEffect(() => {
@@ -181,7 +175,6 @@ function CommantCard({ comment }) {
                         <Button
                             size="small"
                             onClick={() => {
-                                handleToggel();
                                 handleClick();
                             }}
                         >

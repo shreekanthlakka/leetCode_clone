@@ -22,7 +22,7 @@ class JobCompletedStatusListener extends Listener {
             submitId,
         } = data;
 
-        new WebSocketServerClass(socketWrapper.client).broadcast(data);
+        // new WebSocketServerClass(socketWrapper.client).broadcast(data);
 
         msg.ack();
     }
