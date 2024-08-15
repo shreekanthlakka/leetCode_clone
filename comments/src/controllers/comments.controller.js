@@ -19,8 +19,7 @@ const createComment = asyncHandler(async (req, res) => {
     }
     const comm = await Comment.findById(commentsObj._id)
         .populate("userId")
-        .populate("problemId")
-        .populate("replayTo");
+        .populate("problemId");
     res.status(200).json(
         new CustomResponse(200, "Comment created successfully", comm)
     );
@@ -55,6 +54,16 @@ const getCommentsByProblemId = asyncHandler(async (req, res) => {
 const deleteCommentByProblemId = asyncHandler(async (req, res) => {
     console.log("commentId =>", req.params.commentId);
     console.log("problemId =>", req.params.problemId);
+
+    //1 --> we have to find all comments with ReplayTo id === commentId
+
+    const delReplies = await Comment.deleteMany({
+        replayTo: req.params.commentId,
+        problemId: req.params.problemId,
+    });
+
+    //2 --> delete the comment
+
     const comment = await Comment.findOneAndDelete({
         _id: req.params.commentId,
         problemId: req.params.problemId,

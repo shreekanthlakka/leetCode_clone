@@ -64,7 +64,8 @@ function commentReducer(state = initialState, action) {
                 ...state,
                 status: { ...state.status, isDeleting: false },
                 comments: state.comments.filter(
-                    (comment) => comment._id !== action.payload
+                    (comment) =>
+                        (comment._id || comment.replayTo) !== action.payload
                 ),
             };
         default:
