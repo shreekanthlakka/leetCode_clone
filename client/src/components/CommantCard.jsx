@@ -53,7 +53,7 @@ function CommantCard({ comment }) {
     const { userAccount } = useAuth();
     const dispatch = useDispatch();
     const { problemId } = useParams();
-    const isOwner = comment.userId._id === userAccount._id;
+    const isOwner = comment.userId?._id === userAccount._id;
     const likeStatus = useSelector((state) =>
         state.likes.likesByProblemId.find(
             (ele) =>
