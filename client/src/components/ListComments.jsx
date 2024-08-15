@@ -9,10 +9,10 @@ function ListComments() {
     const totalComments = useSelector((state) => state.comment.comments);
 
     const comments = useMemo(() => {
-        totalComments.filter(
+        return totalComments.filter(
             (ele) => ele.problemId?._id === problemId && ele.replayTo === null
         );
-    }, [problemId]);
+    }, [problemId, totalComments]);
     return (
         <div>
             {comments?.map((comment) => (

@@ -154,10 +154,6 @@ function Problem() {
     useEffect(() => {
         dispatch(startGetAllCommentsByProblemId(problemId));
         dispatch(startLikesByProblemId(problemId));
-    }, []);
-
-    useEffect(() => {
-        if (!problemId) return;
     }, [problemId]);
 
     return (
