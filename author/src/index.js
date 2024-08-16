@@ -22,7 +22,7 @@ const start = async () => {
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);
-        process.exit(1);
+        // process.exit(1);
     }
     app.listen(3000, () => {
         console.log("Author Server ==> Listening on port 3000 !!!");
