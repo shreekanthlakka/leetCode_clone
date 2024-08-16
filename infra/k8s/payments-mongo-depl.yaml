@@ -15,13 +15,6 @@ spec:
       containers:
       - name: payments-mongo
         image: mongo:5.0
-        resources:
-          requests:
-            cpu: "250m"
-            memory: "512Mi"
-          limits:
-            cpu: "250m"
-            memory: "512Mi"
         volumeMounts:
         - name: payments-mongo-storage
           mountPath: /data/db
