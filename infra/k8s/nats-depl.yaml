@@ -17,11 +17,11 @@ spec:
         image: nats-streaming
         resources:
           requests:
-            memory: "500Mi"
             cpu: "250m"
+            memory: "512Mi"
           limits:
-            memory: "1Gi"
-            cpu: "500m"
+            cpu: "250m"
+            memory: "512Mi"
         args: ["-p", "4222", "-m", "8222", "-hbi", "5s", "-hbt", "5s", "-hbf", "2", "-SD", "-cid", "leetcode"]
 ---
 apiVersion: v1
