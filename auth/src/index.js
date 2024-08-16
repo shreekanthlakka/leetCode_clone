@@ -65,7 +65,7 @@ const start = async () => {
         await startNats();
     } catch (error) {
         console.log("error ==> ", error.message);
-        process.exit(1);
+        // process.exit(1);
     }
 
     app.listen(3000, () => {

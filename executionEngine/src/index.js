@@ -38,11 +38,11 @@ const start = async () => {
         await startNats();
     } catch (error) {
         console.log(error);
-        process.exit(1);
+        // process.exit(1);
     } finally {
         natsWrapper.client.on("close", () => {
             console.log("NATS connection closed !!!");
-            process.exit();
+            process.exit(0);
         });
         new LeetCodeProblemSubmittedListener(natsWrapper.client).listen();
         process.on("SIGINT", () => natsWrapper.client.close());
