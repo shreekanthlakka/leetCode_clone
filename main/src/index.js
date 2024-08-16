@@ -21,7 +21,7 @@ const start = async () => {
     try {
         console.log("Starting main service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Main Server => Connected to MongoDB !!");
+        console.log("Main Server => Connected to MongoDB !!!");
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);
