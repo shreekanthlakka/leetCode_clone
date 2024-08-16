@@ -61,4 +61,4 @@ spec:
     port: 3000
     targetPort: 3000
 
-# auth depl
+# auth depl added rs
