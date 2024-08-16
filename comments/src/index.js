@@ -24,7 +24,7 @@ const start = async () => {
         console.log("Comments Service connected to MongoDB !!!");
         await startNats();
     } catch (error) {
-        console.log("Error in comment service !!", error);
+        console.log("Error in comment service !!!", error);
         process.exit(1);
     }
     app.listen(3000, () => {

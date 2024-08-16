@@ -47,7 +47,7 @@ const start = async () => {
         throw new Error("CLOUDINARY_CLOUD_NAME not found !!!");
     }
     if (!process.env.CLOUDINARY_API_KEY) {
-        throw new Error("CLOUDINARY_API_KEY not found !!");
+        throw new Error("CLOUDINARY_API_KEY not found !!!");
     }
     if (!process.env.CLOUDINARY_API_SECRET) {
         throw new Error("CLOUDINARY_API_SECRET not found !!!");

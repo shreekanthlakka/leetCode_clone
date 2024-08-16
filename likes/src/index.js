@@ -19,7 +19,7 @@ const start = async () => {
         throw new Error("JWT Key not defined !!!");
     }
     if (!process.env.PORT) {
-        throw new Error("PORT not defined !!");
+        throw new Error("PORT not defined !!!");
     }
     try {
         console.log("Starting Likes service ==>");
