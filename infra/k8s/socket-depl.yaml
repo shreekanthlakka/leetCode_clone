@@ -24,7 +24,6 @@ spec:
           value: 'http://nats-srv:4222'
         - name: NATS_CLUSTER_ID
           value: 'leetcode'
-
 ---
 apiVersion: v1
 kind: Service
