@@ -75,6 +75,7 @@ const start = async () => {
         await connectToNats();
     } catch (error) {
         console.log("<== Error ==>", error.message);
+        process.exit(1);
     }
 };
 
