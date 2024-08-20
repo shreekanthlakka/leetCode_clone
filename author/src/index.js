@@ -18,7 +18,7 @@ const start = async () => {
     try {
         console.log("Starting author service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Author Server ==> Connected to MongoDB !!!!");
+        console.log("Author Server ==> Connected to MongoDB !!!");
         startNats();
     } catch (error) {
         console.log(" <== Error ==> ", error.message);
