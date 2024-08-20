@@ -9,7 +9,7 @@ const start = async () => {
         throw new Error("WEBHOOK_SECRET must be defined !!!");
     }
     if (!process.env.MONGO_URI) {
-        throw new Error("MONGO_URL must be defined !!!!");
+        throw new Error("MONGO_URL must be defined !!!");
     }
     if (!process.env.NATS_CLUSTER_ID) {
         throw new Error("NATS Cluster Id not defined !!!");

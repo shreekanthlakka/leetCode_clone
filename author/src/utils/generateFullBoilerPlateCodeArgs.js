@@ -46,6 +46,7 @@ const generateFullBoilerPlateCodeArgs = (title, parsedTestCases) => {
     if (!fs.existsSync(boilerplatePath)) {
         fs.mkdirSync(boilerplatePath, { recursive: true });
     }
+    console.log("Author JS==> ", js);
 
     fs.writeFileSync(path.join(boilerplatePath, "function.cpp"), cpp);
     fs.writeFileSync(path.join(boilerplatePath, "function.js"), js);

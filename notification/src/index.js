@@ -50,7 +50,7 @@ const start = async () => {
         throw new Error("user name not defined !!!");
     }
     if (!process.env.PASS_NM) {
-        throw new Error("password not defined !!!");
+        throw new Error("password not defined !!!!");
     }
     try {
         console.log("Starting notification service =>");
@@ -59,7 +59,7 @@ const start = async () => {
         console.log("<== Error ==>", error.message);
     } finally {
         app.listen(3000, () => {
-            console.log(`Notification server ===> 3000 port!!`);
+            console.log(`Notification server ===> 3000 port !!!`);
         });
     }
 };
