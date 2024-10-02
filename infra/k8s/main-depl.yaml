@@ -33,7 +33,7 @@ spec:
               key: JWT_SECRET
         volumeMounts:
         - name: nfs-storage
-          mountPath: "/mnt/shared"
+          mountPath: "/mnt/nfs_shared"
       volumes:
       - name: nfs-storage
         persistentVolumeClaim:
