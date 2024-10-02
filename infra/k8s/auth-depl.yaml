@@ -40,6 +40,14 @@ spec:
             secretKeyRef:
               name: cloudinary-api-secret
               key: CLOUDINARY_API_SECRET
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+
 ---
 apiVersion: v1
 kind: Service
