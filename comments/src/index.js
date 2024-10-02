@@ -21,7 +21,7 @@ const start = async () => {
     try {
         console.log("Starting comment service ==>");
         await mongoose.connect(process.env.MONGO_URI);
-        console.log("Comments Service connected to MongoDB !!!");
+        console.log("Comments Service connected to MongoDB !!!!");
         await startNats();
     } catch (error) {
         console.log("Error in comment service !!!", error);
