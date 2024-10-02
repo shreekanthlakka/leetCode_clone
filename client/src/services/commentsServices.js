@@ -19,7 +19,7 @@ const createCommentApi = async (id, commentObj) => {
             throw new Error(`HTTP error! status !: ${res.status}`);
         }
         const data = await res.json();
-        console.log("DATA ==> Comments Api ===>", data);
+        console.log("DATA ==> Comments Api ==>", data);
         return data;
     } catch (error) {
         console.log(error);

@@ -40,7 +40,7 @@ spec:
             memory: "256Mi"
         volumeMounts:
         - name: nfs-storage
-          mountPath: "/mnt/nfs_shared"
+          mountPath: "/mnt/shared"
       volumes:
       - name: nfs-storage
         persistentVolumeClaim:
