@@ -18,7 +18,6 @@ function Panel({ language, setLanguage, handleProblemSubmit, problemId }) {
                     <MenuItem value="javascript">javaScript</MenuItem>
                     <MenuItem value="cplusplus">cplusplus</MenuItem>
                     <MenuItem value="python">python</MenuItem>
-                    <MenuItem value="rust">rust</MenuItem>
                 </Select>
             </div>
             <div>

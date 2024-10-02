@@ -50,12 +50,12 @@ metadata:
   name: nfs-pv2
 spec:
   capacity:
-    storage: 10Gi
+    storage: 5Gi
   accessModes:
   - ReadWriteMany
   nfs:
-    path: /mnt/shared
-    server: 152.42.168.144
+    path: /mnt/nfs_shared
+    server: 13.233.206.238
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs-storage
 
