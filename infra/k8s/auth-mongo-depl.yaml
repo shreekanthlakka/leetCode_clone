@@ -24,7 +24,7 @@ spec:
             memory: "128Mi"
           limits:
             cpu: 150m
-            memory: 256Mi
+            memory: 128Mi
       volumes:
       - name: auth-mongo-storage
         persistentVolumeClaim:
