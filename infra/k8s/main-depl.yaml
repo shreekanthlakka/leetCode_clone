@@ -31,6 +31,13 @@ spec:
             secretKeyRef:
               name: jwt-secret
               key: JWT_SECRET
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 300m
+            memory: 512Mi
         volumeMounts:
         - name: nfs-storage
           mountPath: "/mnt/nfs_shared"
