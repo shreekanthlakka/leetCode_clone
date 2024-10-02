@@ -18,6 +18,13 @@ spec:
         volumeMounts:
         - name: comments-mongo-storage
           mountPath: /data/db
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
       volumes:
       - name: comments-mongo-storage
         persistentVolumeClaim:
