@@ -7,10 +7,36 @@ kc.loadFromDefault();
 const k8sBatchApi = kc.makeApiClient(k8s.BatchV1Api);
 const k8sCoreApi = kc.makeApiClient(k8s.CoreV1Api);
 
-const createJob = async (data, configMapName, inputs) => {
+const createJob = async (data, configMapName, inputs, plan) => {
     const { language, title } = data;
     console.log("inputs =====>", inputs);
+    console.log("plan =>", plan);
     const inputStr = inputs.join(" ");
+
+    const resources =
+        plan === "Pro"
+            ? {
+                  requests: {
+                      cpu: "200m",
+                      memory: "256Mi",
+                  },
+                  limits: {
+                      cpu: "250m",
+                      memory: "516Mi",
+                  },
+              }
+            : {
+                  requests: {
+                      cpu: "100m",
+                      memory: "128Mi",
+                  },
+                  limits: {
+                      cpu: "150m",
+                      memory: "256Mi",
+                  },
+              };
+
+    console.log("Resources =>", resources);
 
     let image = "";
     let command = [];
@@ -87,6 +113,7 @@ const createJob = async (data, configMapName, inputs) => {
                             },
                         },
                     ],
+                    resources: resources,
                 },
             },
         },
