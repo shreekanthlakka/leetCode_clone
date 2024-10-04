@@ -2,6 +2,11 @@ import { Divider } from "@mui/material";
 import Hero from "./Hero";
 import PopularProblems from "./PopularProblems";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const Container = styled.div`
+    height: 100vh;
+`;
 
 function Dashboard() {
     const [socket, setSocket] = useState(null);
@@ -21,11 +26,11 @@ function Dashboard() {
         return () => newSocket.close();
     }, []);
     return (
-        <div>
+        <Container>
             <Hero />
             <Divider />
             <PopularProblems />
-        </div>
+        </Container>
     );
 }
 

@@ -49,21 +49,6 @@ function Hero() {
                     >
                         Solve Problems
                     </Button>
-                    <Button
-                        variant="contained"
-                        onClick={() => navigate("/problems")}
-                        sx={{
-                            backgroundColor: "#9c9a9a",
-                            fontWeight: "500",
-                            transition: "ease-in",
-                            "&:hover": {
-                                backgroundColor: "#8a8989",
-                                fontWeight: "700",
-                            },
-                        }}
-                    >
-                        Code To Gether
-                    </Button>
                 </span>
             </div>
             <div>

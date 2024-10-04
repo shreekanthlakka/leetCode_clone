@@ -139,6 +139,8 @@ const updateUser = asyncHandler(async (req, res) => {
     const userId = req.user._id;
     const { username, phonenumber } = req.body;
     let result;
+    console.log("req.files =>", req.files);
+    console.log("req.body =>", req.body);
     if (req.files) {
         result = await uploadToCloudinary(req.files.profilepic[0].path);
     }

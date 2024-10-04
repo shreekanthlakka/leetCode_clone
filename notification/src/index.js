@@ -59,7 +59,7 @@ const start = async () => {
         console.log("<== Error ==>", error.message);
     } finally {
         app.listen(3000, () => {
-            console.log(`Notification server ===> 3000 port !!!`);
+            console.log(`Notification server ===> 3000 port !!!!`);
         });
     }
 };
