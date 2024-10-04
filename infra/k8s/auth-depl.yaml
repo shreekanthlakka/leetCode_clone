@@ -34,7 +34,7 @@ spec:
         - name: CLOUDINARY_CLOUD_NAME
           value: dwtlupkux
         - name: CLOUDINARY_API_KEY
-          value: "426384182854128"
+          value: "829526614166557"
         - name: CLOUDINARY_API_SECRET
           valueFrom:
             secretKeyRef:
