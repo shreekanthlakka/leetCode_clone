@@ -80,10 +80,11 @@ function AccountDetails() {
     }
 
     async function handleEditProfile() {
+        console.log("clicked");
         let res;
         try {
             runValidations();
-            if (Object.keys(errors) === 0) {
+            if (Object.keys(errors).length === 0) {
                 const updatedObj = {
                     username: name,
                     phonenumber,
