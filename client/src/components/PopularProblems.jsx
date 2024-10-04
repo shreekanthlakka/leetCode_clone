@@ -19,23 +19,27 @@ const Container = styled.div`
 function PopularProblems() {
     const problems = useSelector((state) => state.problem.problems);
     return (
-        <Container>
-            <h3
-                style={{
-                    fontSize: "2rem",
-                    color: "#333",
-                    textAlign: "center",
-                    margin: "1rem",
-                }}
-            >
-                Popular problems
-            </h3>
-            {problems.map((ele) => (
-                <div key={ele._id} className="card">
-                    <ProblemCard problem={ele} />
-                </div>
-            ))}
-        </Container>
+        <>
+            {problems.length > 0 && (
+                <Container>
+                    <h3
+                        style={{
+                            fontSize: "2rem",
+                            color: "#333",
+                            textAlign: "center",
+                            margin: "1rem",
+                        }}
+                    >
+                        Popular problems
+                    </h3>
+                    {problems.map((ele) => (
+                        <div key={ele._id} className="card">
+                            <ProblemCard problem={ele} />
+                        </div>
+                    ))}
+                </Container>
+            )}
+        </>
     );
 }
 
