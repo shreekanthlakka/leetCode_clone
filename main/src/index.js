@@ -4,6 +4,8 @@ import { natsWrapper } from "./nats-wrapper.js";
 import { LeetCodeProblemCreatedListener } from "./events/listeners/leetcodeproblem-created-listener.js";
 import { JobCompletedStatusListener } from "./events/listeners/jobcompleted-status-listener.js";
 import { LeetCodeProblemDeletedListener } from "./events/listeners/leetcodeproblem-deleted-listener.js";
+import { UserCreatedListener } from "./events/listeners/usercreated-listener.js";
+import { PaymentStatusListener } from "./events/listeners/payment-status-listener.js";
 
 const start = async () => {
     if (!process.env.MONGO_URI) {
@@ -46,16 +48,18 @@ const startNats = async () => {
         new LeetCodeProblemCreatedListener(natsWrapper.client).listen();
         new JobCompletedStatusListener(natsWrapper.client).listen();
         new LeetCodeProblemDeletedListener(natsWrapper.client).listen();
+        new UserCreatedListener(natsWrapper.client).listen();
+        new PaymentStatusListener(natsWrapper.client).listen();
     } catch (error) {
         console.log(
-            ` <== error connecting to nats attempting ${count + 1} time !!!`
+            ` <== error connecting to nats attempting ${count + 1} time !!!!`
         );
         if (count < 3) {
             setTimeout(() => startNats(count++), 1400);
         }
     } finally {
         natsWrapper.client.on("close", () => {
-            console.log("NATS connection closed !!");
+            console.log("NATS connection closed !!!");
             process.exit();
         });
         process.on("SIGINT", () => natsWrapper.client.close());

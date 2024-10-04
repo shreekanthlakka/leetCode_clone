@@ -14,12 +14,12 @@ kc.loadFromDefault();
 const k8sBatchApi = kc.makeApiClient(k8s.BatchV1Api);
 const k8sCoreApi = kc.makeApiClient(k8s.CoreV1Api);
 
-const startJob = async (data, inputs, output) => {
+const startJob = async (data, inputs, output, plan) => {
     const { typedCode, language, problemId, userId, title } = data;
     let STATUS = "FAILED";
     try {
         var configMap = await createConfigMap(data);
-        var jobName = await createJob(data, configMap, inputs);
+        var jobName = await createJob(data, configMap, inputs, plan);
         var podName = await waitForJobCompletion(jobName);
         var result = await getPodLogs(podName);
         if (

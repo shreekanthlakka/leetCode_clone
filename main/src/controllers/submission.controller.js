@@ -10,6 +10,7 @@ import Problems from "../models/problems.model.js";
 import fs from "fs";
 import path from "path";
 import { getFullBoilerPlateCode } from "../utils/getFullBoilerPlateCode.js";
+import User from "../models/user.model.js";
 
 const LanguageName = Object.freeze({
     cpp: "cplusplus",
@@ -46,6 +47,13 @@ const submitProblem = asyncHandler(async (req, res) => {
     if (!prob) {
         throw new CustomError(400, "problem not found!");
     }
+    const user = await User.findOne({
+        _id: req.user._id,
+        email: req.user.email,
+    });
+    if (!user) {
+        throw new CustomError(400, "user not found!");
+    }
 
     console.log("Problem id ===>", prob);
     new LeetCodeProblemSubmittedPublisher(natsWrapper.client).publish({
@@ -57,6 +65,7 @@ const submitProblem = asyncHandler(async (req, res) => {
         inputs: prob.inputs,
         output: prob.output,
         submitId: submission._id,
+        plan: user.plan,
     });
     // const initialTestCaseResults = prob.testCases.map((ele) => {
     //     return {
