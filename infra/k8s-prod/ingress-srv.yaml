@@ -140,6 +140,7 @@ kind: Service
 metadata:
   name: ingress-nginx-controller
   namespace: ingress-nginx
+  # namespace: default
   annotations:
     service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'false'
     service.beta.kubernetes.io/do-loadbalancer-healthcheck-port: "80"

@@ -7,7 +7,7 @@ class LeetCodeProblemDeletedListener extends Listener {
     subject = LeetCodeSubjects.LeetCodeProblemDeleted;
     queueGroupName = queueGroupName;
     async onMessage(data, msg) {
-        const comments = await Comment.findManyAndDelete({
+        const comments = await Comment.deleteMany({
             problemId: data._id,
         });
         const problem = await Problem.findById(data._id);
