@@ -48,7 +48,9 @@ app.post(
     bodyParser.raw({ type: "application/json" }),
     checkoutWebhook
 );
-
+app.get("/health", (req, res) => {
+    res.status(200).send("ok");
+});
 app.use(express.json());
 app.use("/api/v1/payments", paymentRoutes);
 

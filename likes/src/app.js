@@ -25,6 +25,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/health", (req, res) => {
+    res.status(200).send("ok");
+});
+
 app.use("/api/v1/likes", likeRoute);
 
 // app.post("/api/v1/like", isLoggedIn, toggleLike);

@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import userRoutes from "../src/routes/user.routes.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 console.log("--dir ==> ", __dirname);
@@ -29,7 +30,9 @@ app.use((req, res, next) => {
 // app.get("/api/v1/users/test", (req, res) => {
 //     res.status(200).json({ message: "Hello World!" });
 // });
-import userRoutes from "../src/routes/user.routes.js";
+app.get("/health", (req, res) => {
+    res.status(200).send("ok");
+});
 app.use("/api/v1/users", userRoutes);
 
 export default app;
